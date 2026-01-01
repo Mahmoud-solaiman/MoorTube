@@ -1,0 +1,62 @@
+.disc {
+  display:grid;
+  grid-template-columns: 1fr 70px;
+  align-items: center;
+  font-size:1.2rem;
+}
+
+#edit-disc-name {
+  display: inline;
+  height:35px;
+  font-size: 1.1rem;
+  padding: 0 .3em;
+
+  &:focus {
+    outline-color: rgb(25, 135, 84);
+  }
+}
+
+.disc-name {
+  cursor:pointer;
+  padding:.3em 0 .3em .5em;
+  border-radius:2px;
+
+  &:hover  {
+    background-color: rgba(25, 135, 84, 0.822);
+    color:#fff;
+  }
+}
+
+.disc-controls-container {
+  display:flex;
+  gap:.2rem;
+  justify-content: right;
+  
+  svg {
+    padding:.3em;
+    width:35px;
+    cursor:pointer;
+    border-radius: 50%;
+    transition: .13s linear;
+
+    &:hover {
+      background-color: rgb(220,220,220);
+    }
+  }
+
+  .delete-btn:hover {
+    background-color: rgba(206, 0, 0, 0.836);
+    // fill:#fff;
+  }
+}
+
+@media (hover: none) {
+  .disc-controls-container svg:hover {
+    background-color: initial;
+  }
+
+  .disc-name:hover {
+    background-color:initial;
+    color:initial;
+  }
+}

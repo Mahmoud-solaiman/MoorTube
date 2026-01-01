@@ -1,0 +1,21 @@
+*, 
+*::before,
+*::after {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body {
+  font-family: Arial;
+}
+
+::selection {
+  color:#fff;
+  background-color: rgb(25, 135, 84);
+}
+
+::-moz-selection {
+  color:#fff;
+  background-color: rgb(25, 135, 84);
+}

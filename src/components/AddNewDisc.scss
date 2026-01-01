@@ -1,0 +1,67 @@
+.new-disc-adder {
+  background-color:#fff;
+  box-shadow: 3px 3px 10px black;
+  position: absolute;
+  bottom: -130px;
+  right:25%;
+  z-index: 100;
+  border-radius: 5px;
+  font-size:1.2rem;
+  padding:.5em;
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  gap:.7rem;
+  animation: newAdder .1s;
+}
+
+.new-disc-adder.open-top {
+  bottom:210px;
+}
+
+#new-disc-adder-input {
+  height:35px;
+  padding:0 .4em;
+  font-size: 1rem;
+
+  &:focus {
+    outline-color:rgb(25, 135, 84);
+  }
+
+  &::placeholder {
+    color:rgb(78, 78, 78);
+  }
+}
+
+.new-disc-adder-btns-container {
+  display:flex;
+  gap: 2rem;
+
+  button {
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding:.4em .8em;
+    color:#fff;
+    background-color:black;
+    border-radius:5px;
+    cursor:pointer;
+    transition: .15s linear;
+
+    &:hover {
+      opacity:.85;
+    }
+  }
+}
+
+@keyframes newAdder {
+  from {
+    opacity: 0;
+    transform: translateY(30%);
+  }  
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

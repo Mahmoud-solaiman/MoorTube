@@ -1,0 +1,47 @@
+.actions-popup {
+  width:250px;
+  position:absolute;
+  padding:.3em 0;
+  z-index:100;
+  right:40px;
+  bottom:-30px;
+  border-radius:5px;
+  background-color:#fff;
+  box-shadow: 3px 3px 10px black;
+  display: flex;
+  flex-direction: column;
+  animation: actionsPopUp .1s;
+
+  div {
+    display:grid;
+    grid-template-columns: 1fr 25px;
+    align-items: center;
+    padding: .5em 1em;
+
+    &:hover {
+      background-color:rgb(230, 230, 230);
+    }
+
+    span {
+      font-size:1.1rem;
+      font-weight:600;
+    }
+  }
+}
+
+.actions-popup.open-top {
+  bottom: 120px;
+}
+
+
+@keyframes actionsPopUp {
+  from {
+    opacity: 0;
+    transform: translateY(30%);
+  }  
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

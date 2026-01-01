@@ -1,0 +1,25 @@
+.error-message-container {
+  display:flex;
+  justify-content: center;
+}
+
+.error-message {
+  color:#fff;
+  padding:.5em 1em;
+  font-size:1.4rem;
+  font-weight:600;
+  position: fixed;
+  top:10px;
+  z-index: 1000;
+  border-radius:30px;
+  animation: errorMessage .075s linear;
+}
+
+@keyframes errorMessage {
+  from {
+    scale: 0;
+  }
+  to {
+    scale: 1;
+  }
+}

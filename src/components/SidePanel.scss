@@ -1,0 +1,109 @@
+.side-panel {
+  width: 350px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 5px 0 10px black;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 999;
+  padding: .8em;
+  transition: .1s linear;
+  animation: sidePanel .1s linear;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+@keyframes sidePanel {
+  from {
+    transform: translateX(-104%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.side-panel-header {
+  display: grid;
+  grid-template-columns: 150px 35px;
+  justify-content: space-between;
+}
+
+.mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: 0;
+  cursor: pointer;
+
+  .mode-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+}
+
+.sun {
+  width: 35px;
+}
+
+.xmark {
+  cursor: pointer;
+  font-size: 0;
+  border-radius: 50%;
+  transition: .15s linear;
+
+  &:hover {
+    background-color: darkred;
+    fill: #fff;
+  }
+}
+
+.add-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 35px;
+  margin: 50px 0;
+
+  #add-disc {
+    font-size: 1.2rem;
+    padding: 0 .5em;
+
+    &:focus {
+      outline-color: rgb(25, 135, 84);
+    }
+
+    &::placeholder {
+      color: rgb(78, 78, 78);
+    }
+  }
+
+  svg {
+    cursor: pointer;
+    transition: .15s linear;
+
+    &:hover {
+      background-color: rgb(220, 220, 220);
+    }
+  }
+}
+
+.current-discs-label {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom:10px;
+  display:block;
+}
+
+@media (max-width:400px) {
+  .side-panel {
+    width:90%;
+  }
+}
+
+@media (hover:none) {
+  .xmark:hover {
+    background-color:initial;
+  }
+
+  .add-section svg:hover {
+    background-color: initial;
+  }
+}

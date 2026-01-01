@@ -1,0 +1,35 @@
+.toggle-search-container {
+  font-weight: 600;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  gap:.3rem;
+
+  label {
+    cursor: pointer;
+  }
+
+  input {
+    display: none;
+  }
+
+  div {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px ridge rgb(120, 120, 120);
+    align-items: center;
+    justify-content: center;
+  }
+
+  #video:checked + div, #channel:checked + div {
+    div {
+      width: 80%;
+      height: 80%;
+      background-color: rgb(25, 135, 84);
+      box-shadow: 0 0 10px rgb(120, 120, 100);
+    }
+  }
+}
+

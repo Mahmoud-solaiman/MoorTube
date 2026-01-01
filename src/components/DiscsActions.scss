@@ -1,0 +1,39 @@
+.discs-actions-container {
+  position:absolute;
+  background-color:#fff;
+  box-shadow: 3px 3px 10px black;
+  top:107%;
+  right:30%;
+  z-index: 100;
+  padding:.3em 0;
+  width:200px;
+  font-size:1.2rem;
+  font-weight:600;
+  border-radius: 5px;
+  animation: discs .1s;
+}
+
+.disc-actions {
+  padding: .4em;
+
+  &:hover {
+    background-color: rgb(230, 230, 230);
+  }
+}
+
+.discs-actions-container.open-top {
+  bottom:210px;
+  top:auto;
+}
+
+@keyframes discs {
+  from {
+    opacity: 0;
+    transform: translateY(20%);
+  }  
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

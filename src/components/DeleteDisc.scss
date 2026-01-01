@@ -1,0 +1,57 @@
+.delete-popup-container {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100vw;
+  height: 100vh;
+  text-align:center;
+  background-color:rgba(0, 0, 0, 0.555);
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.delete-popup {
+  background-color:#fff;
+  height:135px;
+  padding:1em;
+  width:270px;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius:7px;
+}
+
+.delete-question {
+  font-size:1.3rem;
+  font-weight:600;
+}
+
+.delete-actions-container {
+  display:flex;
+  gap:1rem;
+  justify-content: center;
+
+  button {
+    border:none;
+    font-size:1.2rem;
+    transition: .15s linear;
+    cursor:pointer;
+    padding:.3em .7em;
+    border-radius:7px;
+    color:#fff;
+
+    &:hover {
+      opacity:.8;
+    }
+  }
+
+  .yes-btn {
+    background-color:darkred;
+  }
+
+  .no-btn {
+    background-color: darkgreen;
+  }
+}

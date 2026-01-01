@@ -1,0 +1,81 @@
+.suggestions-box {
+  z-index: 999;
+  position: absolute;
+  margin-top: 15px;
+  max-height: 600px;
+  overflow-y: auto;
+  width:50%;
+  border-radius:5px;
+  background-color: rgb(36, 36, 36);
+  transition: all .2s linear;
+  box-shadow: 7px 7px 7px black;
+  top: 55px;
+  animation: suggestions .15s linear;
+
+  &::-webkit-scrollbar {
+    background-color: transparent;
+    width:7px;
+    
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius:30px;
+    cursor: pointer;
+
+    &:hover {
+      background-color:#dddddd;
+    }
+  }
+
+  .channel-icon {
+    width:45px;
+    border-radius:50%;
+  }
+}
+
+.suggestion {
+  display:flex;
+  align-items:center;
+  gap: .5em;
+  cursor:pointer;
+  padding:.3em .8em;
+  transition: .07s linear;
+
+  &:hover {
+    background-color:rgb(80, 80, 80);
+  }
+
+  &:not(:last-child) {
+    margin-bottom:10px;
+  }
+
+}
+
+.channel-name {
+  color:rgb(255, 255, 255);
+  display:inline-block;
+  margin-bottom:3px;
+}
+
+.channel-handle-name {
+  color:rgb(207, 207, 207);
+}
+
+@media (max-width: 800px) {
+  .suggestions-box {
+    top:135px;
+    width:91%;
+  }
+}
+
+@keyframes suggestions {
+  from {
+    opacity: 0;
+    transform: translateY(30%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
