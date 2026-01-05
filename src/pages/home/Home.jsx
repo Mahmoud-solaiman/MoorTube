@@ -5,7 +5,7 @@ import { SidePanel } from "../../components/SidePanel"; // Import the SidePanel 
 import { ErrorMessage } from "../../components/ErrorMessage"; // Import the ErrorMessage component
 import { SearchVideos } from "../../components/SearchVideos"; // Import the SearchVideos component
 
-export function Home() {
+export function Home({ setSavedVideos, api_key }) {
   //Variables and states that are shared across the app
   const [ channelVideos, setChannelVideos ] = useState({}); // The videos for a specific channels returned from the channel filter
   const [ videos, setVideos ] = useState({}); // Videos returned from the video filter
@@ -13,7 +13,6 @@ export function Home() {
   const [ channelLogo, setChannelLogo ] = useState(''); // Channel logo of the channel filter
   const [ channelsLogos, setChannelsLogos ] = useState(''); //Logo of the picked channel
   const [ translate, setTranslate ] = useState(false); //The translateY value of the SidePanel
-  const api_key = "AIzaSyBCuuLWqdp3M6gbyjAFnhBuF0vaat-zDqw"; //My google console API Key
   const menuContainer = useRef(null); //The reference of the menu container
   const [ discs, setDiscs ] = useState(JSON.parse(localStorage.getItem('current-discs')) || []); //The latest disc list from localStorage
   const [ errorMessage, setErrorMessage ] = useState(null); //The error message state
@@ -73,6 +72,7 @@ export function Home() {
           discs={discs}
           setDiscs={setDiscs}
           handleErrorMessage={handleErrorMessage}
+          setSavedVideos={setSavedVideos}
         />
       }
       {

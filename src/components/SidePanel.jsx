@@ -8,7 +8,8 @@ export function SidePanel({
     menuContainer,
     discs, 
     setDiscs,
-    handleErrorMessage
+    handleErrorMessage,
+    setSavedVideos
   }) {
   //Javascript and React functions and variables
   const [ discFieldValue, setDiscFieldValue ] = useState('');
@@ -138,10 +139,12 @@ export function SidePanel({
                     setDiscs={setDiscs}
                     deleteConfirmationRef={deleteConfirmationRef}
                     handleErrorMessage={handleErrorMessage}
+                    setSavedVideos={setSavedVideos}
+                    discObject={disc}
                   />
                 )
               }) :
-              ''
+              'There is no discs yet.'
           }
         </section>
       </div>

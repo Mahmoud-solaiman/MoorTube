@@ -1,20 +1,23 @@
 import { useState } from 'react'; // Import useState from the React package
 import { DeleteDisc } from './DeleteDisc'; // Import the DeleteDisc component
 import './Disc.scss'; // Import the style sheet of this compoenent
+import { Link } from 'react-router-dom';
 
-export function Disc({ 
-    disc, 
-    title, 
-    discId, 
-    setDiscs, 
-    deleteConfirmationRef,
-    handleErrorMessage
-  }) {
+export function Disc({
+  disc,
+  title,
+  discId,
+  setDiscs,
+  deleteConfirmationRef,
+  handleErrorMessage,
+  setSavedVideos,
+  discObject
+}) {
   //Functions and Variables ==> Javascript + React
   // Hooks
-  const [ showDelete, setShowDelete ] = useState(false);
-  const [ isEdit, setIsEdit ] = useState(false);
-  const [ discName, setDiscName ] = useState(title);
+  const [showDelete, setShowDelete] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [discName, setDiscName] = useState(title);
 
   // The function that handles editing the desired disc
   function editDisc() {
@@ -27,11 +30,11 @@ export function Disc({
       localStorage.setItem('current-discs', JSON.stringify(currentDiscs)); // Update the local storage
       setDiscs(currentDiscs); // Update the discs in the SidePanel
       setIsEdit(false); // Hide the editing field
-      
+
     } if (isDisc && isDisc.id !== discToEdit.id) { // If disc does exist and it's not the current disc
       setIsEdit(true); // Keep the edit field
       handleErrorMessage('Disc already exists! Please try a different name.'); // Show this error message to tell the user that the disc already exists 
-      
+
     } if (!discName.trim()) { // If the new disc value is empty
       setIsEdit(true); // Keep the edit field
       handleErrorMessage("Disc name can't be an empty value."); // Tell the user that the disc name can't be an empty value
@@ -60,11 +63,15 @@ export function Disc({
           }}
         />
       }
-      <span
+      <Link 
+        to="savedVideos" 
         className='disc-name'
         title={title}
         style={isEdit ? { display: 'none' } : null}
-      >{disc}</span>
+        onPointerDown={() => setSavedVideos(discObject)}
+      >
+        {disc}
+      </Link>
       <div className='disc-controls-container'>
         <svg
           xmlns={isEdit ? "../assets/checkmark.svg" : "../assets/pen.svg"}
