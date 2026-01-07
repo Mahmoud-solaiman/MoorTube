@@ -11,7 +11,6 @@
   transition: all .2s linear;
   padding:.6em;
   border-radius:12px;
-  position: relative;
   animation: videoSection .3s linear;
 }
 
@@ -53,6 +52,7 @@
   display:grid;
   gap:.5em;
   grid-template-columns: 40px minmax(0, 1fr) 40px;
+  position: relative;
 }
 
 .video-channel-logo-container {

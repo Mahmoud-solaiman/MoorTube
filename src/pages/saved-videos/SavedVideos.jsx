@@ -3,7 +3,7 @@ import './SavedVideos.scss';
 import { SavedVideosHeader } from './SavedVideosHeader';
 import { SavedVideosPanel } from './SavedVideosPanel';
 import { useEffect, useState } from 'react';
-import { SavedVideosGrid } from './savedVideosGrid';
+import { SavedVideosGrid } from './SavedVideosGrid';
 
 export function SavedVideos({ savedVideos, api_key }) {
   const [ savedVideosDetails, setSavedVideosDetails ] = useState([]);
@@ -22,7 +22,7 @@ export function SavedVideos({ savedVideos, api_key }) {
     }
 
     fetchSavedVideos();
-  }, [api_key, savedVideos]);
+  });
 
   return (
     <div className='saved-videos-container'>
@@ -33,6 +33,6 @@ export function SavedVideos({ savedVideos, api_key }) {
 
         <SavedVideosGrid savedVideosDetails={savedVideosDetails} />
       </div>
-    </div>
+    </div>  
   );
 }

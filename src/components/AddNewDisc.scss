@@ -2,7 +2,7 @@
   background-color:#fff;
   box-shadow: 3px 3px 10px black;
   position: absolute;
-  bottom: -130px;
+  top: 115px;
   right:25%;
   z-index: 100;
   border-radius: 5px;
@@ -16,7 +16,7 @@
 }
 
 .new-disc-adder.open-top {
-  bottom:210px;
+  top:-170px;
 }
 
 #new-disc-adder-input {

@@ -6,7 +6,8 @@ export function DiscsActions({
     handleErrorMessage,
     setOpenDisc,
     setOpenIndex,
-    isOpenTop
+    isOpenTop,
+    setDiscs
   }) {
   const discs = JSON.parse(localStorage.getItem('current-discs')) || []; // Pull the current discs from local storage
 
@@ -16,6 +17,7 @@ export function DiscsActions({
     
     if (!isVideo) { // If disc doesn't exists
       videos.push(videoId); // Add the video id to this disc
+      setDiscs(discs);
       handleErrorMessage("Added successfully!"); // And show that the video has been added successfully
       
     } else { // If the video exists though

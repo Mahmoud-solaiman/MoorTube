@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { handleDuration, handleViewCount, youtubeTimeAgo } from '../../formatting';
 import { Actions } from './Actions';
-import './ChannelVideos.scss';
+import './VideoGrid.scss';
 import { DiscsActions } from './DiscsActions';
 import { AddNewDisc } from './AddNewDisc';
 
@@ -78,18 +78,18 @@ export function VideoGrid({
               onMouseLeave={() => setHoveredVideo(undefined)} // Reset color when the hover is over
             >
               <div className="video">
-                <img 
-                  className='video-thumbnail' 
-                  loading="lazy" 
+                <img
+                  className='video-thumbnail'
+                  loading="lazy"
                   src={
-                    item.snippet.thumbnails.maxres?.url || 
+                    item.snippet.thumbnails.maxres?.url ||
                     item.snippet.thumbnails.standard?.url ||
                     item.snippet.thumbnails.high?.url ||
                     item.snippet.thumbnails.medium?.url ||
                     item.snippet.thumbnails.default?.url ||
                     'default-thumbnail.png'
-                  } 
-                  alt="video thumbnail" 
+                  }
+                  alt="video thumbnail"
                 />
                 <div className="video-duration">
                   {handleDuration(videos.items[index].contentDetails.duration)} {/* Convert the duration from the ISO format into a human readable format like that of YouTube */}
@@ -116,7 +116,7 @@ export function VideoGrid({
                       dotsContainer.current = e.target; // Set the dots reference
 
                       // Render the actions elements and it's subsequent element optimully with the view 
-                      if (e.clientY >= 700) {
+                      if (window.innerHeight - e.clientY < 200) {
                         setIsOpenTop(true);
                       } else {
                         setIsOpenTop(false);
@@ -126,44 +126,46 @@ export function VideoGrid({
                     <path d="M320 208C289.1 208 264 182.9 264 152C264 121.1 289.1 96 320 96C350.9 96 376 121.1 376 152C376 182.9 350.9 208 320 208zM320 432C350.9 432 376 457.1 376 488C376 518.9 350.9 544 320 544C289.1 544 264 518.9 264 488C264 457.1 289.1 432 320 432zM376 320C376 350.9 350.9 376 320 376C289.1 376 264 350.9 264 320C264 289.1 289.1 264 320 264C350.9 264 376 289.1 376 320z" />
                   </svg>
                 </div>
+                {
+                  openIndex === index &&
+                  // The Actions component
+                  <Actions
+                    setOpenDisc={setOpenDisc}
+                    index={index}
+                    actionsContainerRef={actionsContainerRef}
+                    setOpenNewAdder={setOpenNewAdder}
+                    isOpenTop={isOpenTop}
+                  />
+                }
+                {
+                  (openDisc === index && openIndex === index) &&
+                  // The DiscsActions component
+                  <DiscsActions
+                    discsContainerRef={discsContainerRef}
+                    videoId={item.id}
+                    handleErrorMessage={handleErrorMessage}
+                    setOpenDisc={setOpenDisc}
+                    setOpenIndex={setOpenIndex}
+                    isOpenTop={isOpenTop}
+                    setDiscs={setDiscs}
+                  />
+                }
+                {
+                  openNewAdder === index &&
+                  // The new disc adder component
+                  <AddNewDisc
+                    newAdderContainerRef={newAdderContainerRef}
+                    setDiscs={setDiscs}
+                    setOpenIndex={setOpenIndex}
+                    setOpenNewAdder={setOpenNewAdder}
+                    setTranslate={setTranslate}
+                    handleErrorMessage={handleErrorMessage}
+                    videoId={item.id}
+                    isOpenTop={isOpenTop}
+                  />
+                }
               </div>
-              {
-                openIndex === index &&
-                // The Actions component
-                <Actions
-                  setOpenDisc={setOpenDisc}
-                  index={index}
-                  actionsContainerRef={actionsContainerRef}
-                  setOpenNewAdder={setOpenNewAdder}
-                  isOpenTop={isOpenTop}
-                />
-              }
-              {
-                (openDisc === index && openIndex === index) &&
-                // The DiscsActions component
-                <DiscsActions
-                  discsContainerRef={discsContainerRef}
-                  videoId={item.id}
-                  handleErrorMessage={handleErrorMessage}
-                  setOpenDisc={setOpenDisc}
-                  setOpenIndex={setOpenIndex}
-                  isOpenTop={isOpenTop}
-                />
-              }
-              {
-                openNewAdder === index &&
-                // The new disc adder component
-                <AddNewDisc
-                  newAdderContainerRef={newAdderContainerRef}
-                  setDiscs={setDiscs}
-                  setOpenIndex={setOpenIndex}
-                  setOpenNewAdder={setOpenNewAdder}
-                  setTranslate={setTranslate}
-                  handleErrorMessage={handleErrorMessage}
-                  videoId={item.id}
-                  isOpenTop={isOpenTop}
-                />
-              }
+
             </div>
           );
         })

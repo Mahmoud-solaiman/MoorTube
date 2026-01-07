@@ -44,6 +44,8 @@ export function AddNewDisc({
 
     } if (!newDiscValue.trim()) { // If the new disc is an empty value
       handleErrorMessage("Disc name can't be an empty value."); // Error message that tells the user that the disc can't be an empty value
+    } if (newDiscValue.trim().length && newDiscValue.trim().length < 5) {
+      handleErrorMessage("Disc name should at least be 5 characters");
     }
   }
 

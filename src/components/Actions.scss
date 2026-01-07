@@ -3,8 +3,8 @@
   position:absolute;
   padding:.3em 0;
   z-index:100;
-  right:40px;
-  bottom:-30px;
+  right:30px;
+  top:30px;
   border-radius:5px;
   background-color:#fff;
   box-shadow: 3px 3px 10px black;
@@ -30,7 +30,7 @@
 }
 
 .actions-popup.open-top {
-  bottom: 120px;
+  top: -70px;
 }
 
 
