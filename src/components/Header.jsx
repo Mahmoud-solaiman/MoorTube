@@ -30,7 +30,7 @@ export function Header({
               xmlns="../assets/menu.svg"
               viewBox="0 0 640 640"
               onPointerUp={() => {
-                setTranslate(true);
+                setTranslate(0);
               }}
             >
               <path

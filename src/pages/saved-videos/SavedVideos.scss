@@ -1,6 +1,6 @@
 .saved-videos {
   display:grid;
   grid-template-columns: 360px 1fr;
-  padding: 2em;
+  padding: 2em .5em 2em 2em;
   gap: 1rem;
 }

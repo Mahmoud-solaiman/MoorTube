@@ -2,7 +2,6 @@ import { handleDuration, handleViewCount, youtubeTimeAgo } from '../../../format
 import './SavedVideosGrid.scss';
 
 export function SavedVideosGrid({ savedVideosDetails }) {
-  console.log(savedVideosDetails);
   return (
     <section className="saved-videos-grid">
       {
@@ -28,7 +27,11 @@ export function SavedVideosGrid({ savedVideosDetails }) {
                   </div>
                   <div className="saved-video-info">
                     <h3 className="saved-video-title">{item.snippet.title}</h3>
-                    <h4>{item.snippet.channelTitle} &#8226; {handleViewCount(item.statistics.viewCount)} &#8226; {youtubeTimeAgo(item.snippet.publishedAt)}</h4>
+                    <h4 className="saved-video-statistics">
+                      <span>{item.snippet.channelTitle}</span> &#8226; 
+                      <span>{handleViewCount(item.statistics.viewCount)}</span> &#8226; 
+                      <span>{youtubeTimeAgo(item.snippet.publishedAt)}</span>
+                    </h4>
                   </div>
                 </div>
                 <div className="saved-video-controls">

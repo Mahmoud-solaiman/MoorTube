@@ -16,7 +16,7 @@ export function DiscsActions({
     const isVideo = videos.find(item => item === videoId); // Check if the video exists or not in this disc
     
     if (!isVideo) { // If disc doesn't exists
-      videos.push(videoId); // Add the video id to this disc
+      videos.unshift(videoId); // Add the video id to this disc
       setDiscs(discs);
       handleErrorMessage("Added successfully!"); // And show that the video has been added successfully
       
