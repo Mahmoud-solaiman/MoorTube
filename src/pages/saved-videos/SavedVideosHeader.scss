@@ -9,6 +9,14 @@
   box-shadow: 0 5px 15px #666;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
+
+  @media (width < 1000px) {
+    border-radius: 0;
+    position:fixed;
+    z-index:10;
+    right:0;
+    left:0;
+  }
 }
 
 .logo-menu-container {

@@ -1,6 +1,12 @@
 .saved-videos {
   display:grid;
   grid-template-columns: 360px 1fr;
-  padding: 2em .5em 2em 2em;
+  padding: 2em .1em 0 2em;
   gap: 1rem;
+
+  @media (width < 1000px) {
+    grid-template-columns: 100%;
+    padding: 0;
+    padding-top: 4.3em;
+  }
 }

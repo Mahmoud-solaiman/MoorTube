@@ -35,7 +35,7 @@ export function SavedVideos({
     fetchSavedVideos();
     setTranslate(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [savedVideos]);
   
   return (
     <div className='saved-videos-container'>

@@ -7,8 +7,8 @@ import { useRef,useState } from "react";
 
 // The JSX of the App component and the Routes
 export default function App() {
-  const [ savedVideos, setSavedVideos ] = useState(null);
-  const api_key = "AIzaSyBCuuLWqdp3M6gbyjAFnhBuF0vaat-zDqw"; //My google console API Key
+  const [ savedVideos, setSavedVideos ] = useState(JSON.parse(localStorage.getItem('disc')) || null);
+  const api_key = import.meta.env.VITE_API_KEY; //My google console API Key
   const [ translate, setTranslate ] = useState(false); //The translateY value of the SidePanel
   const menuContainer = useRef(null); //The reference of the menu container
   const [ discs, setDiscs ] = useState(JSON.parse(localStorage.getItem('current-discs')) || []); //The latest disc list from localStorage

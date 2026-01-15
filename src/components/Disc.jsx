@@ -64,11 +64,14 @@ export function Disc({
         />
       }
       <Link 
-        to="savedVideos" 
+        to="/savedVideos" 
         className='disc-name'
         title={title}
         style={isEdit ? { display: 'none' } : null}
-        onPointerDown={() => setSavedVideos(discObject)}
+        onPointerDown={() => { 
+          setSavedVideos(discObject) 
+          localStorage.setItem('disc', JSON.stringify(discObject));
+        }}
       >
         {disc}
       </Link>

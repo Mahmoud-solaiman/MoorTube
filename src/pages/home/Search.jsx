@@ -1,5 +1,5 @@
 import axios from "axios"; // Import axios from the axios package
-import { useState } from 'react'; // Import the useState hook from react package
+import { useEffect, useRef, useState } from 'react'; // Import the useState hook from react package
 import './Search.scss'; // Import the style sheet of this component
 
 export function Search({
@@ -11,7 +11,8 @@ export function Search({
   setVideos,
   setPopUpChannelLogo
 }) {
-  const [searchText, setSearchText] = useState(''); // The state of the search field to control its value
+  const [ searchText, setSearchText ] = useState(''); // The state of the search field to control its value
+  const searchField = useRef(null);
 
   // The function that handles request to pull the logo, channel name, and channel handler from the YouTube data API 
   async function fetchChannelsData() {
@@ -46,7 +47,7 @@ export function Search({
       setIsSuggestions(true); // Then finally show those channels of the desired user search visually in the search suggestion popup
     }
     // End of logic if the search is for a channel
-    
+
     // If search filter is set to video, then search for videos instead
     if (!isChannel && searchText.trim()) {
       const videosRequest = await axios.get('https://www.googleapis.com/youtube/v3/search', {
@@ -74,7 +75,7 @@ export function Search({
           id: videosRequest.data.items.map(item => item.id.videoId).join(',')
         }
       });
-      
+
 
       setChannelsLogos(channelsLogos.data);
       setVideos(videosDetails.data);
@@ -86,11 +87,22 @@ export function Search({
     }
   }
 
+  useEffect(() => {
+    document.addEventListener('keyup', e => {
+      if (e.key === '/') {
+        searchField.current.focus();
+      }
+    });
+  })
+
+
+
   // The JSX of the search related elements (e.g. search field and button)
   return (
     <div className='search-container'>
       <input
         id="search-channel-field"
+        ref={searchField}
         placeholder={
           isChannel ?
             "Search for a channel" :
