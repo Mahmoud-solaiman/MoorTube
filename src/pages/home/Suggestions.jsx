@@ -39,7 +39,9 @@ export function Suggestions({
     });
 
     setChannelVideos(videoStats.data); // Set the videos (thumbnail, title, and channel name)
-    setChannelLogo(popUpChannelLogo)
+    sessionStorage.setItem('channel-videos', JSON.stringify(videoStats.data));
+    setChannelLogo(popUpChannelLogo);
+    sessionStorage.setItem('channel-logo', JSON.stringify(popUpChannelLogo));
     setIsSuggestions(false); // Hide the suggestions component
   }
 

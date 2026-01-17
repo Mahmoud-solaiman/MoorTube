@@ -18,7 +18,7 @@ export function SavedVideosHeader({ discTitle, setTranslate, menuContainer }) {
             />
           </svg>
         </div>
-        <div className="logo-container" title="YouTube Organized Logo">
+        <div className="logo-container" title="YouTube Organized Home">
           <Link to="/">
             <img src="/logo.png" alt="website logo" />
           </Link>

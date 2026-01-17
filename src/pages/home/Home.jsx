@@ -18,11 +18,11 @@ export function Home({
     errorMessage
   }) {
   //Variables and states that are shared across the app
-  const [ channelVideos, setChannelVideos ] = useState({}); // The videos for a specific channels returned from the channel filter
-  const [ videos, setVideos ] = useState({}); // Videos returned from the video filter
+  const [ channelVideos, setChannelVideos ] = useState(JSON.parse(sessionStorage.getItem('channel-videos')) || {}); // The videos for a specific channels returned from the channel filter
+  const [ videos, setVideos ] = useState(JSON.parse(sessionStorage.getItem('videos')) || {}); // Videos returned from the video filter
   const [ popUpChannelLogo, setPopUpChannelLogo ] = useState(null); // State for the logos of the search popup
-  const [ channelLogo, setChannelLogo ] = useState(''); // Channel logo of the channel filter
-  const [ channelsLogos, setChannelsLogos ] = useState(''); //Logo of the picked channel
+  const [ channelLogo, setChannelLogo ] = useState(JSON.parse(sessionStorage.getItem('channel-logo')) || {}); // Channel logo of the channel filter
+  const [ channelsLogos, setChannelsLogos ] = useState(JSON.parse(sessionStorage.getItem('channels-logos')) || {}); //Logo of the picked channel
   const [ isChannel, setIsChannel ] = useState(true); // This is the state used to determine the search criterion (e.g. channel or video)
 
   useEffect(() => {
@@ -32,6 +32,13 @@ export function Home({
 
     window.addEventListener('online', () => {
       handleErrorMessage("Back online");
+    });
+
+    window.addEventListener('load', () => {
+      setChannelVideos({});
+      setVideos({});
+      setChannelLogo({});
+      setChannelsLogos({});
     });
   });
 

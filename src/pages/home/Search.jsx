@@ -78,7 +78,9 @@ export function Search({
 
 
       setChannelsLogos(channelsLogos.data);
+      sessionStorage.setItem('channels-logos', JSON.stringify(channelsLogos.data));
       setVideos(videosDetails.data);
+      sessionStorage.setItem('videos', JSON.stringify(videosDetails.data));
       setSearchText('');
     }
     // If the search field is empty 

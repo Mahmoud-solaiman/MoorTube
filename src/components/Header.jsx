@@ -38,7 +38,7 @@ export function Header({
               />
             </svg>
           </div>
-          <div className="logo-container" title="YouTube Organized Logo">
+          <div className="logo-container" title="YouTube Organized">
             <img src="/logo.png" alt="website logo" />
           </div>
         </div>

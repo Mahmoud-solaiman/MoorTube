@@ -16,10 +16,10 @@
   height:100%;
   padding:1em;
   border-radius:15px;
-  -webkit-backdrop-filter: blur(80px);
-  backdrop-filter: blur(80px);
+  -webkit-backdrop-filter: blur(50px);
+  backdrop-filter: blur(50px);
   color:#fff;
-  background-color: rgba(3, 3, 3, .5);
+  background-color: rgba(10, 10, 10, .5);
 
   @media (width < 1000px) {
     border-radius: 0;
