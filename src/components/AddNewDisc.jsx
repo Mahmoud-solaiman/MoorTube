@@ -58,6 +58,7 @@ export function AddNewDisc({
       }}
     >
       <input
+        autoComplete="off"
         autoFocus
         type="text"
         name="new-disc-adder"

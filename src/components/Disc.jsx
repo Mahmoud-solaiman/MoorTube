@@ -49,6 +49,7 @@ export function Disc({
     <div className='disc'>
       {isEdit &&
         <input
+          autoComplete="off"
           type="text"
           id="edit-disc-name"
           autoFocus

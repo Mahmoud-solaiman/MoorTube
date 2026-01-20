@@ -93,6 +93,7 @@ export function SidePanel({
 
       <div className="add-section">
         <input
+          autoComplete="off"
           autoFocus
           type="text"
           name="add-disc"

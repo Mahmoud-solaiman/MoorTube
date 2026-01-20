@@ -28,8 +28,8 @@ export function SavedVideosGrid({ savedVideosDetails }) {
                   <div className="saved-video-info">
                     <h3 className="saved-video-title">{item.snippet.title}</h3>
                     <h4 className="saved-video-statistics">
-                      <span>{item.snippet.channelTitle}</span> &#8226; 
-                      <span>{handleViewCount(item.statistics.viewCount)}</span> &#8226; 
+                      <span>{item.snippet.channelTitle}</span>
+                      <span> &#8226; {handleViewCount(item.statistics.viewCount)} &#8226; </span> 
                       <span>{youtubeTimeAgo(item.snippet.publishedAt)}</span>
                     </h4>
                   </div>

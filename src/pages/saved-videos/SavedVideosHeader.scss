@@ -24,3 +24,19 @@
   grid-template-columns: 40px 120px;
   gap: 1rem;
 }
+
+
+@media (width < 520px) {
+  .saved-videos-header {
+    grid-template-columns: 100%;
+  }
+
+  .disc-name-title {
+    display: none;
+  }
+
+  .logo-menu-container {
+    width:100%;
+    justify-content: space-between;
+  }
+}

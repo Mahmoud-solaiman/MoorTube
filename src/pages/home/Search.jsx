@@ -103,6 +103,7 @@ export function Search({
   return (
     <div className='search-container'>
       <input
+        autoComplete="off"
         id="search-channel-field"
         ref={searchField}
         placeholder={
