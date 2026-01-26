@@ -1,5 +1,5 @@
 import axios from "axios"; // Import axios from the axios package
-import { useEffect, useRef, useState } from 'react'; // Import the useState hook from react package
+import { useEffect, useRef} from 'react'; // Import the useState hook from react package
 import './Search.scss'; // Import the style sheet of this component
 
 export function Search({
@@ -9,11 +9,26 @@ export function Search({
   handleErrorMessage,
   setChannelsLogos,
   setVideos,
-  setPopUpChannelLogo
+  setPopUpChannelLogo,
+  setSearchHistory,
+  searchText,
+  setSearchText
 }) {
-  const [ searchText, setSearchText ] = useState(''); // The state of the search field to control its value
   const searchField = useRef(null);
+  const searchHistory = JSON.parse(localStorage.getItem('search-history')) || [];
+  
+  function recommendSearch(search) {
+    const searchHistorySuggestions = searchHistory.filter(item => search && (search.toLowerCase() === item.slice(0, search.length).toLowerCase()));
+    setSearchHistory(searchHistorySuggestions);
 
+    if (searchHistorySuggestions.length) {
+      setPopUpChannelLogo({});
+      setIsSuggestions(true);
+    } else if (!search || !searchHistorySuggestions.length) {
+      setIsSuggestions(false);
+      setSearchHistory(JSON.parse(localStorage.getItem('search-history')) || []);
+    }
+  }
   // The function that handles request to pull the logo, channel name, and channel handler from the YouTube data API 
   async function fetchChannelsData() {
     // If the search filter is set to channel, then search for channels using the following
@@ -45,6 +60,9 @@ export function Search({
       setPopUpChannelLogo(channelInfo.data);
       setSearchText(''); // Then set the search field value back to empty for better UX
       setIsSuggestions(true); // Then finally show those channels of the desired user search visually in the search suggestion popup
+    
+      searchHistory.push(searchText.trim());
+      localStorage.setItem('search-history', JSON.stringify(searchHistory));
     }
     // End of logic if the search is for a channel
 
@@ -82,6 +100,9 @@ export function Search({
       setVideos(videosDetails.data);
       sessionStorage.setItem('videos', JSON.stringify(videosDetails.data));
       setSearchText('');
+    
+      searchHistory.push(searchText.trim());
+      localStorage.setItem('search-history', JSON.stringify(searchHistory));
     }
     // If the search field is empty 
     if (!searchText.trim()) {
@@ -115,6 +136,7 @@ export function Search({
         type="text"
         onChange={(e) => {
           setSearchText(e.target.value);
+          recommendSearch(e.target.value.trim());
         }}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {

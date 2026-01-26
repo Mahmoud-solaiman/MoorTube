@@ -1,13 +1,15 @@
 import axios from 'axios'; // Import axios from the axios package
 import './Suggestions.scss'; // Import the style sheet of this component
 
-export function Suggestions({ 
-    popUpChannelLogo, 
-    apiKey,
-    setIsSuggestions,
-    setChannelVideos,
-    setChannelLogo
-  }) {
+export function Suggestions({
+  popUpChannelLogo,
+  apiKey,
+  setIsSuggestions,
+  setChannelVideos,
+  setChannelLogo,
+  searchHistory,
+  searchText
+}) {
   // The function that fetches the videos of the desired channel
   const fetchChannelVideos = async (index) => {
     // Make request to YouTube API, channels resource, to pull the IDs of the playlist of the last 50 videos uploaded to that particular channel
@@ -25,7 +27,7 @@ export function Suggestions({
         key: apiKey,
         part: 'snippet, contentDetails',
         playlistId: request.data.items[0].contentDetails.relatedPlaylists.uploads,
-        maxResults: '50' 
+        maxResults: '50'
       }
     });
 
@@ -34,7 +36,7 @@ export function Suggestions({
       params: {
         part: 'snippet,contentDetails,statistics',
         key: apiKey,
-        id: uploadPlaylistInfo.data.items.map(item =>  item.contentDetails.videoId).join(',')
+        id: uploadPlaylistInfo.data.items.map(item => item.contentDetails.videoId).join(',')
       }
     });
 
@@ -48,27 +50,50 @@ export function Suggestions({
   // The JSX of the Suggestions component
   return (
     <div className="suggestions-box">
-      {popUpChannelLogo.items ? popUpChannelLogo.items.map((item, index) => {
-        return (
-          <div 
-            key={item.id} className="suggestion"
-            onPointerUp={() => fetchChannelVideos(index)}
-          >
-            <div className="channel-icon-container">
-              <img 
-                src={
-                  item.snippet?.thumbnails.default.url
-                } 
-                className="channel-icon" />
+      {popUpChannelLogo?.items ?
+        popUpChannelLogo.items.map((item, index) => {
+          return (
+            <div
+              key={item.id} className="suggestion"
+              onPointerUp={() => fetchChannelVideos(index)}
+            >
+              <div className="channel-icon-container">
+                <img
+                  src={
+                    item.snippet?.thumbnails.default.url
+                  }
+                  className="channel-icon" />
+              </div>
+              <div className="channel-semantics">
+                <strong className="channel-name">{item.snippet.title}</strong>
+                <br />
+                <span className="channel-handle-name">{item.snippet.customUrl}</span>
+              </div>
             </div>
-            <div className="channel-semantics">
-              <strong className="channel-name">{item.snippet.title}</strong>
-              <br />
-              <span className="channel-handle-name">{item.snippet.customUrl}</span>
-            </div>
+          );
+        }) :
+        <div className="search-history">
+          <div className="clear-history-container">
+            <button 
+              className="clear-history-btn" 
+              onClick={() => {
+                localStorage.removeItem('search-history');
+                setIsSuggestions(false);
+              }}
+            >clear history</button>
           </div>
-        );
-      }) : ''}
+          {
+            searchHistory.map((item, index) => {
+              return (
+                <div key={index} className="search-history-suggestion">
+                  {searchText}
+                  <span className="match-bold">{item.slice(searchText.length)}</span>
+                </div>
+              );
+            })
+          }
+        </div>
+      }
     </div>
   );
 }

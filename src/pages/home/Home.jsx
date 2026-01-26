@@ -39,6 +39,10 @@ export function Home({
       setVideos({});
       setChannelLogo({});
       setChannelsLogos({});
+      sessionStorage.setItem('videos', null);
+      sessionStorage.setItem('channels-logos', null);
+      sessionStorage.setItem('channel-videos', null);
+      sessionStorage.setItem('channel-logo', null);
     });
   });
 

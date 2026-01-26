@@ -19,6 +19,8 @@ export function Header({
   setChannelLogo
 }) {
   const [ isSuggestions, setIsSuggestions ] = useState(false); // This state controls whether to show the channels search suggestions or not
+  const [ searchHistory, setSearchHistory ] = useState([]);
+  const [ searchText, setSearchText ] = useState(''); // The state of the search field to control its value
 
   // The JSX of the Header component
   return (
@@ -53,6 +55,9 @@ export function Header({
             setChannelsLogos={setChannelsLogos}
             setVideos={setVideos}
             setPopUpChannelLogo={setPopUpChannelLogo}
+            setSearchHistory={setSearchHistory}
+            searchText={searchText}
+            setSearchText={setSearchText}
           />
           {/* The ToggleSearch component */}
           <ToggleSearch
@@ -69,6 +74,8 @@ export function Header({
               setIsSuggestions={setIsSuggestions}
               setChannelVideos={setChannelVideos}
               setChannelLogo={setChannelLogo}
+              searchHistory={searchHistory}
+              searchText={searchText}
             />
           }
         </div>

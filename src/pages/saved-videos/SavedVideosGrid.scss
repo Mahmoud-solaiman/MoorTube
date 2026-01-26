@@ -113,8 +113,10 @@
   gap: .2rem;
   font-size: .9rem;
 
-  :not(:first-child) {
-    display:none;
+  @media (width < 600px) {
+    :not(:first-child) {
+      display:none;
+    }
   }
 }
 

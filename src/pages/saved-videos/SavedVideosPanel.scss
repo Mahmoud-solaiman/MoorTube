@@ -2,8 +2,9 @@
   width:100%;
   border-radius: 15px;
   background-size: 100% ;
-  background-position: center;
   background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 
   @media (width < 1000px) {
     border-radius: 0;
