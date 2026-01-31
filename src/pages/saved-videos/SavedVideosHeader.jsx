@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom';
 import './SavedVideosHeader.scss';
 
-export function SavedVideosHeader({ discTitle, setTranslate, menuContainer }) {
+export function SavedVideosHeader({ 
+    discTitle, 
+    setTranslate, 
+    menuContainer, 
+    isDarkMode
+  }) {
   return (
     <header className="saved-videos-header">
       <div className="logo-menu-container">
@@ -20,7 +25,7 @@ export function SavedVideosHeader({ discTitle, setTranslate, menuContainer }) {
         </div>
         <div className="logo-container" title="YouTube Organized Home">
           <Link to="/">
-            <img src="/logo.png" alt="website logo" />
+            <img src={isDarkMode ? "./logo-dark.png" : "./logo-light.png"} alt="website logo" />
           </Link>
           
         </div>

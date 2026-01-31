@@ -61,7 +61,10 @@ export function Search({
       setSearchText(''); // Then set the search field value back to empty for better UX
       setIsSuggestions(true); // Then finally show those channels of the desired user search visually in the search suggestion popup
     
-      searchHistory.push(searchText.trim());
+      const isSuggestion = searchHistory.find(item => item === searchText.trim().toLowerCase());
+      if (!isSuggestion) {
+        searchHistory.push(searchText.trim());
+      }
       localStorage.setItem('search-history', JSON.stringify(searchHistory));
     }
     // End of logic if the search is for a channel
@@ -100,8 +103,12 @@ export function Search({
       setVideos(videosDetails.data);
       sessionStorage.setItem('videos', JSON.stringify(videosDetails.data));
       setSearchText('');
+      setIsSuggestions(false);
     
-      searchHistory.push(searchText.trim());
+      const isSuggestion = searchHistory.find(item => item === searchText.trim().toLowerCase());
+      if (!isSuggestion) {
+        searchHistory.push(searchText.trim());
+      }
       localStorage.setItem('search-history', JSON.stringify(searchHistory));
     }
     // If the search field is empty 
@@ -136,7 +143,7 @@ export function Search({
         type="text"
         onChange={(e) => {
           setSearchText(e.target.value);
-          recommendSearch(e.target.value.trim());
+          recommendSearch(e.target.value);
         }}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {

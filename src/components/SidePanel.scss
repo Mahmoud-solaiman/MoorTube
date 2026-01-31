@@ -1,13 +1,13 @@
 .side-panel {
   width: 350px;
-  background-color: rgb(255, 255, 255);
-  box-shadow: 5px 0 10px black;
+  background-color: var(--page-bg);
+  box-shadow: 5px 0 10px var(--shadow-color);
   position: fixed;
   top: 0;
   bottom: 0;
   z-index: 999;
   padding: .8em;
-  transition: .1s linear;
+  transition: transform .1s linear;
   animation: sidePanel .1s linear;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -41,8 +41,26 @@
   }
 }
 
-.sun {
-  width: 35px;
+.sun, 
+.moon {
+  width: 30px;
+  height: 30px;
+  fill: var(--theme-toggler-color);
+  transition: .15s linear;
+  animation: rotate-toggler .15s linear forwards;
+
+  &:hover {
+    scale: 1.1;
+  }
+}
+
+@keyframes rotate-toggler {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(240deg);
+  }
 }
 
 .xmark {
@@ -50,10 +68,10 @@
   font-size: 0;
   border-radius: 50%;
   transition: .15s linear;
+  fill: var(--text-color);
 
   &:hover {
-    background-color: darkred;
-    fill: #fff;
+    fill: var(--primary-color);
   }
 }
 
@@ -64,23 +82,29 @@
 
   #add-disc {
     font-size: 1.2rem;
-    padding: 0 .5em;
+    padding: 0 .3em;
+    background-color: var(--page-bg);
+    border: 1px solid var(--text-color);
+    color: var(--text-color);
 
-    &:focus {
-      outline-color: rgb(25, 135, 84);
+    &:focus-within {
+      border-color: var(--primary-color);
+      outline: none;
     }
 
     &::placeholder {
-      color: rgb(78, 78, 78);
+      color: var(--placeholder-color);
     }
   }
 
   svg {
     cursor: pointer;
     transition: .15s linear;
+    fill: var(--text-color);
 
     &:hover {
-      background-color: rgb(220, 220, 220);
+      background-color: var(--primary-color);
+      fill: #fff;
     }
   }
 }

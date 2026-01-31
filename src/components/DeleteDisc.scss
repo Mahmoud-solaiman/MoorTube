@@ -13,7 +13,7 @@
 }
 
 .delete-popup {
-  background-color:#fff;
+  background-color: var(--suggestions-bg);
   height:135px;
   padding:1em;
   width:270px;
@@ -40,7 +40,7 @@
     cursor:pointer;
     padding:.3em .7em;
     border-radius:7px;
-    color:#fff;
+    color: #fff;
 
     &:hover {
       opacity:.8;

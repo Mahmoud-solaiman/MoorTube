@@ -1,20 +1,21 @@
 import { Routes, Route } from "react-router-dom"; // Import the Routes, and Route components from react-router-dom
 import { Home } from "./pages/home/Home"; // Import the Home component
 import { PageNotFound } from "./pages/PageNotFound"; // Import the PageNotFound component
-import './App.scss'; // Import the style sheet of this component
 import { SavedVideos } from "./pages/saved-videos/SavedVideos";
-import { useRef,useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // The JSX of the App component and the Routes
 export default function App() {
-  const [ savedVideos, setSavedVideos ] = useState(JSON.parse(localStorage.getItem('disc')) || null);
+  const [savedVideos, setSavedVideos] = useState(JSON.parse(localStorage.getItem('disc')) || null);
   const api_key = import.meta.env.VITE_API_KEY; //My google console API Key
-  const [ translate, setTranslate ] = useState(false); //The translateY value of the SidePanel
+  const [translate, setTranslate] = useState(false); //The translateY value of the SidePanel
   const menuContainer = useRef(null); //The reference of the menu container
-  const [ discs, setDiscs ] = useState(JSON.parse(localStorage.getItem('current-discs')) || []); //The latest disc list from localStorage
-  const [ errorMessage, setErrorMessage ] = useState(null); //The error message state
-  const [ isErrorMessage, setIsErrorMessage ] = useState(false); //State to render and disrender the error message
-  const [ showErrorMessage, setShowErrorMessage ] = useState(null); //State to handle the setTimeout for disrendering the error message
+  const [discs, setDiscs] = useState(JSON.parse(localStorage.getItem('current-discs')) || []); //The latest disc list from localStorage
+  const [errorMessage, setErrorMessage] = useState(null); //The error message state
+  const [isErrorMessage, setIsErrorMessage] = useState(false); //State to render and disrender the error message
+  const [showErrorMessage, setShowErrorMessage] = useState(null); //State to handle the setTimeout for disrendering the error message
+  const sysPreferences = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem('mode-preference') ? JSON.parse(localStorage.getItem('mode-preference')) : sysPreferences);
 
   //Function that handles the rendering and disrendering and the content of the error message
   function handleErrorMessage(message) {
@@ -23,11 +24,16 @@ export default function App() {
     setShowErrorMessage(setTimeout(() => setIsErrorMessage(false), 1400));
     setIsErrorMessage(true);
   }
-  
+
+  useEffect(() => {
+    isDarkMode ? 
+      document.documentElement.classList.add('darkmode') :
+      document.documentElement.classList.remove('darkmode');
+  }, [isDarkMode])
   return (
     <Routes>
       <Route path="/" element={
-        <Home 
+        <Home
           setSavedVideos={setSavedVideos}
           api_key={api_key}
           setTranslate={setTranslate}
@@ -38,10 +44,12 @@ export default function App() {
           handleErrorMessage={handleErrorMessage}
           isErrorMessage={isErrorMessage}
           errorMessage={errorMessage}
+          isDarkMode={isDarkMode}
+          setIsDarkMode={setIsDarkMode}
         />
       } />
       <Route path="savedVideos" element={
-        <SavedVideos 
+        <SavedVideos
           savedVideos={savedVideos}
           api_key={api_key}
           setTranslate={setTranslate}
@@ -50,9 +58,13 @@ export default function App() {
           setDiscs={setDiscs}
           handleErrorMessage={handleErrorMessage}
           setSavedVideos={setSavedVideos}
+          isDarkMode={isDarkMode}
+          setIsDarkMode={setIsDarkMode}
+          errorMessage={errorMessage}
+          isErrorMessage={isErrorMessage}
         />
       } />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
-  ); 
+  );
 }

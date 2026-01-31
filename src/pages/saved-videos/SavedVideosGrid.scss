@@ -1,7 +1,7 @@
 .saved-videos-grid {
   height: 85vh;
   overflow:auto;
-  border: 2px groove rgb(25, 135, 84);
+  border: 2px groove var(--primary-color);
   border-radius: 7px;
     
   &::-webkit-scrollbar {
@@ -34,7 +34,7 @@
   padding: .5em 0;
 
   &:hover {
-    background-color: rgb(225, 225, 225);
+    background-color: var(--saved-video-hover);
   }
 
   @media (width < 520px) {
@@ -118,6 +118,10 @@
       display:none;
     }
   }
+}
+
+.saved-video-controls svg {
+  fill: var(--text-color);
 }
 
 @media (hover: none) {

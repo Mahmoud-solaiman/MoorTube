@@ -1,0 +1,78 @@
+.web-intro-container {
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 13% 7% 30% 7% 25%; 
+  align-items: center;
+  justify-content: space-around;
+
+  .youtube-logo-container,
+  .web-logo-container {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .plus-sign, 
+  .equals-sign {
+    font-size: 10vw;
+    text-align: center;
+  }
+
+  .plus-sign + div {
+    font-size: 4vw;
+    text-align: center;
+    opacity: 0;
+  }
+}
+
+.youtube-logo-container img {
+  animation: fading-youtube .5s linear;
+}
+
+.web-logo-container img {
+  opacity: 0;
+  animation: fading-logo .5s linear 1s forwards;
+}
+
+.plus-sign + div {
+  animation: fading-text .5s linear .55s forwards;
+}
+
+@keyframes fading-youtube {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fading-logo {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fading-text {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

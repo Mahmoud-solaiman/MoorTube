@@ -16,7 +16,8 @@ export function Header({
   isChannel,
   popUpChannelLogo,
   setPopUpChannelLogo,
-  setChannelLogo
+  setChannelLogo,
+  isDarkMode
 }) {
   const [ isSuggestions, setIsSuggestions ] = useState(false); // This state controls whether to show the channels search suggestions or not
   const [ searchHistory, setSearchHistory ] = useState([]);
@@ -41,7 +42,7 @@ export function Header({
             </svg>
           </div>
           <div className="logo-container" title="YouTube Organized">
-            <img src="/logo.png" alt="website logo" />
+            <img src={isDarkMode ? "./logo-dark.png" : "./logo-light.png"} alt="website logo" />
           </div>
         </div>
 

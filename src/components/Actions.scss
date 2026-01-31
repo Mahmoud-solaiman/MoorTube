@@ -6,8 +6,8 @@
   right:30px;
   top:30px;
   border-radius:5px;
-  background-color:#fff;
-  box-shadow: 3px 3px 10px black;
+  background-color: var(--suggestions-bg);
+  box-shadow: 3px 3px 10px rgb(0, 0, 0);
   display: flex;
   flex-direction: column;
   animation: actionsPopUp .1s;
@@ -19,12 +19,16 @@
     padding: .5em 1em;
 
     &:hover {
-      background-color:rgb(230, 230, 230);
+      background-color: var(--suggestion-hover-bg);
     }
 
     span {
       font-size:1.1rem;
       font-weight:600;
+    }
+
+    svg {
+      fill: var(--text-color);
     }
   }
 }

@@ -2,15 +2,17 @@ import { useEffect, useRef, useState } from 'react'; // Import these hooks from 
 import { Disc } from './Disc'; // Import the Disc component
 import './SidePanel.scss'; // Import the style sheet of this component
 
-export function SidePanel({ 
-    translate, 
-    setTranslate, 
-    menuContainer,
-    discs, 
-    setDiscs,
-    handleErrorMessage,
-    setSavedVideos
-  }) {
+export function SidePanel({
+  translate,
+  setTranslate,
+  menuContainer,
+  discs,
+  setDiscs,
+  handleErrorMessage,
+  setSavedVideos,
+  isDarkMode,
+  setIsDarkMode
+}) {
   //Javascript and React functions and variables
   const [ discFieldValue, setDiscFieldValue ] = useState('');
   const sidePanel = useRef(null);
@@ -23,7 +25,7 @@ export function SidePanel({
     const currentDiscs = JSON.parse(localStorage.getItem('current-discs')) || []; // Pull the current discs from local storage
 
     const discExists = currentDiscs.find(item => item.name.toLowerCase() === discValueTrimmed.toLowerCase()); // Check if the new disc already exists
-    
+
     if (!discExists && discValueTrimmed.length >= 5) { // If new disc doesn't exist and the disc name isn't an empty value
       // Push the new disc to the current discs
       currentDiscs.push({
@@ -44,7 +46,7 @@ export function SidePanel({
     } if (!discValueTrimmed) { // If the new disc value is empty
       handleErrorMessage("Disc name can't be an empty value."); // Tell user that disc name can't be an empty value
       setDiscFieldValue(value); // Don't reset the field value
-    
+
     } if (discValueTrimmed && discFieldValue.length < 5) { // If new disc is less than 5 characters long
       handleErrorMessage("Disc name should at least be 5 characters"); // Tell user that disc name can't be less than 5 characters
       setDiscFieldValue(value); // Don't reset the field value
@@ -68,7 +70,12 @@ export function SidePanel({
     document.addEventListener('pointerup', hideSidePanel);
   });
 
-
+  // The function that handles toggling the mode between light and dark
+  function toggleMode() {
+    setIsDarkMode(!isDarkMode);
+    localStorage.setItem('mode-preference', !isDarkMode);
+  }
+  
   //JSX elements and functions
   return (
     <aside
@@ -79,10 +86,29 @@ export function SidePanel({
     >
       <header className="side-panel-header">
         <div className="mode-toggle">
-          <svg className='sun' xmlns="../assets/sun.svg" viewBox="0 0 640 640">
-            <path d="M210.2 53.9C217.6 50.8 226 51.7 232.7 56.1L320.5 114.3L408.3 56.1C415 51.7 423.4 50.9 430.8 53.9C438.2 56.9 443.4 63.5 445 71.3L465.9 174.5L569.1 195.4C576.9 197 583.5 202.4 586.5 209.7C589.5 217 588.7 225.5 584.3 232.2L526.1 320L584.3 407.8C588.7 414.5 589.5 422.9 586.5 430.3C583.5 437.7 576.9 443.1 569.1 444.6L465.8 465.4L445 568.7C443.4 576.5 438 583.1 430.7 586.1C423.4 589.1 414.9 588.3 408.2 583.9L320.4 525.7L232.6 583.9C225.9 588.3 217.5 589.1 210.1 586.1C202.7 583.1 197.3 576.5 195.8 568.7L175 465.4L71.7 444.5C63.9 442.9 57.3 437.5 54.3 430.2C51.3 422.9 52.1 414.4 56.5 407.7L114.7 320L56.5 232.2C52.1 225.5 51.3 217.1 54.3 209.7C57.3 202.3 63.9 196.9 71.7 195.4L175 174.6L195.9 71.3C197.5 63.5 202.9 56.9 210.2 53.9zM239.6 320C239.6 275.6 275.6 239.6 320 239.6C364.4 239.6 400.4 275.6 400.4 320C400.4 364.4 364.4 400.4 320 400.4C275.6 400.4 239.6 364.4 239.6 320zM448.4 320C448.4 249.1 390.9 191.6 320 191.6C249.1 191.6 191.6 249.1 191.6 320C191.6 390.9 249.1 448.4 320 448.4C390.9 448.4 448.4 390.9 448.4 320z" />
-          </svg>
-          <span className="mode-label">Light Mode</span>
+          {
+            !isDarkMode &&
+            <svg 
+              onTransitionEnd={e => e.stopPropagation()}
+              onClick={toggleMode} 
+              xmlns="http://www.w3.org/2000/svg" 
+              className="sun" x="0px" y="0px" width="100" 
+              height="100" viewBox="0 0 30 30"
+            >
+              <path d="M 14.984375 0.98632812 A 1.0001 1.0001 0 0 0 14 2 L 14 5 A 1.0001 1.0001 0 1 0 16 5 L 16 2 A 1.0001 1.0001 0 0 0 14.984375 0.98632812 z M 5.796875 4.7988281 A 1.0001 1.0001 0 0 0 5.1015625 6.515625 L 7.2226562 8.6367188 A 1.0001 1.0001 0 1 0 8.6367188 7.2226562 L 6.515625 5.1015625 A 1.0001 1.0001 0 0 0 5.796875 4.7988281 z M 24.171875 4.7988281 A 1.0001 1.0001 0 0 0 23.484375 5.1015625 L 21.363281 7.2226562 A 1.0001 1.0001 0 1 0 22.777344 8.6367188 L 24.898438 6.515625 A 1.0001 1.0001 0 0 0 24.171875 4.7988281 z M 15 8 A 7 7 0 0 0 8 15 A 7 7 0 0 0 15 22 A 7 7 0 0 0 22 15 A 7 7 0 0 0 15 8 z M 2 14 A 1.0001 1.0001 0 1 0 2 16 L 5 16 A 1.0001 1.0001 0 1 0 5 14 L 2 14 z M 25 14 A 1.0001 1.0001 0 1 0 25 16 L 28 16 A 1.0001 1.0001 0 1 0 28 14 L 25 14 z M 7.9101562 21.060547 A 1.0001 1.0001 0 0 0 7.2226562 21.363281 L 5.1015625 23.484375 A 1.0001 1.0001 0 1 0 6.515625 24.898438 L 8.6367188 22.777344 A 1.0001 1.0001 0 0 0 7.9101562 21.060547 z M 22.060547 21.060547 A 1.0001 1.0001 0 0 0 21.363281 22.777344 L 23.484375 24.898438 A 1.0001 1.0001 0 1 0 24.898438 23.484375 L 22.777344 21.363281 A 1.0001 1.0001 0 0 0 22.060547 21.060547 z M 14.984375 23.986328 A 1.0001 1.0001 0 0 0 14 25 L 14 28 A 1.0001 1.0001 0 1 0 16 28 L 16 25 A 1.0001 1.0001 0 0 0 14.984375 23.986328 z"></path>
+            </svg>
+          }
+          { isDarkMode &&
+            <svg 
+              onTransitionEnd={e => e.stopPropagation()} 
+              onClick={toggleMode} 
+              xmlns="http://www.w3.org/2000/svg" 
+              className="moon" 
+              viewBox="0 0 384 512"
+            >
+              <path fill="currentColor" d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"></path>
+            </svg>
+          }
         </div>
         <div className="xmark" onTransitionEnd={e => e.stopPropagation()} onPointerUp={() => setTranslate(-104)}>
           <svg xmlns="xmark.svg" viewBox="0 0 640 640">
@@ -116,7 +142,7 @@ export function SidePanel({
             if (discFieldValue.trim()) {
               addDisc(discFieldValue);
             }
-            
+
             addDiscField.current.focus();
           }}
         >

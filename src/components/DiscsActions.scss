@@ -1,6 +1,6 @@
 .discs-actions-container {
   position:absolute;
-  background-color:#fff;
+  background-color: var(--suggestions-bg);
   box-shadow: 3px 3px 10px black;
   top:120px;
   right:30%;
@@ -17,7 +17,7 @@
   padding: .4em;
 
   &:hover {
-    background-color: rgb(230, 230, 230);
+    background-color: var(--suggestion-hover-bg);
   }
 }
 

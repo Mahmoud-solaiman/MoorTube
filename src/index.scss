@@ -1,3 +1,33 @@
+:root {
+  --primary-color: rgb(25, 135, 84);
+  --text-color: rgb(0, 0, 0);
+  --primary-color-white: rgb(255, 255, 255);
+  --dim-gray: rgb(80, 80, 80);
+  --suggestion-hover-bg: rgb(240, 240, 240);
+  --suggestions-bg: rgb(255, 255, 255);
+  --icon-hover-bg: rgb(220, 220, 220);
+  --bin-hover-bg: rgba(206, 0, 0, 0.836);
+  --actions-hover-bg: rgb(230, 230, 230);
+  --page-bg: rgb(255, 255, 255);
+  --theme-toggler-color: rgb(243, 156, 18);
+  --shadow-color: rgb(179, 179, 179);
+  --placeholder-color: rgb(78, 78, 78);
+  --saved-video-hover: rgb(225, 225, 225);
+  color-scheme: dark light;
+}
+
+.darkmode {
+  --page-bg: rgb(13, 17, 23);
+  --text-color: rgb(255, 255, 255);
+  --shadow-color: rgb(30, 30, 30);
+  --placeholder-color: rgb(180, 180, 180);
+  --saved-video-hover: rgb(0, 0, 0);
+  --suggestions-bg: rgb(13, 17, 23);
+  --suggestion-hover-bg: rgb(40, 40, 40);
+  color: var(--text-color);
+  background-color: var(--page-bg);
+}
+
 *, 
 *::before,
 *::after {
@@ -8,14 +38,16 @@
 
 body {
   font-family: Arial;
+  background-color: var(--page-bg);
+  color: var(--text-color);
 }
 
 ::selection {
   color:#fff;
-  background-color: rgb(25, 135, 84);
+  background-color: var(--primary-color);
 }
 
 ::-moz-selection {
   color:#fff;
-  background-color: rgb(25, 135, 84);
+  background-color: var(--primary-color);
 }

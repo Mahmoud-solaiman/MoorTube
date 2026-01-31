@@ -9,9 +9,9 @@
   z-index: 999;
   right:0;
   left:0;
-  border-bottom: 2px solid rgb(25, 135, 84);
-  background-color: #fff;
-  box-shadow: 0 5px 15px #666;
+  border-bottom: 2px solid var(--primary-color);
+  background-color: var(--page-bg);
+  box-shadow: 0 5px 15px var(--shadow-color);
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
 
@@ -32,6 +32,7 @@
 
 .menu-container svg {
   cursor: pointer;
+  fill: var(--text-color);
 }
 
 

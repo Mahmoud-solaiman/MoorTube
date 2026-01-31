@@ -8,7 +8,7 @@ export function SavedVideosGrid({ savedVideosDetails }) {
         savedVideosDetails ?
           savedVideosDetails.map((item, index) => {
             return (
-              <div className="saved-video" key={savedVideosDetails.id}>
+              <div className="saved-video" key={item.id}>
                 <div className="sorting-method">{index + 1}</div>
                 <div className="saved-video-details">
                   <div className="saved-video-thumbnail-container">

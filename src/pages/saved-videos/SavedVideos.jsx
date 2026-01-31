@@ -5,6 +5,7 @@ import { SavedVideosPanel } from './SavedVideosPanel';
 import { useEffect, useRef, useState } from 'react';
 import { SavedVideosGrid } from './SavedVideosGrid';
 import { SidePanel } from '../../components/SidePanel';
+import { ErrorMessage } from '../../components/ErrorMessage';
 
 export function SavedVideos({
   savedVideos,
@@ -14,7 +15,11 @@ export function SavedVideos({
   discs,
   setDiscs,
   handleErrorMessage,
-  setSavedVideos
+  setSavedVideos,
+  isDarkMode,
+  setIsDarkMode,
+  errorMessage,
+  isErrorMessage
 }) {
   const [ savedVideosDetails, setSavedVideosDetails ] = useState([]);
   const menuContainer = useRef(null);
@@ -39,7 +44,16 @@ export function SavedVideos({
   
   return (
     <div className='saved-videos-container'>
-      <SavedVideosHeader discTitle={savedVideos.name} setTranslate={setTranslate} menuContainer={menuContainer}/>
+      {
+        isErrorMessage &&
+        <ErrorMessage errorMessage={errorMessage}/>
+      }
+      <SavedVideosHeader 
+        discTitle={savedVideos.name} 
+        setTranslate={setTranslate} 
+        menuContainer={menuContainer}
+        isDarkMode={isDarkMode}
+      />
 
       <div className="saved-videos">
         <SavedVideosPanel savedVideos={savedVideos} video={savedVideosDetails[0]} />
@@ -56,6 +70,8 @@ export function SavedVideos({
           setDiscs={setDiscs}
           handleErrorMessage={handleErrorMessage}
           setSavedVideos={setSavedVideos}
+          isDarkMode={isDarkMode}
+          setIsDarkMode={setIsDarkMode}
         />
       }
 

@@ -1,6 +1,6 @@
 .new-disc-adder {
-  background-color:#fff;
-  box-shadow: 3px 3px 10px black;
+  background-color: var(--suggestions-bg);
+  box-shadow: 3px 3px 10px rgb(0, 0, 0);
   position: absolute;
   top: 115px;
   right:25%;
@@ -23,9 +23,13 @@
   height:35px;
   padding:0 .4em;
   font-size: 1rem;
+  border: 1px solid var(--text-color);
+  border-radius: 3px;
+  background-color: var(--page-bg);
 
-  &:focus {
-    outline-color:rgb(25, 135, 84);
+  &:focus-within {
+    outline: none;
+    border-color: var(--primary-color);
   }
 
   &::placeholder {
@@ -42,8 +46,8 @@
     font-size: 1.1rem;
     font-weight: 600;
     padding:.4em .8em;
-    color:#fff;
-    background-color:black;
+    color: var(--text-color);
+    background-color: var(--saved-video-hover);
     border-radius:5px;
     cursor:pointer;
     transition: .15s linear;

@@ -4,6 +4,7 @@ import { ChannelVideos } from "../../components/ChannelVideos"; // Import the Ch
 import { SidePanel } from "../../components/SidePanel"; // Import the SidePanel component
 import { ErrorMessage } from "../../components/ErrorMessage"; // Import the ErrorMessage component
 import { SearchVideos } from "../../components/SearchVideos"; // Import the SearchVideos component
+import { WebIntro } from "./WebIntro";
 
 export function Home({ 
     setSavedVideos, 
@@ -15,7 +16,9 @@ export function Home({
     setDiscs,
     handleErrorMessage,
     isErrorMessage,
-    errorMessage
+    errorMessage,
+    isDarkMode,
+    setIsDarkMode
   }) {
   //Variables and states that are shared across the app
   const [ channelVideos, setChannelVideos ] = useState(JSON.parse(sessionStorage.getItem('channel-videos')) || {}); // The videos for a specific channels returned from the channel filter
@@ -24,7 +27,7 @@ export function Home({
   const [ channelLogo, setChannelLogo ] = useState(JSON.parse(sessionStorage.getItem('channel-logo')) || {}); // Channel logo of the channel filter
   const [ channelsLogos, setChannelsLogos ] = useState(JSON.parse(sessionStorage.getItem('channels-logos')) || {}); //Logo of the picked channel
   const [ isChannel, setIsChannel ] = useState(true); // This is the state used to determine the search criterion (e.g. channel or video)
-
+  
   useEffect(() => {
     window.addEventListener('offline', () => {
       handleErrorMessage("No internet");
@@ -70,6 +73,7 @@ export function Home({
         popUpChannelLogo={popUpChannelLogo}
         setPopUpChannelLogo={setPopUpChannelLogo}
         setChannelLogo={setChannelLogo}
+        isDarkMode={isDarkMode}
       />
       {/* Render the SidePanel */}
       {
@@ -82,6 +86,8 @@ export function Home({
           setDiscs={setDiscs}
           handleErrorMessage={handleErrorMessage}
           setSavedVideos={setSavedVideos}
+          isDarkMode={isDarkMode}
+          setIsDarkMode={setIsDarkMode}
         />
       }
       {
@@ -105,6 +111,9 @@ export function Home({
           setTranslate={setTranslate}
           handleErrorMessage={handleErrorMessage}
         />
+      }
+      {
+        (!channelVideos.items && !channelsLogos.items) && <WebIntro isDarkMode={isDarkMode} />
       }
     </>
   );

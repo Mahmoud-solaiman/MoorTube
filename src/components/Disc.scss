@@ -12,7 +12,7 @@
   padding: 0 .3em;
 
   &:focus {
-    outline-color: rgb(25, 135, 84);
+    outline-color: var(--primary-color);
   }
 }
 
@@ -21,11 +21,11 @@
   padding:.3em 0 .3em .5em;
   border-radius:2px;
   text-decoration: none;
-  color: #000;
+  color: var(--text-color);
 
   &:hover  {
-    background-color: rgba(25, 135, 84, 0.822);
-    color:#fff;
+    background-color: var(--primary-color);
+    color: #fff;
   }
 }
 
@@ -40,15 +40,17 @@
     cursor:pointer;
     border-radius: 50%;
     transition: .13s linear;
+    fill: var(--text-color);
+  }
 
-    &:hover {
-      background-color: rgb(220,220,220);
-    }
+  .edit-btn:hover {
+    background-color: var(--primary-color);
+    fill: var(--page-bg);
   }
 
   .delete-btn:hover {
-    background-color: rgba(206, 0, 0, 0.836);
-    // fill:#fff;
+    background-color: var(--bin-hover-bg);
+    fill: var(--page-bg);
   }
 }
 

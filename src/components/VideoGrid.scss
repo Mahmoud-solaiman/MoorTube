@@ -3,7 +3,7 @@
   gap:.2em;
   grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
   padding:6em 1em 1em 1em;
-  background-color: rgb(245, 245, 245);
+  background-color: var(--page-bg);
 }
 
 .video-container {
@@ -80,6 +80,7 @@
     border-radius: 50%;
     padding:.4em;
     transition: .15s linear;
+    fill: var(--text-color);
 
     &:hover {
       background-color: rgba(255, 255, 255, 0.5);
