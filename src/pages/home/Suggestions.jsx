@@ -8,7 +8,10 @@ export function Suggestions({
   setChannelVideos,
   setChannelLogo,
   searchHistory,
-  searchText
+  setSearchHistory,
+  searchText,
+  fetchChannelsData,
+  searchField
 }) {
   // The function that fetches the videos of the desired channel
   const fetchChannelVideos = async (index) => {
@@ -47,6 +50,16 @@ export function Suggestions({
     setIsSuggestions(false); // Hide the suggestions component
   }
 
+  function deleteHistorySuggestion(key) {
+    const currentHistory = JSON.parse(localStorage.getItem('search-history'));
+    const updatedHistory = currentHistory.filter(item => item.key !== key);
+    const updatedSuggestions = searchHistory.filter(item => item.key !== key);
+    setSearchHistory(updatedSuggestions);
+
+    !updatedSuggestions.length && setIsSuggestions(false);
+    localStorage.setItem('search-history', JSON.stringify(updatedHistory));
+  }
+
   // The JSX of the Suggestions component
   return (
     <div className="suggestions-box">
@@ -74,8 +87,8 @@ export function Suggestions({
         }) :
         <div className="search-history">
           <div className="clear-history-container">
-            <button 
-              className="clear-history-btn" 
+            <button
+              className="clear-history-btn"
               onClick={() => {
                 localStorage.removeItem('search-history');
                 setIsSuggestions(false);
@@ -85,9 +98,39 @@ export function Suggestions({
           {
             searchHistory.map((item, index) => {
               return (
-                <div key={index} className="search-history-suggestion">
-                  {searchText}
-                  <span className="match-bold">{item.slice(searchText.length)}</span>
+                <div
+                  key={index}
+                  className="search-history-suggestion"
+                  onMouseEnter={() => {
+                    searchField.current.value = searchText + item.searchName.slice(searchText.length);
+                  }}
+                  onMouseLeave={() => {
+                    searchField.current.value = searchText;
+                  }}
+                >
+
+                  <div className="clock-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="clock" viewBox="0 0 640 640">
+                      <path d="M528 320C528 434.9 434.9 528 320 528C205.1 528 112 434.9 112 320C112 205.1 205.1 112 320 112C434.9 112 528 205.1 528 320zM64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320zM296 184L296 320C296 328 300 335.5 306.7 340L402.7 404C413.7 411.4 428.6 408.4 436 397.3C443.4 386.2 440.4 371.4 429.3 364L344 307.2L344 184C344 170.7 333.3 160 320 160C306.7 160 296 170.7 296 184z" />
+                    </svg>
+                  </div>
+
+                  <div 
+                    className="suggestion-text"
+                    onClick={() => {
+                      searchField.current.value = item.searchName;
+                      fetchChannelsData(searchField.current.value);
+                    }}
+                  >
+                    {searchText}
+                    <span className="match-bold">{item.searchName.slice(searchText.length)}</span>
+                  </div>
+
+                  <div className="delete-btn-container">
+                    <svg onClick={() => deleteHistorySuggestion(item.key)} className="suggestion-delete-btn" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+                      <path d="M12 11.293l10.293-10.293.707.707-10.293 10.293 10.293 10.293-.707.707-10.293-10.293-10.293 10.293-.707-.707 10.293-10.293-10.293-10.293.707-.707 10.293 10.293z" />
+                    </svg>
+                  </div>
                 </div>
               );
             })

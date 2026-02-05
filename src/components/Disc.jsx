@@ -78,7 +78,7 @@ export function Disc({
       </Link>
       <div className='disc-controls-container'>
         <svg
-          xmlns={isEdit ? "../assets/checkmark.svg" : "../assets/pen.svg"}
+          xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 640 640"
           className='edit-btn'
           onTransitionEnd={e => e.stopPropagation()}
@@ -97,7 +97,7 @@ export function Disc({
 
         </svg>
         <svg
-          xmlns="../assets/trash-can.svg"
+          xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 640 640"
           onPointerUp={() => setShowDelete(true)}
           onTransitionEnd={e => e.stopPropagation()}

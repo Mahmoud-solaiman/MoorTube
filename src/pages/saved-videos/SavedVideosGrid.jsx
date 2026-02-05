@@ -36,7 +36,7 @@ export function SavedVideosGrid({ savedVideosDetails }) {
                 </div>
                 <div className="saved-video-controls">
                   <svg
-                    xmlns="../assets/dots.svg"
+                    xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 640 640"
                     className='three-dots-saved-video'
                   >

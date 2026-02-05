@@ -71,16 +71,45 @@
 
 .search-history-suggestion {
   color: var(--text-color);
-  padding: .45em .7em;
+  padding-inline: .7em;
   font-size: 1.2rem;
   cursor: pointer;
+  display: grid;
+  grid-template-columns: 25px 1fr 25px;
+  gap: .6rem;
 
   &:hover {
     background-color: var(--suggestion-hover-bg);
   }
 
+  &:hover > .delete-btn-container > .suggestion-delete-btn {
+    display: inline;
+  }
+
+  .suggestion-text {
+    padding-block: .45em;
+  }
+
   .match-bold {
     font-weight: 700;
+  }
+}
+
+.clock-container, 
+.delete-btn-container {
+  padding-block: .45em;
+}
+
+.clock, .suggestion-delete-btn {
+  width:100%;
+  fill: var(--dim-gray);
+}
+
+.suggestion-delete-btn {
+  display: none;
+  
+  &:hover {
+    fill: var(--primary-color);
   }
 }
 
@@ -101,6 +130,8 @@
     }
   }
 }
+
+
 
 @keyframes suggestions {
   from {
