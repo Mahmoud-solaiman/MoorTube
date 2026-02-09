@@ -30,6 +30,12 @@ export default function App() {
       document.documentElement.classList.add('darkmode') :
       document.documentElement.classList.remove('darkmode');
   }, [isDarkMode])
+
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    if(window.matchMedia('(prefers-color-scheme: dark)').matches) setIsDarkMode(true);
+    if(!window.matchMedia('(prefers-color-scheme: dark)').matches) setIsDarkMode(false);
+  });
+  
   return (
     <Routes>
       <Route path="/" element={

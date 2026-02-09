@@ -21,7 +21,8 @@
 
 .logo-menu-container {
   display:grid;
-  grid-template-columns: 40px 120px;
+  align-items: center;
+  grid-template-columns: 40px 100px;
   gap: 1rem;
 }
 

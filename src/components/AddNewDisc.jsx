@@ -20,7 +20,7 @@ export function AddNewDisc({
     const currentDiscs = JSON.parse(localStorage.getItem('current-discs')) || []; // Pulling the current discs from the local storage
     const isDisc = currentDiscs.find(item => item.name.toLowerCase() === newDiscValueTrimmed.toLowerCase()); // Looking for any identical discs in the current discs
 
-    if (!isDisc && newDiscValueTrimmed) { // If disc doesn't exist and the new disc value isn't an empty value
+    if (!isDisc && newDiscValueTrimmed.length >= 5) { // If disc doesn't exist and the new disc value isn't an empty value
       // Push the new disc to the current discs
       currentDiscs.push({
         name: newDiscValueTrimmed,
@@ -39,12 +39,12 @@ export function AddNewDisc({
       setTranslate(0); // Show the SidePanel
       handleErrorMessage('Added successfully!'); // Show a message that the video has been added successfully
 
-    } if (isDisc) { // If the new disc alreay exists
+    } else if (isDisc) { // If the new disc alreay exists
       handleErrorMessage('Disc already exists! Please try a different name.'); // Error message that tells the user that disc already exists
 
-    } if (!newDiscValue.trim()) { // If the new disc is an empty value
+    } else if (!newDiscValueTrimmed) { // If the new disc is an empty value
       handleErrorMessage("Disc name can't be an empty value."); // Error message that tells the user that the disc can't be an empty value
-    } if (newDiscValue.trim().length && newDiscValue.trim().length < 5) {
+    } else if (newDiscValueTrimmed.length && newDiscValueTrimmed.length < 5) {
       handleErrorMessage("Disc name should at least be 5 characters");
     }
   }

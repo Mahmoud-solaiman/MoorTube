@@ -5,9 +5,9 @@ import './index.scss'; // The style sheet of this component
 import App from './App.jsx'; // Import the App component
 
 createRoot(document.getElementById('root')).render(
-  // <StrictMode>
+  <StrictMode>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  // </StrictMode>,
+  </StrictMode>,
 )
