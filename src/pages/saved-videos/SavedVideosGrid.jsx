@@ -1,7 +1,8 @@
+import { Link } from 'react-router-dom';
 import { handleDuration, handleViewCount, youtubeTimeAgo } from '../../../formatting.js';
 import './SavedVideosGrid.scss';
 
-export function SavedVideosGrid({ savedVideosDetails }) {
+export function SavedVideosGrid({ setVideoPlayerSrc, savedVideosDetails }) {
   return (
     <section className="saved-videos-grid">
       {
@@ -10,7 +11,7 @@ export function SavedVideosGrid({ savedVideosDetails }) {
             return (
               <div className="saved-video" key={item.id}>
                 <div className="sorting-method">{index + 1}</div>
-                <div className="saved-video-details">
+                <Link to="/watch" className="saved-video-details" onClick={() => setVideoPlayerSrc(`https://youtube.com/watch?v=${item.id}`)}>
                   <div className="saved-video-thumbnail-container">
                     <img
                       src={
@@ -33,7 +34,7 @@ export function SavedVideosGrid({ savedVideosDetails }) {
                       <span>{youtubeTimeAgo(item.snippet.publishedAt)}</span>
                     </h4>
                   </div>
-                </div>
+                </Link>
                 <div className="saved-video-controls">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

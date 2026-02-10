@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom"; // Import the Routes, and Rout
 import { Home } from "./pages/home/Home"; // Import the Home component
 import { PageNotFound } from "./pages/PageNotFound"; // Import the PageNotFound component
 import { SavedVideos } from "./pages/saved-videos/SavedVideos";
+import { Watch } from "./pages/watch/Watch";
 import { useEffect, useRef, useState } from "react";
 
 // The JSX of the App component and the Routes
@@ -16,6 +17,7 @@ export default function App() {
   const [showErrorMessage, setShowErrorMessage] = useState(null); //State to handle the setTimeout for disrendering the error message
   const sysPreferences = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem('mode-preference') ? JSON.parse(localStorage.getItem('mode-preference')) : sysPreferences);
+  const [ videoPlayerSrc, setVideoPlayerSrc ] = useState(null);
 
   //Function that handles the rendering and disrendering and the content of the error message
   function handleErrorMessage(message) {
@@ -68,6 +70,24 @@ export default function App() {
           setIsDarkMode={setIsDarkMode}
           errorMessage={errorMessage}
           isErrorMessage={isErrorMessage}
+          setVideoPlayerSrc={setVideoPlayerSrc}
+        />
+      } />
+      <Route path="/watch" element={
+        <Watch 
+          savedVideos={savedVideos}
+          setTranslate={setTranslate}
+          menuContainer={menuContainer}
+          isDarkMode={isDarkMode}
+          translate={translate}
+          discs={discs}
+          setDiscs={setDiscs}
+          handleErrorMessage={handleErrorMessage}
+          setSavedVideos={setSavedVideos}
+          setIsDarkMode={setIsDarkMode}
+          isErrorMessage={isErrorMessage}
+          errorMessage={errorMessage}
+          videoPlayerSrc={videoPlayerSrc}
         />
       } />
       <Route path="*" element={<PageNotFound />} />

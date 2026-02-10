@@ -54,6 +54,11 @@
 }
 
 .saved-video-details {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.saved-video-details {
   display: grid;
   grid-template-columns: 180px 1fr;
   gap:.5rem;

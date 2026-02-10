@@ -19,7 +19,8 @@ export function SavedVideos({
   isDarkMode,
   setIsDarkMode,
   errorMessage,
-  isErrorMessage
+  isErrorMessage,
+  setVideoPlayerSrc
 }) {
   const [ savedVideosDetails, setSavedVideosDetails ] = useState([]);
   const menuContainer = useRef(null);
@@ -58,7 +59,7 @@ export function SavedVideos({
       <div className="saved-videos">
         <SavedVideosPanel savedVideos={savedVideos} video={savedVideosDetails[0]} />
 
-        <SavedVideosGrid savedVideosDetails={savedVideosDetails} />
+        <SavedVideosGrid setVideoPlayerSrc={setVideoPlayerSrc} savedVideosDetails={savedVideosDetails} />
       </div>
       {
         (translate || translate === 0) &&
