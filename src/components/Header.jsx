@@ -18,7 +18,8 @@ export function Header({
   popUpChannelLogo,
   setPopUpChannelLogo,
   setChannelLogo,
-  isDarkMode
+  isDarkMode,
+  setWatchTitle
 }) {
   const [ isSuggestions, setIsSuggestions ] = useState(false); // This state controls whether to show the channels search suggestions or not
   const [ searchHistory, setSearchHistory ] = useState(JSON.parse(localStorage.getItem('search-history')) || []);
@@ -165,6 +166,7 @@ export function Header({
           {/* The ToggleSearch component */}
           <ToggleSearch
             toggleSearch={setIsChannel}
+            setWatchTitle={setWatchTitle}
           />
           {/* This renders the Suggestions component condictionally */}
           {

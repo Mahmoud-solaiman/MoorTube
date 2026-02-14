@@ -18,7 +18,9 @@ export function Home({
     isErrorMessage,
     errorMessage,
     isDarkMode,
-    setIsDarkMode
+    setIsDarkMode,
+    setVideoPlayerSrc,
+    setWatchTitle
   }) {
   //Variables and states that are shared across the app
   const [ channelVideos, setChannelVideos ] = useState(JSON.parse(sessionStorage.getItem('channel-videos')) || {}); // The videos for a specific channels returned from the channel filter
@@ -74,6 +76,7 @@ export function Home({
         setPopUpChannelLogo={setPopUpChannelLogo}
         setChannelLogo={setChannelLogo}
         isDarkMode={isDarkMode}
+        setWatchTitle={setWatchTitle}
       />
       {/* Render the SidePanel */}
       {
@@ -88,6 +91,7 @@ export function Home({
           setSavedVideos={setSavedVideos}
           isDarkMode={isDarkMode}
           setIsDarkMode={setIsDarkMode}
+          setWatchTitle={setWatchTitle}
         />
       }
       {
@@ -99,6 +103,7 @@ export function Home({
           setDiscs={setDiscs}
           setTranslate={setTranslate}
           handleErrorMessage={handleErrorMessage}
+          setVideoPlayerSrc={setVideoPlayerSrc}
         />
       }
       {
@@ -110,6 +115,7 @@ export function Home({
           setDiscs={setDiscs}
           setTranslate={setTranslate}
           handleErrorMessage={handleErrorMessage}
+          setVideoPlayerSrc={setVideoPlayerSrc}
         />
       }
       {

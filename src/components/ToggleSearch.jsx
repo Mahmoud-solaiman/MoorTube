@@ -1,7 +1,7 @@
 import './ToggleSearch.scss'; // The style sheet of this component
 
 // The JSX of this component
-export function ToggleSearch({ toggleSearch }) {
+export function ToggleSearch({ toggleSearch, setWatchTitle }) {
   return (
     <div className="toggle-search-container">
       Search for:
@@ -11,7 +11,10 @@ export function ToggleSearch({ toggleSearch }) {
       </div>
       <label
         htmlFor="video"
-        onPointerUp={() => toggleSearch(false)}
+        onPointerUp={() => {
+          toggleSearch(false);
+          setWatchTitle('From video search');
+        }}
         title="Video"
       > Video </label>
       <input
@@ -25,7 +28,10 @@ export function ToggleSearch({ toggleSearch }) {
       </div>
       <label
         htmlFor="channel"
-        onPointerUp={() => toggleSearch(true)}
+        onPointerUp={() => {
+          toggleSearch(true);
+          setWatchTitle('From channel search');
+        }}
         title="Channel"
       > Channel </label>
     </div>

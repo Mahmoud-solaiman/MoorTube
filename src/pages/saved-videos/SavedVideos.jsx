@@ -20,7 +20,8 @@ export function SavedVideos({
   setIsDarkMode,
   errorMessage,
   isErrorMessage,
-  setVideoPlayerSrc
+  setVideoPlayerSrc,
+  setWatchTitle
 }) {
   const [ savedVideosDetails, setSavedVideosDetails ] = useState([]);
   const menuContainer = useRef(null);
@@ -73,6 +74,7 @@ export function SavedVideos({
           setSavedVideos={setSavedVideos}
           isDarkMode={isDarkMode}
           setIsDarkMode={setIsDarkMode}
+          setWatchTitle={setWatchTitle}
         />
       }
 

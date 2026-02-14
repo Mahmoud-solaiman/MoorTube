@@ -4,13 +4,15 @@ import { Actions } from './Actions';
 import './VideoGrid.scss';
 import { DiscsActions } from './DiscsActions';
 import { AddNewDisc } from './AddNewDisc';
+import { Link } from 'react-router-dom';
 
 export function VideoGrid({
   channelLogo,
   videos,
   setDiscs,
   setTranslate,
-  handleErrorMessage
+  handleErrorMessage,
+  setVideoPlayerSrc
 }) {
   // This is the section for setting up all the variables and states and other hooks
   const [openIndex, setOpenIndex] = useState(null); // The state that toggles the disc actions on and off
@@ -65,6 +67,7 @@ export function VideoGrid({
         // If the videos from the YouTube data API returns the videos for that channel, then  render those videos onto the page
         Object.hasOwn(videos, 'items') &&
         videos.items.map((item, index) => { // Loop through the video list and return each video and render it on the page
+
           return (
             <div
               key={item.id}
@@ -74,9 +77,11 @@ export function VideoGrid({
                 const randomNum = Math.floor(Math.random() * videoBackgroundList.length);
                 setVideoBackgroundColor(videoBackgroundList[randomNum]);
                 setHoveredVideo(index);
+                setVideoPlayerSrc(`https://www.youtube.com/watch?v=${item.id}`)
               }}
               onMouseLeave={() => setHoveredVideo(undefined)} // Reset color when the hover is over
             >
+              <Link to="/watch" className="watch-link" />
               <div className="video">
                 <img
                   className='video-thumbnail'

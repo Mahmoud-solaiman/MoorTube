@@ -5,7 +5,8 @@ export function ChannelVideos({
   videos,
   setDiscs,
   setTranslate,
-  handleErrorMessage
+  handleErrorMessage,
+  setVideoPlayerSrc
 }) {
   return (
     <VideoGrid
@@ -14,6 +15,7 @@ export function ChannelVideos({
       setDiscs={setDiscs}
       setTranslate={setTranslate}
       handleErrorMessage={handleErrorMessage}
+      setVideoPlayerSrc={setVideoPlayerSrc}
     />
   );
 }

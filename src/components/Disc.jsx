@@ -11,7 +11,8 @@ export function Disc({
   deleteConfirmationRef,
   handleErrorMessage,
   setSavedVideos,
-  discObject
+  discObject,
+  setWatchTitle
 }) {
   //Functions and Variables ==> Javascript + React
   // Hooks
@@ -70,7 +71,8 @@ export function Disc({
         title={title}
         style={isEdit ? { display: 'none' } : null}
         onPointerDown={() => { 
-          setSavedVideos(discObject) 
+          setSavedVideos(discObject);
+          setWatchTitle(discObject.name);
           localStorage.setItem('disc', JSON.stringify(discObject));
         }}
       >

@@ -4,7 +4,7 @@ export function WebIntro({ isDarkMode }) {
   return (
     <div className="web-intro-container">
       <div className="youtube-logo-container">
-        <img src="./youtube.png" alt="YouTube logo" />
+        <img src={isDarkMode ? "./youtube-dark.png" : "./youtube-light.png"} alt="YouTube logo" />
       </div>
       <div className="plus-sign">&#43;</div>
       <div className="no-distractions-text-container">

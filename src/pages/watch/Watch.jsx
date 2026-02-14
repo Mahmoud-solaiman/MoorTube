@@ -5,7 +5,6 @@ import './Watch.scss';
 import { VideoPlayer } from './VideoPlayer';
 
 export function Watch({
-  savedVideos,
   setTranslate,
   menuContainer,
   isDarkMode,
@@ -17,7 +16,9 @@ export function Watch({
   setIsDarkMode,
   isErrorMessage,
   errorMessage,
-  videoPlayerSrc
+  videoPlayerSrc,
+  watchTitle,
+  setWatchTitle
 }) {
   return (
     <>
@@ -26,7 +27,7 @@ export function Watch({
         <ErrorMessage errorMessage={errorMessage} />
       }
       <SavedVideosHeader
-        discTitle={savedVideos.name}
+        discTitle={watchTitle}
         setTranslate={setTranslate}
         menuContainer={menuContainer}
         isDarkMode={isDarkMode}
@@ -48,6 +49,7 @@ export function Watch({
           setSavedVideos={setSavedVideos}
           isDarkMode={isDarkMode}
           setIsDarkMode={setIsDarkMode}
+          setWatchTitle={setWatchTitle}
         />
       }
     </>

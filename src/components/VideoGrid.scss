@@ -12,6 +12,9 @@
   padding:.6em;
   border-radius:12px;
   animation: videoSection .3s linear;
+  text-decoration: none;
+  color: var(--text-color);
+  position: relative;
 }
 
 @keyframes videoSection {
@@ -23,6 +26,12 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.watch-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 }
 
 .video {
@@ -75,6 +84,7 @@
 }
 
 .dots-container {
+  z-index: 2;
   svg {
     width:35px;
     border-radius: 50%;

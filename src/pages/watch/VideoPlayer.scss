@@ -1,3 +1,86 @@
+$slider-size: 5px;
+
 .player-container {
   border-radius: 15px;
+  position: relative;
+
+  &:hover > .timeslider, 
+  &:hover > .controls-container {
+    opacity: 1;
+  }
+}
+
+.vds-gesture {
+  position: absolute;
+  inset: 0;
+}
+
+.blur-layer {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background-color: rgb(155 155 155 / .3);
+  -webkit-backdrop-filter: blur(60px);
+  backdrop-filter: blur(60px);
+  border-radius: 15px;
+}
+
+.timeslider {
+  height: $slider-size;
+  position: absolute;
+  inset: auto 5px 50px 5px;
+  cursor: pointer;
+  transition: .15s linear;
+  opacity: 0;
+  background-color: rgb(50 50 50 / .4);
+  z-index: 999;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover > .timeslider-thumb {
+    inset: -5px 0 auto var(--slider-fill);
+    display: block;
+  }
+
+  &:hover > .timeslider-track {
+    width: var(--slider-pointer);
+  }
+}
+
+.timeslider-track {
+  width: 0;
+  height: $slider-size;
+  background-color: rgb(255 255 255 / .3);
+  border-radius: 2px;
+}
+
+.timeslider-trackfill {
+  height: $slider-size;
+  background-color: var(--primary-color);
+  position: absolute;
+  width: var(--slider-fill);
+  inset: 0 0 auto 0;
+  z-index: 10;
+  border-radius: 2px;
+  transition: .05s linear;
+}
+
+.timeslider-progress {
+  height: $slider-size;
+  background-color: rgb(255 255 255 / .5);
+  position: absolute;
+  inset: 0 0 auto 0;
+  border-radius: 2px;
+  width: var(--slider-progress);
+}
+
+.timeslider-thumb {
+  width: 15px;
+  height: 15px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  position: absolute;
+  display: none;
 }

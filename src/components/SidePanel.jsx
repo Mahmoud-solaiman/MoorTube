@@ -11,7 +11,8 @@ export function SidePanel({
   handleErrorMessage,
   setSavedVideos,
   isDarkMode,
-  setIsDarkMode
+  setIsDarkMode,
+  setWatchTitle
 }) {
   //Javascript and React functions and variables
   const [ discFieldValue, setDiscFieldValue ] = useState('');
@@ -168,6 +169,7 @@ export function SidePanel({
                     handleErrorMessage={handleErrorMessage}
                     setSavedVideos={setSavedVideos}
                     discObject={disc}
+                    setWatchTitle={setWatchTitle}
                   />
                 )
               }) :
