@@ -19,7 +19,6 @@ export function Home({
     errorMessage,
     isDarkMode,
     setIsDarkMode,
-    setVideoPlayerSrc,
     setWatchTitle
   }) {
   //Variables and states that are shared across the app
@@ -103,7 +102,6 @@ export function Home({
           setDiscs={setDiscs}
           setTranslate={setTranslate}
           handleErrorMessage={handleErrorMessage}
-          setVideoPlayerSrc={setVideoPlayerSrc}
         />
       }
       {
@@ -115,7 +113,6 @@ export function Home({
           setDiscs={setDiscs}
           setTranslate={setTranslate}
           handleErrorMessage={handleErrorMessage}
-          setVideoPlayerSrc={setVideoPlayerSrc}
         />
       }
       {

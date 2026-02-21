@@ -3,11 +3,6 @@ $slider-size: 5px;
 .player-container {
   border-radius: 15px;
   position: relative;
-
-  &:hover > .timeslider, 
-  &:hover > .controls-container {
-    opacity: 1;
-  }
 }
 
 .vds-gesture {
@@ -31,7 +26,6 @@ $slider-size: 5px;
   inset: auto 5px 50px 5px;
   cursor: pointer;
   transition: .15s linear;
-  opacity: 0;
   background-color: rgb(50 50 50 / .4);
   z-index: 999;
 
@@ -47,6 +41,10 @@ $slider-size: 5px;
   &:hover > .timeslider-track {
     width: var(--slider-pointer);
   }
+}
+
+.timeslider.hidden {
+  opacity: 0;
 }
 
 .timeslider-track {

@@ -17,8 +17,7 @@ export default function App() {
   const [ showErrorMessage, setShowErrorMessage ] = useState(null); //State to handle the setTimeout for disrendering the error message
   const sysPreferences = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const [ isDarkMode, setIsDarkMode ] = useState(localStorage.getItem('mode-preference') ? JSON.parse(localStorage.getItem('mode-preference')) : sysPreferences);
-  const [ videoPlayerSrc, setVideoPlayerSrc ] = useState(null);
-  const [ watchTitle, setWatchTitle ] = useState('From channel search');
+  const [ watchTitle, setWatchTitle ] = useState('Channel search');
 
   //Function that handles the rendering and disrendering and the content of the error message
   function handleErrorMessage(message) {
@@ -55,7 +54,6 @@ export default function App() {
           errorMessage={errorMessage}
           isDarkMode={isDarkMode}
           setIsDarkMode={setIsDarkMode}
-          setVideoPlayerSrc={setVideoPlayerSrc}
           setWatchTitle={setWatchTitle}
         />
       } />
@@ -73,7 +71,6 @@ export default function App() {
           setIsDarkMode={setIsDarkMode}
           errorMessage={errorMessage}
           isErrorMessage={isErrorMessage}
-          setVideoPlayerSrc={setVideoPlayerSrc}
           setWatchTitle={setWatchTitle}
         />
       } />
@@ -90,7 +87,6 @@ export default function App() {
           setIsDarkMode={setIsDarkMode}
           isErrorMessage={isErrorMessage}
           errorMessage={errorMessage}
-          videoPlayerSrc={videoPlayerSrc}
           watchTitle={watchTitle}
           setWatchTitle={setWatchTitle}
         />

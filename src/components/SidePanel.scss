@@ -34,11 +34,6 @@
   gap: .5rem;
   font-size: 0;
   cursor: pointer;
-
-  .mode-label {
-    font-size: 1.1rem;
-    font-weight: 600;
-  }
 }
 
 .sun, 
@@ -47,7 +42,7 @@
   height: 30px;
   fill: var(--theme-toggler-color);
   transition: .15s linear;
-  animation: rotate-toggler .15s linear forwards;
+  animation: rotate-toggler 10s linear infinite;
 
   &:hover {
     scale: 1.1;
@@ -59,7 +54,7 @@
     transform: rotateZ(0deg);
   }
   to {
-    transform: rotateZ(240deg);
+    transform: rotateZ(360deg);
   }
 }
 

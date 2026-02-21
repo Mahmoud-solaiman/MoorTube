@@ -9,36 +9,50 @@ import {
 import './VideoPlayer.scss';
 import { useState } from 'react';
 import { Controls } from './Controls';
+import { useSearchParams } from 'react-router-dom';
 
-export function VideoPlayer({ videoPlayerSrc }) {
-  const [ isPlaying, setIsPlaying ] = useState(true);
+export function VideoPlayer() {
   const [ isBlur, setIsBlur ] = useState(false);
+  const [ searchParams ] = useSearchParams();
+  const [ isShowControls, setIsShowControls ] = useState(false);
+  const video = `https://youtube.com/watch?v=${searchParams.get('v')}`;
+  const [ isActive, setIsActive ] = useState(null);
+
+  function hideControls() {
+    setIsShowControls(true);
+    clearTimeout(isActive);
+
+    setIsActive(setTimeout(() => setIsShowControls(false), 3000));
+  }
 
   return (
     <MediaPlayer
       title="Sprite Fight"
-      src={videoPlayerSrc}
+      src={video}
       autoPlay
       className="player-container"
-      onClick={() => setIsPlaying(!isPlaying)}
+      onMouseLeave={() => setIsShowControls(false)}
+      onMouseMove={hideControls}
+      onTouchEnd={hideControls}
+      style={{cursor: isShowControls ? 'default' : 'none'}}
     >
       <MediaProvider />
-      <Gesture className="vds-gesture" event="dblpointerup" action="toggle:fullscreen" />
-      <Gesture className="vds-gesture" event="pointerup" action="toggle:paused"/>
+      <Gesture className="vds-gesture" event="dblmouseup" action="toggle:fullscreen" />
+      <Gesture className="vds-gesture" event="mouseup" action="toggle:paused" />
 
       { 
         isBlur && 
-        <div aria-label="blur" aria-hidden="true" className="blur-layer"></div>
+        <div aria-hidden="true" className="blur-layer"></div>
       }
 
-      <TimeSlider.Root className="timeslider" >
+      <TimeSlider.Root className={isShowControls ? "timeslider" : "timeslider hidden"} >
         <TimeSlider.Track className="timeslider-track" />
         <TimeSlider.TrackFill className="timeslider-trackfill" />
         <TimeSlider.Progress className="timeslider-progress" />
         <TimeSlider.Thumb className="timeslider-thumb" />
       </TimeSlider.Root>
 
-      <Controls isPlaying={isPlaying} isBlur={isBlur} setIsBlur={setIsBlur} />
+      <Controls isBlur={isBlur} setIsBlur={setIsBlur} isShowControls={isShowControls} />
       
     </MediaPlayer>
   );

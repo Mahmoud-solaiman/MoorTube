@@ -30,7 +30,7 @@ export function Suggestions({
         key: apiKey,
         part: 'snippet, contentDetails',
         playlistId: request.data.items[0].contentDetails.relatedPlaylists.uploads,
-        maxResults: '50'
+        maxResults: '27'
       }
     });
 

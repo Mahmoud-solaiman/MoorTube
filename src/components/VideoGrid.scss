@@ -1,7 +1,7 @@
 .video-section {
   display:grid;
   gap:.2em;
-  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(360px, 100%), 1fr));
   padding:6em 1em 1em 1em;
   background-color: var(--page-bg);
 }
@@ -26,12 +26,6 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.watch-link {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
 }
 
 .video {
@@ -95,6 +89,12 @@
     &:hover {
       background-color: rgba(255, 255, 255, 0.5);
     }
+  }
+}
+
+@media (width < 800px) and (width > 500px) {
+  .video-section {
+    padding-top: 200px;
   }
 }
 

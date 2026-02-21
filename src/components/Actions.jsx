@@ -16,7 +16,8 @@ export function Actions({
         onPointerDown={e => {
           actionsContainerRef.current = e.target.parentElement;
         }}
-        onPointerUp={() => {
+        onPointerUp={e => {
+          e.stopPropagation();
           setOpenDisc(index);
           setOpenNewAdder(null);
         }}
@@ -31,7 +32,8 @@ export function Actions({
         onPointerDown={e => {
           actionsContainerRef.current = e.target.parentElement;
         }}
-        onPointerUp={() => {
+        onPointerUp={e => {
+          e.stopPropagation();
           setOpenNewAdder(index);
           setOpenDisc(null)
         }}

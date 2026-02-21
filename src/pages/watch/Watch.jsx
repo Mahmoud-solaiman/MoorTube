@@ -16,7 +16,6 @@ export function Watch({
   setIsDarkMode,
   isErrorMessage,
   errorMessage,
-  videoPlayerSrc,
   watchTitle,
   setWatchTitle
 }) {
@@ -34,7 +33,7 @@ export function Watch({
       />
 
       <div className="player-videos-container">
-        <VideoPlayer videoPlayerSrc={videoPlayerSrc} />
+        <VideoPlayer />
       </div>
 
       {

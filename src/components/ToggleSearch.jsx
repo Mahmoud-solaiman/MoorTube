@@ -13,7 +13,7 @@ export function ToggleSearch({ toggleSearch, setWatchTitle }) {
         htmlFor="video"
         onPointerUp={() => {
           toggleSearch(false);
-          setWatchTitle('From video search');
+          setWatchTitle('Video search');
         }}
         title="Video"
       > Video </label>
@@ -30,7 +30,7 @@ export function ToggleSearch({ toggleSearch, setWatchTitle }) {
         htmlFor="channel"
         onPointerUp={() => {
           toggleSearch(true);
-          setWatchTitle('From channel search');
+          setWatchTitle('Channel search');
         }}
         title="Channel"
       > Channel </label>

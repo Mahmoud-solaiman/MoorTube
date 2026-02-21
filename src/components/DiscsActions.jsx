@@ -41,6 +41,7 @@ export function DiscsActions({
           discsContainerRef.current = e.currentTarget;
         }
       }}
+      onPointerUp={e => e.stopPropagation()}
     >
       {
         discs.length ?
@@ -49,7 +50,8 @@ export function DiscsActions({
             <div 
               key={item.id} 
               className='disc-actions'
-              onPointerDown={e => {
+              onPointerUp={e => {
+                e.stopPropagation();
                 discsContainerRef.current = e.target.parentElement;
                 saveVideo(item.items);
               }}

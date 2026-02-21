@@ -79,7 +79,7 @@ export function Header({
           part: 'snippet',
           q: search,
           key: api_key,
-          maxResults: 50,
+          maxResults: 27,
           type: 'video'
         }
       });

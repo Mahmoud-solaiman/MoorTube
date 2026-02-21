@@ -56,6 +56,7 @@ export function AddNewDisc({
       onPointerDown={e => {
         newAdderContainerRef.current = e.currentTarget;
       }}
+      onPointerUp={e => e.stopPropagation()}
     >
       <input
         autoComplete="off"

@@ -4,15 +4,14 @@ import { Actions } from './Actions';
 import './VideoGrid.scss';
 import { DiscsActions } from './DiscsActions';
 import { AddNewDisc } from './AddNewDisc';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export function VideoGrid({
   channelLogo,
   videos,
   setDiscs,
   setTranslate,
-  handleErrorMessage,
-  setVideoPlayerSrc
+  handleErrorMessage
 }) {
   // This is the section for setting up all the variables and states and other hooks
   const [openIndex, setOpenIndex] = useState(null); // The state that toggles the disc actions on and off
@@ -37,6 +36,7 @@ export function VideoGrid({
   const [videoBackgroundColor, setVideoBackgroundColor] = useState('initial');
   const [hoveredVideo, setHoveredVideo] = useState(undefined);
   const [isOpenTop, setIsOpenTop] = useState(false);
+  const navigate = useNavigate();
 
   //The function that handles hidding the actions, discs, and new disc adder when clicking on the screen
   useEffect(() => {
@@ -57,7 +57,7 @@ export function VideoGrid({
       }
     }
 
-    document.addEventListener('pointerdown', hideActions);
+    document.addEventListener('pointerup', hideActions);
   });
 
   //The JSX of the videos grid when searching for a channel
@@ -77,11 +77,10 @@ export function VideoGrid({
                 const randomNum = Math.floor(Math.random() * videoBackgroundList.length);
                 setVideoBackgroundColor(videoBackgroundList[randomNum]);
                 setHoveredVideo(index);
-                setVideoPlayerSrc(`https://www.youtube.com/watch?v=${item.id}`)
               }}
               onMouseLeave={() => setHoveredVideo(undefined)} // Reset color when the hover is over
+              onPointerUp={() => navigate(`/watch?v=${item.id}`)}
             >
-              <Link to="/watch" className="watch-link" />
               <div className="video">
                 <img
                   className='video-thumbnail'
@@ -115,6 +114,7 @@ export function VideoGrid({
                     viewBox="0 0 640 640"
                     className='three-dots-video'
                     onPointerUp={(e) => {
+                      e.stopPropagation();
                       openIndex === index ? setOpenIndex(null) : setOpenIndex(index); // Toggle the actions when clicking the three dots
                       setOpenDisc(null); // Hide the discs whenever user clicks the three dots
                       setOpenNewAdder(null); // Hide new disc adder whenever user clicks the three dots

@@ -20,7 +20,6 @@ export function SavedVideos({
   setIsDarkMode,
   errorMessage,
   isErrorMessage,
-  setVideoPlayerSrc,
   setWatchTitle
 }) {
   const [ savedVideosDetails, setSavedVideosDetails ] = useState([]);
@@ -60,7 +59,7 @@ export function SavedVideos({
       <div className="saved-videos">
         <SavedVideosPanel savedVideos={savedVideos} video={savedVideosDetails[0]} />
 
-        <SavedVideosGrid setVideoPlayerSrc={setVideoPlayerSrc} savedVideosDetails={savedVideosDetails} />
+        <SavedVideosGrid savedVideosDetails={savedVideosDetails} />
       </div>
       {
         (translate || translate === 0) &&

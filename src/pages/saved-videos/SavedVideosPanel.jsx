@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import './SavedVideosPanel.scss';
 
 export function SavedVideosPanel({ savedVideos, video }) {
+  const navigate = useNavigate();
+
   return (
     <aside className="panel-outer" style={{
       backgroundImage: `url(${
@@ -13,6 +16,11 @@ export function SavedVideosPanel({ savedVideos, video }) {
     }}>
       <section className="panel-inner">
         <div className="top-video-container">
+          <div 
+            className="top-video-navigator" 
+            aria-hidden="true"
+            onClick={() => navigate(`/watch?v=${video.id}`)}
+          ></div>
           <img 
             src={
               video?.snippet.thumbnails.maxres?.url ||
