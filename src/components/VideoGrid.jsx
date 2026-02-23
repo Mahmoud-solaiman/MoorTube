@@ -4,7 +4,7 @@ import { Actions } from './Actions';
 import './VideoGrid.scss';
 import { DiscsActions } from './DiscsActions';
 import { AddNewDisc } from './AddNewDisc';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export function VideoGrid({
   channelLogo,
@@ -33,8 +33,6 @@ export function VideoGrid({
     '#1134a633',
     '#f4ba1c33'
   ];
-  const [videoBackgroundColor, setVideoBackgroundColor] = useState('initial');
-  const [hoveredVideo, setHoveredVideo] = useState(undefined);
   const [isOpenTop, setIsOpenTop] = useState(false);
   const navigate = useNavigate();
 
@@ -71,14 +69,14 @@ export function VideoGrid({
           return (
             <div
               key={item.id}
-              style={hoveredVideo === index ? { backgroundColor: videoBackgroundColor } : undefined} // Set the background-color to a random color from the array above to mimic the YouTube video hover effect
+              // style={hoveredVideo === index ? { backgroundColor: videoBackgroundColor } : {backgroundColor: 'initial'}} // Set the background-color to a random color from the array above to mimic the YouTube video hover effect
               className='video-container'
-              onMouseEnter={() => { //The event that handles the functionality of the hover effect of the video
+              onPointerEnter={(e) => { //The event that handles the functionality of the hover effect of the video
+                if (e.pointerType === 'touch' || e.pointerType === 'pen') return;
                 const randomNum = Math.floor(Math.random() * videoBackgroundList.length);
-                setVideoBackgroundColor(videoBackgroundList[randomNum]);
-                setHoveredVideo(index);
+                e.currentTarget.style.setProperty('--bg-video-hover', videoBackgroundList[randomNum]);
               }}
-              onMouseLeave={() => setHoveredVideo(undefined)} // Reset color when the hover is over
+              onMouseLeave={e => e.currentTarget.style.setProperty('--bg-video-hover', 'initial')} // Reset color when the hover is over
               onPointerUp={() => navigate(`/watch?v=${item.id}`)}
             >
               <div className="video">

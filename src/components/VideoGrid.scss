@@ -15,6 +15,7 @@
   text-decoration: none;
   color: var(--text-color);
   position: relative;
+  background-color: var(--bg-video-hover);
 }
 
 @keyframes videoSection {
@@ -29,7 +30,7 @@
 }
 
 .video {
-  height:195px;
+  height:215px;
   position: relative;
 
   .video-duration {
@@ -86,19 +87,26 @@
     transition: .15s linear;
     fill: var(--text-color);
 
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.5);
+    &:active {
+      border: 1px solid var(--video-settings-hover);
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--video-settings-hover);
+      }
     }
   }
 }
 
-@media (width < 800px) and (width > 500px) {
+@media (min-width: 501px) and (max-width: 850px) {
   .video-section {
-    padding-top: 200px;
+    padding-top: 180px;
+    grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
   }
 }
 
-@media (max-width: 500px) and (min-width:351px) {
+@media (max-width: 500px) and (min-width:371px) {
   .video-section {
     row-gap: 2rem;
     padding-top:170px;
@@ -107,14 +115,18 @@
   .video-container {
     padding:0;
   }
+
+  .video {
+    height: 240px;
+  }
 }
 
-@media (max-width: 350px) {
+@media (max-width: 370px) {
   html {
     font-size:15px;
   }
   .video-section {
-    padding:12em 0 1.5rem 0;
+    padding: 12em 0 1.5rem 0;
     gap:2rem;
   }
 
@@ -128,7 +140,11 @@
   }
 
   .video {
-    height:180px;
+    height:200px;
+  }
+
+  .video-info {
+    padding: .5em;
   }
 }
 
