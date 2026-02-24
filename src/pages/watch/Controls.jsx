@@ -7,7 +7,7 @@ export function Controls({ isBlur, setIsBlur, isShowControls }) {
   const isMuted = useMediaState('muted');
 
   return (
-    <div className={isShowControls ? "controls-container" : "controls-container hidden"} >
+    <div onTouchEnd={e => e.stopPropagation()} className={isShowControls ? "controls-container" : "controls-container hidden"} >
       <div className="play-controls">
 
         <PlayButton>

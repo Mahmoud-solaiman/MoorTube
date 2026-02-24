@@ -1,12 +1,21 @@
 .controls-container {
   position: absolute;
   inset: auto 10px 10px 10px;
-  height:30px;
+  height:35px;
   z-index: 10;
   transition: .15s linear;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media (hover: none) {
+    height: 45px;
+    display: none;
+  }
+
+  @media (hover: none) and (max-width: 720px) {
+    height: 40px;
+  }
 }
 
 .controls-container.hidden {
@@ -39,6 +48,8 @@
     padding: .4em .8em;
     border-radius: 30px;
     display: flex;
+    height: 100%;
+    align-items: center;
 
     [data-type="current"] {
       margin-right: .3rem;
@@ -47,12 +58,16 @@
     [data-type="duration"] {
       margin-left: .3rem;
     }
+
+    @media (hover: none) {
+      font-size: 1.4rem;
+    }
   }
 }
 
 
 .custom-controls {
-  height: 120%;
+  height: 100%;
   display: flex;
   gap: .8rem;
   align-items: center;
@@ -86,6 +101,16 @@
     border-radius: 50%;
     background-color: var(--primary-color);
     transition: .2s linear;
+  }
+  
+  @media (hover: none) {
+    width: 52px;
+    height: 25px;
+
+    div {
+      width: 17px;
+      height: 17px;
+    }
   }
 }
 

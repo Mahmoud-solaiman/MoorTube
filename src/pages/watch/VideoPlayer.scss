@@ -8,6 +8,10 @@ $slider-size: 5px;
 .vds-gesture {
   position: absolute;
   inset: 0;
+
+  @media (hover: none) {
+    display: none;
+  }
 }
 
 .blur-layer {
@@ -23,7 +27,7 @@ $slider-size: 5px;
 .timeslider {
   height: $slider-size;
   position: absolute;
-  inset: auto 5px 50px 5px;
+  inset: auto 5px 60px 5px;
   cursor: pointer;
   transition: .15s linear;
   background-color: rgb(50 50 50 / .4);
@@ -40,6 +44,14 @@ $slider-size: 5px;
 
   &:hover > .timeslider-track {
     width: var(--slider-pointer);
+  }
+
+  @media (hover: none) {
+    bottom: 80px;
+  }
+
+  @media (hover: none) and (max-width: 720px) {
+    bottom: 60px;
   }
 }
 
@@ -81,4 +93,10 @@ $slider-size: 5px;
   border-radius: 50%;
   position: absolute;
   display: none;
+}
+
+@media (max-width: 800px) {
+  .player-container, .blur-layer {
+    border-radius: 0;
+  }
 }

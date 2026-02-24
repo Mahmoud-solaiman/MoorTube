@@ -10,13 +10,14 @@ import './VideoPlayer.scss';
 import { useState } from 'react';
 import { Controls } from './Controls';
 import { useSearchParams } from 'react-router-dom';
+import ControlsMobile from './ControlsMobile';
 
 export function VideoPlayer() {
-  const [ isBlur, setIsBlur ] = useState(false);
-  const [ searchParams ] = useSearchParams();
-  const [ isShowControls, setIsShowControls ] = useState(false);
+  const [isBlur, setIsBlur] = useState(false);
+  const [searchParams] = useSearchParams();
+  const [isShowControls, setIsShowControls] = useState(false);
   const video = `https://youtube.com/watch?v=${searchParams.get('v')}`;
-  const [ isActive, setIsActive ] = useState(null);
+  const [isActive, setIsActive] = useState(null);
 
   function hideControls() {
     setIsShowControls(true);
@@ -25,23 +26,40 @@ export function VideoPlayer() {
     setIsActive(setTimeout(() => setIsShowControls(false), 3000));
   }
 
+  function handleControlsMobile() {
+    if (isShowControls) {
+      setIsShowControls(false);
+    } else if (!isShowControls) {
+      setIsShowControls(true);
+      clearTimeout(isActive);
+
+      setIsActive(setTimeout(() => setIsShowControls(false), 3000));
+    }
+  }
+
   return (
     <MediaPlayer
       title="Sprite Fight"
       src={video}
       autoPlay
       className="player-container"
-      onMouseLeave={() => setIsShowControls(false)}
-      onMouseMove={hideControls}
-      onTouchEnd={hideControls}
-      style={{cursor: isShowControls ? 'default' : 'none'}}
+      onPointerLeave={e => {
+        if (e.pointerType !== 'mouse') return;
+        setIsShowControls(false);
+      }}
+      onPointerMove={e => {
+        if (e.pointerType !== 'mouse') return;
+        hideControls();
+      }}
+      onTouchEnd={handleControlsMobile}
+      style={{ cursor: isShowControls ? 'default' : 'none' }}
     >
       <MediaProvider />
       <Gesture className="vds-gesture" event="dblmouseup" action="toggle:fullscreen" />
       <Gesture className="vds-gesture" event="mouseup" action="toggle:paused" />
 
-      { 
-        isBlur && 
+      {
+        isBlur &&
         <div aria-hidden="true" className="blur-layer"></div>
       }
 
@@ -53,7 +71,8 @@ export function VideoPlayer() {
       </TimeSlider.Root>
 
       <Controls isBlur={isBlur} setIsBlur={setIsBlur} isShowControls={isShowControls} />
-      
+      <ControlsMobile isBlur={isBlur} setIsBlur={setIsBlur} isShowControls={isShowControls} />
+
     </MediaPlayer>
   );
 }

@@ -4,3 +4,16 @@
   grid-template-columns: 1fr 30%;
   position: relative;
 }
+
+@media (max-width: 1000px) {
+  .player-videos-container {
+    padding-top: 4.8rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .player-videos-container {
+    grid-template-columns: 100%;
+    padding-inline: 0;
+  }
+}

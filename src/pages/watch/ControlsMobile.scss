@@ -1,0 +1,87 @@
+.controls-container-mobile {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 100%;
+  padding: 1em;
+  transition: .15s linear;
+
+  & > div {
+    z-index: 10;
+  }
+  .custom-controls {
+    height: 40px;
+    justify-self: right;
+    align-self: flex-start;
+  }
+
+  .play-controls {
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    gap: 4rem;
+
+    & > svg {
+      height: 100%;
+      fill: #fff;
+      background-color: var(--primary-color-transparent);
+      padding: .3em;
+      border-radius: 50%;
+    }
+
+    @media (max-width: 720px) {
+      height: 50px;
+    }
+  }
+
+  .player-controls {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    justify-content: space-between;
+    align-self: flex-end;
+
+    .video-time-mobile {
+      background-color: var(--primary-color-transparent);
+      padding: .4em .8em;
+      border-radius: 30px;
+      display: flex;
+      height: 100%;
+      align-items: center;
+
+      [data-type="current"] {
+        margin-right: .3rem;
+      }
+
+      [data-type="duration"] {
+        margin-left: .3rem;
+      }
+
+      @media (hover: none) {
+        font-size: 1.4rem;
+      }
+
+    }
+
+    button {
+      background-color: var(--primary-color-transparent);
+      height: 40px;
+      width: 40px;
+      border: none;
+      fill: #fff;
+    }
+  }
+}
+
+.controls-container-mobile.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+@media (hover: hover) {
+  .controls-container-mobile {
+    display: none;
+  }
+}
