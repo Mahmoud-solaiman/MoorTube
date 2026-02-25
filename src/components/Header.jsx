@@ -21,10 +21,25 @@ export function Header({
   isDarkMode,
   setWatchTitle
 }) {
-  const [ isSuggestions, setIsSuggestions ] = useState(false); // This state controls whether to show the channels search suggestions or not
-  const [ searchHistory, setSearchHistory ] = useState(JSON.parse(localStorage.getItem('search-history')) || []);
-  const [ searchText, setSearchText ] = useState(''); // The state of the search field to control its value
+  const [isSuggestions, setIsSuggestions] = useState(false); // This state controls whether to show the channels search suggestions or not
+  const [searchHistory, setSearchHistory] = useState(JSON.parse(localStorage.getItem('search-history')) || []);
+  const [searchText, setSearchText] = useState(''); // The state of the search field to control its value
   const searchField = useRef(null);
+
+  // This function handles adding the searches to the search history making sure none repeats twice.
+  function AddToSearchHistory(search) {
+    const isSuggestion = searchHistory.find(item => item.searchName.toLowerCase() === search.trim().toLowerCase());
+    if (!isSuggestion) {
+      searchHistory.push(
+        {
+          searchName: search.trim(),
+          key: crypto.randomUUID()
+        }
+      );
+
+      localStorage.setItem('search-history', JSON.stringify(searchHistory));
+    }
+  }
 
   async function fetchChannelsData(search) {
     // If the search filter is set to channel, then search for channels using the following
@@ -56,24 +71,15 @@ export function Header({
       setPopUpChannelLogo(channelInfo.data);
       setSearchText(''); // Then set the search field value back to empty for better UX
       setIsSuggestions(true); // Then finally show those channels of the desired user search visually in the search suggestion popup
-    
-      // Add search to the history
-      const isSuggestion = searchHistory.find(item => item.searchName.toLowerCase() === search.trim().toLowerCase());
-      if (!isSuggestion) {
-        searchHistory.push(
-          {
-            searchName: search.trim(),
-            key: crypto.randomUUID()
-          }
-        );
 
-        localStorage.setItem('search-history', JSON.stringify(searchHistory));
-      }
+      AddToSearchHistory(search);
+
     }
     // End of logic if the search is for a channel
 
     // If search filter is set to video, then search for videos instead
     if (!isChannel && search.trim()) {
+            
       const videosRequest = await axios.get('https://www.googleapis.com/youtube/v3/search', {
         params: {
           part: 'snippet',
@@ -106,21 +112,8 @@ export function Header({
       setVideos(videosDetails.data);
       sessionStorage.setItem('videos', JSON.stringify(videosDetails.data));
       setSearchText('');
-      setIsSuggestions(false);
-    
-      // Add search to the history
-      const isSuggestion = searchHistory.find(item => item.searchName === search.trim().toLowerCase());
-      
-      if (!isSuggestion) {
-        searchHistory.push(
-          {
-            searchName: search.trim(),
-            key: crypto.randomUUID()
-          }
-        );
 
-        localStorage.setItem('search-history', JSON.stringify(searchHistory));
-      }
+      AddToSearchHistory(search);
     }
     // If the search field is empty 
     if (!search.trim()) {

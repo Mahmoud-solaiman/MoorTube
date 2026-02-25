@@ -11,10 +11,13 @@ export function Suggestions({
   setSearchHistory,
   searchText,
   fetchChannelsData,
-  searchField
+  searchField,
+  setSearchText
 }) {
   // The function that fetches the videos of the desired channel
   const fetchChannelVideos = async (index) => {
+    setIsSuggestions(false); // Hide the suggestions component
+
     // Make request to YouTube API, channels resource, to pull the IDs of the playlist of the last 50 videos uploaded to that particular channel
     const request = await axios.get('https://www.googleapis.com/youtube/v3/channels', {
       params: {
@@ -47,7 +50,6 @@ export function Suggestions({
     sessionStorage.setItem('channel-videos', JSON.stringify(videoStats.data));
     setChannelLogo(popUpChannelLogo);
     sessionStorage.setItem('channel-logo', JSON.stringify(popUpChannelLogo));
-    setIsSuggestions(false); // Hide the suggestions component
   }
 
   function deleteHistorySuggestion(key) {
@@ -104,6 +106,7 @@ export function Suggestions({
                   onMouseEnter={() => {
                     searchField.current.value = searchText + item.searchName.slice(searchText.length);
                   }}
+
                   onMouseLeave={() => {
                     searchField.current.value = searchText;
                   }}
@@ -118,8 +121,9 @@ export function Suggestions({
                   <div 
                     className="suggestion-text"
                     onClick={() => {
-                      searchField.current.value = item.searchName;
-                      fetchChannelsData(searchField.current.value);
+                      setIsSuggestions(false);
+                      setSearchText(item.searchName);
+                      fetchChannelsData(item.searchName);
                     }}
                   >
                     {searchText}

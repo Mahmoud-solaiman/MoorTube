@@ -3,7 +3,7 @@
   inset: 0;
   display: grid;
   grid-template-columns: 100%;
-  padding: 1em;
+  padding: .2em;
   transition: .15s linear;
 
   & > div {
@@ -16,7 +16,7 @@
   }
 
   .play-controls {
-    height: 70px;
+    height: 60px;
     display: flex;
     justify-content: center;
     align-self: center;
@@ -49,6 +49,7 @@
       display: flex;
       height: 100%;
       align-items: center;
+      font-size: 1.4rem;
 
       [data-type="current"] {
         margin-right: .3rem;
@@ -56,10 +57,6 @@
 
       [data-type="duration"] {
         margin-left: .3rem;
-      }
-
-      @media (hover: none) {
-        font-size: 1.4rem;
       }
 
     }
@@ -83,5 +80,27 @@
 @media (hover: hover) {
   .controls-container-mobile {
     display: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .controls-container-mobile {
+    .custom-controls {
+      height: 30px;
+    }
+
+    .play-controls {
+      height: 40px;
+    }
+
+    .player-controls {
+      height: 30px;
+      font-size: 1rem;
+
+      button {
+        height: 30px;
+        width: 30px;
+      }
+    }
   }
 }

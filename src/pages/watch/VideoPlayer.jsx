@@ -39,7 +39,6 @@ export function VideoPlayer() {
 
   return (
     <MediaPlayer
-      title="Sprite Fight"
       src={video}
       autoPlay
       className="player-container"
@@ -55,8 +54,12 @@ export function VideoPlayer() {
       style={{ cursor: isShowControls ? 'default' : 'none' }}
     >
       <MediaProvider />
+
       <Gesture className="vds-gesture" event="dblmouseup" action="toggle:fullscreen" />
       <Gesture className="vds-gesture" event="mouseup" action="toggle:paused" />
+
+      <Gesture className="vds-gesture-mobile" event="dbltouchstart" action="seek:10" />
+      <Gesture className="vds-gesture-mobile" event="dbltouchstart" action="seek:-10" />
 
       {
         isBlur &&
