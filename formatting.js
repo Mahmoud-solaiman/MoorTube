@@ -92,3 +92,14 @@ export function youtubeTimeAgo(publishedAt) {
 
   return "just now";
 }
+
+export function formatPrayerTime(prayerTime) {
+  const [ hour, minute ] = prayerTime.split(':');
+  Number(hour), Number(minute);
+
+  if (hour >= 13) {
+    return `0${hour - 12}:${minute}PM`;
+  } else {
+    return `${hour}:${minute}AM`;
+  }
+}

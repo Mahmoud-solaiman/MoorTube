@@ -41,6 +41,7 @@ export function VideoPlayer() {
     <MediaPlayer
       src={video}
       autoPlay
+      playsInline
       className="player-container"
       onPointerLeave={e => {
         if (e.pointerType !== 'mouse') return;

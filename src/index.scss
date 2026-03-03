@@ -15,6 +15,7 @@
   --placeholder-color: rgb(78, 78, 78);
   --saved-video-hover: rgb(225, 225, 225);
   --video-settings-hover: rgb(255 255 255 / 0.5);
+  --watch-panel-bg: rgb(220 220 220);
   color-scheme: dark light;
 }
 
@@ -27,6 +28,7 @@
   --suggestions-bg: rgb(13, 17, 23);
   --suggestion-hover-bg: rgb(0, 0, 0);
   --video-settings-hover: rgb(100 100 100 / 0.5);
+  --watch-panel-bg: rgb(6, 13, 22);
   color: var(--text-color);
   background-color: var(--page-bg);
 }

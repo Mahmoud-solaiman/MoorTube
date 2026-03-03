@@ -1,8 +1,9 @@
 .player-videos-container {
   display: grid;
   padding: 2em;
-  grid-template-columns: 1fr 30%;
+  grid-template-columns: 1fr 350px;
   position: relative;
+  gap: 1.5rem;
 }
 
 @media (max-width: 1000px) {

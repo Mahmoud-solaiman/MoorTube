@@ -3,6 +3,7 @@ import { SidePanel } from '../../components/SidePanel';
 import { ErrorMessage } from '../../components/ErrorMessage';
 import './Watch.scss';
 import { VideoPlayer } from './VideoPlayer';
+import WatchPanel from './WatchPanel';
 
 export function Watch({
   setTranslate,
@@ -34,6 +35,9 @@ export function Watch({
 
       <div className="player-videos-container">
         <VideoPlayer />
+
+        <WatchPanel />
+
       </div>
 
       {

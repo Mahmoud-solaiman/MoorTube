@@ -1,0 +1,51 @@
+.watch-panel {
+  border-radius: 15px;
+  background-color: var(--watch-panel-bg);
+  border: 1px solid var(--text-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.watch-panel-header {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  padding-block: 1em;
+  border-bottom: 1px solid var(--text-color)
+}
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+}
+
+.toggle-outer {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px ridge rgb(120, 120, 120);
+  align-items: center;
+  justify-content: center;
+
+  .toggle-inner {
+    width: 80%;
+    height: 80%;
+    box-shadow: 0 0 10px rgb(120, 120, 100);
+    border-radius: 50%;
+  }
+}
+
+#prayers,
+#videos {
+  display: none;
+
+  &:checked + .toggle-outer > .toggle-inner {
+    background-color: var(--primary-color);
+  }
+
+  & ~ label {
+    cursor: pointer;
+  }
+}
