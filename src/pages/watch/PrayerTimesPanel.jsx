@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { formatPrayerTime } from '../../../formatting';
 import './PrayerTimesPanel.scss';
 
@@ -10,6 +10,18 @@ function PrayerTimesPanel() {
   const [ hour, setHour ] = useState(0);
   const [ minute, setMinute ] = useState(0);
   const [ second, setSecond ] = useState(0);
+  const [ coords, setCoords ] = useState({});
+
+  const fetchNextPrayer = useCallback(async (location) => {
+    const nextPrayerTime = await axios.get('https://api.aladhan.com/v1/nextPrayer?', {
+      params: {
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude
+        }
+      });
+
+    setNextPrayer(nextPrayerTime.data.data);
+  }, []);
 
   useEffect(() => {
 
@@ -30,14 +42,8 @@ function PrayerTimesPanel() {
 
         setPrayerTimesData(prayerTimes.data.data.timings);
 
-        const nextPrayerTime = await axios.get('https://api.aladhan.com/v1/nextPrayer?', {
-          params: {
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude
-          }
-        });
-
-        setNextPrayer(nextPrayerTime.data.data);
+        fetchNextPrayer(location);
+        setCoords(location);
 
       } catch (error) {
         console.error(error);
@@ -45,12 +51,12 @@ function PrayerTimesPanel() {
 
     }
 
-  }, []);
+  }, [fetchNextPrayer]);
 
   useEffect(() => {
     const timer = setInterval(() => {
       if (!nextPrayer) return;
-
+      
       const now = new Date();
 
       const [ prayerHours, prayerMinutes ] = Object.values(nextPrayer.timings)[0].split(':').map(Number);
@@ -62,13 +68,23 @@ function PrayerTimesPanel() {
 
       const diff = prayerDate - now;
 
-      setHour(Math.floor(diff / (1000 * 60 * 60)));
-      setMinute(Math.floor((diff / (1000 * 60)) % 60));
-      setSecond(Math.floor((diff / 1000) % 60));
+      if (diff <= 0) {
+        fetchNextPrayer(coords);
+        return;
+      }
+
+      const hrs = Math.floor(diff / (1000 * 60 * 60)); 
+      const mins = Math.floor((diff / (1000 * 60)) % 60);
+      const secs = Math.floor((diff / 1000) % 60);
+
+      setHour(hrs);
+      setMinute(mins);
+      setSecond(secs);
+
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [nextPrayer]);
+  }, [nextPrayer, coords, fetchNextPrayer]);
 
   return (
     <section className="prayer-card-container">

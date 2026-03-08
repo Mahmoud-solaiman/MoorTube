@@ -10,3 +10,18 @@
     padding-top: 4.3em;
   }
 }
+
+.saved-videos.empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3vw;
+  text-align: center;
+
+  @media (max-width: 600px) {
+    font-size: 6vw;
+    padding: 1em;
+  }
+}

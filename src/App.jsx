@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom"; // Import the Routes, and Route components from react-router-dom
 import { Home } from "./pages/home/Home"; // Import the Home component
-import { PageNotFound } from "./pages/PageNotFound"; // Import the PageNotFound component
+import { PageNotFound } from "./pages/page_not_found/PageNotFound"; // Import the PageNotFound component
 import { SavedVideos } from "./pages/saved-videos/SavedVideos";
 import { Watch } from "./pages/watch/Watch";
 import { useEffect, useRef, useState } from "react";
@@ -31,12 +31,7 @@ export default function App() {
     isDarkMode ? 
       document.documentElement.classList.add('darkmode') :
       document.documentElement.classList.remove('darkmode');
-  }, [isDarkMode])
-
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-    if(window.matchMedia('(prefers-color-scheme: dark)').matches) setIsDarkMode(true);
-    if(!window.matchMedia('(prefers-color-scheme: dark)').matches) setIsDarkMode(false);
-  });
+  }, [isDarkMode]);
   
   return (
     <Routes>

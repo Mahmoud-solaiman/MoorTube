@@ -7,7 +7,7 @@ import {
   Gesture
 } from '@vidstack/react';
 import './VideoPlayer.scss';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Controls } from './Controls';
 import { useSearchParams } from 'react-router-dom';
 import ControlsMobile from './ControlsMobile';
@@ -17,13 +17,14 @@ export function VideoPlayer() {
   const [searchParams] = useSearchParams();
   const [isShowControls, setIsShowControls] = useState(false);
   const video = `https://youtube.com/watch?v=${searchParams.get('v')}`;
-  const [isActive, setIsActive] = useState(null);
+  const isActive = useRef(null);
+  const [ isMuted, setIsMuted ] = useState(true);
 
   function hideControls() {
     setIsShowControls(true);
     clearTimeout(isActive);
 
-    setIsActive(setTimeout(() => setIsShowControls(false), 3000));
+    isActive.current = setTimeout(() => setIsShowControls(false), 3000);
   }
 
   function handleControlsMobile() {
@@ -33,13 +34,17 @@ export function VideoPlayer() {
       setIsShowControls(true);
       clearTimeout(isActive);
 
-      setIsActive(setTimeout(() => setIsShowControls(false), 3000));
+      isActive.current = setTimeout(() => setIsShowControls(false), 3000);
     }
   }
 
   return (
     <MediaPlayer
       src={video}
+      key={searchParams.get('v')}
+      storage={`video-player-${searchParams.get('v')}`}
+      muted={isMuted}
+      onPlaying={() => setIsMuted(false)}
       autoPlay
       playsInline
       className="player-container"

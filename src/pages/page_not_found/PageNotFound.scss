@@ -6,7 +6,7 @@
   align-items: center;
   padding-top:100px;
   row-gap: 1rem;
-  background-color:rgb(15, 15, 15);
+  background-color: var(--page-bg);
 }
 
 .status-code {
@@ -14,7 +14,6 @@
   line-height:230px;
   font-weight:900;
   letter-spacing:-30px;
-  color:#fff;
 
   .zero-status-code {
     color: var(--primary-color);
@@ -33,7 +32,6 @@
   font-size:1.4rem;
   width:50%;
   text-align: center;
-  color:#fff;
 }
 
 .home-page-btn {

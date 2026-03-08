@@ -1,56 +1,67 @@
 .disc {
-  display:grid;
+  display: grid;
   grid-template-columns: 1fr 70px;
   align-items: center;
-  font-size:1.2rem;
+  font-size: 1.2rem;
 }
 
 #edit-disc-name {
   display: inline;
-  height:35px;
+  height: 35px;
   font-size: 1.1rem;
   padding: 0 .3em;
+  min-width: 0;
+  background-color: var(--page-bg);
+  border: 1px solid;
 
   &:focus {
-    outline-color: var(--primary-color);
+    outline: none;
+    border-color: var(--primary-color);
   }
 }
 
 .disc-name {
-  cursor:pointer;
-  padding:.3em 0 .3em .5em;
-  border-radius:2px;
+  cursor: pointer;
+  padding: .3em 0 .3em .5em;
+  border-radius: 2px;
   text-decoration: none;
   color: var(--text-color);
 
-  &:hover  {
+  &:hover {
     background-color: var(--primary-color);
     color: #fff;
   }
 }
 
 .disc-controls-container {
-  display:flex;
-  gap:.2rem;
+  display: flex;
+  gap: .2rem;
   justify-content: right;
-  
+
   svg {
-    padding:.3em;
-    width:35px;
-    cursor:pointer;
+    padding: .3em;
+    width: 35px;
+    cursor: pointer;
     border-radius: 50%;
     transition: .13s linear;
     fill: var(--text-color);
   }
 
-  .edit-btn:hover {
+  .edit-btn:active {
     background-color: var(--primary-color);
     fill: var(--page-bg);
   }
 
-  .delete-btn:hover {
-    background-color: var(--bin-hover-bg);
-    fill: var(--page-bg);
+  @media (hover: hover) {
+    .edit-btn:hover {
+      background-color: var(--primary-color);
+      fill: var(--page-bg);
+    }
+
+    .delete-btn:hover {
+      background-color: var(--bin-hover-bg);
+      fill: var(--page-bg);
+    }
   }
 }
 
@@ -60,7 +71,7 @@
   }
 
   .disc-name:hover {
-    background-color:initial;
-    color:initial;
+    background-color: initial;
+    color: initial;
   }
 }

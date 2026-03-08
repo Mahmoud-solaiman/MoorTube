@@ -3,6 +3,10 @@ $slider-size: 5px;
 .player-container {
   border-radius: 15px;
   position: relative;
+
+  .vds-blocker {
+    height: 100% !important;
+  }
 }
 
 .vds-gesture {

@@ -4,6 +4,11 @@
   border: 1px solid var(--text-color);
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 800px) {
+    width: 90%;
+    justify-self: center;
+  }
 }
 
 .watch-panel-header {

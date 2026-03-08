@@ -56,10 +56,17 @@ export function SavedVideos({
         isDarkMode={isDarkMode}
       />
 
-      <div className="saved-videos">
-        <SavedVideosPanel savedVideos={savedVideos} video={savedVideosDetails[0]} />
+      <div className={savedVideos.items.length ? "saved-videos" : "saved-videos empty"}>
+        {
+          savedVideos.items.length ? 
+            <>
+              <SavedVideosPanel savedVideos={savedVideos} video={savedVideosDetails[0]} />
 
-        <SavedVideosGrid savedVideosDetails={savedVideosDetails} />
+              <SavedVideosGrid savedVideosDetails={savedVideosDetails} />
+            </> :
+            "Seems Like you haven't added any videos to this Disc!"
+        }
+        
       </div>
       {
         (translate || translate === 0) &&

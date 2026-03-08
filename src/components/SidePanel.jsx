@@ -153,7 +153,7 @@ export function SidePanel({
 
       <div className="current-discs">
         <span className='current-discs-label'>Current Discs</span>
-        <section className="current-discs-container">
+        <section className="current-discs-container" style={!discs.length ? {paddingLeft: '.8em', fontSize: '1.2rem'} : {}}>
           {
             discs.length ?
               discs.map(disc => {
