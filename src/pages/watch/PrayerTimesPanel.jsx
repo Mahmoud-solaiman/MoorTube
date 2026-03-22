@@ -5,20 +5,20 @@ import './PrayerTimesPanel.scss';
 
 function PrayerTimesPanel() {
   const prayers = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
-  const [ prayerTimesData, setPrayerTimesData ] = useState(null);
-  const [ nextPrayer, setNextPrayer ] = useState(null);
-  const [ hour, setHour ] = useState(0);
-  const [ minute, setMinute ] = useState(0);
-  const [ second, setSecond ] = useState(0);
-  const [ coords, setCoords ] = useState({});
+  const [prayerTimesData, setPrayerTimesData] = useState(null);
+  const [nextPrayer, setNextPrayer] = useState(null);
+  const [hour, setHour] = useState(0);
+  const [minute, setMinute] = useState(0);
+  const [second, setSecond] = useState(0);
+  const [coords, setCoords] = useState({});
 
   const fetchNextPrayer = useCallback(async (location) => {
     const nextPrayerTime = await axios.get('https://api.aladhan.com/v1/nextPrayer?', {
       params: {
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude
-        }
-      });
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude
+      }
+    });
 
     setNextPrayer(nextPrayerTime.data.data);
   }, []);
@@ -38,7 +38,7 @@ function PrayerTimesPanel() {
             latitude: location.coords.latitude,
             longitude: location.coords.longitude
           }
-        }); 
+        });
 
         setPrayerTimesData(prayerTimes.data.data.timings);
 
@@ -56,10 +56,10 @@ function PrayerTimesPanel() {
   useEffect(() => {
     const timer = setInterval(() => {
       if (!nextPrayer) return;
-      
+
       const now = new Date();
 
-      const [ prayerHours, prayerMinutes ] = Object.values(nextPrayer.timings)[0].split(':').map(Number);
+      const [prayerHours, prayerMinutes] = Object.values(nextPrayer.timings)[0].split(':').map(Number);
 
       const prayerDate = new Date();
       prayerDate.setHours(prayerHours, prayerMinutes, 0);
@@ -68,12 +68,7 @@ function PrayerTimesPanel() {
 
       const diff = prayerDate - now;
 
-      if (diff <= 0) {
-        fetchNextPrayer(coords);
-        return;
-      }
-
-      const hrs = Math.floor(diff / (1000 * 60 * 60)); 
+      const hrs = Math.floor(diff / (1000 * 60 * 60));
       const mins = Math.floor((diff / (1000 * 60)) % 60);
       const secs = Math.floor((diff / 1000) % 60);
 
@@ -81,9 +76,15 @@ function PrayerTimesPanel() {
       setMinute(mins);
       setSecond(secs);
 
+      if (diff <= 0) {
+        fetchNextPrayer(coords);
+        return;
+      }
+
     }, 1000);
 
     return () => clearInterval(timer);
+
   }, [nextPrayer, coords, fetchNextPrayer]);
 
   return (
@@ -98,7 +99,6 @@ function PrayerTimesPanel() {
           );
         })
       }
-      {}
       <footer className="upcoming-prayer">
         <div>{nextPrayer && Object.keys(nextPrayer.timings)[0]} in&#58;</div>
         <div>0{hour}&#58;{String(minute).padStart(2, '0')}&#58;{String(second).padStart(2, '0')}</div>

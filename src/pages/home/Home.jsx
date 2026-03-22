@@ -4,7 +4,7 @@ import { ChannelVideos } from "../../components/ChannelVideos"; // Import the Ch
 import { SidePanel } from "../../components/SidePanel"; // Import the SidePanel component
 import { ErrorMessage } from "../../components/ErrorMessage"; // Import the ErrorMessage component
 import { SearchVideos } from "../../components/SearchVideos"; // Import the SearchVideos component
-import { WebIntro } from "./WebIntro";
+import LoadingVideos from "../../components/LoadingVideos";
 
 export function Home({ 
     setSavedVideos, 
@@ -28,6 +28,8 @@ export function Home({
   const [ channelLogo, setChannelLogo ] = useState(JSON.parse(sessionStorage.getItem('channel-logo')) || {}); // Channel logo of the channel filter
   const [ channelsLogos, setChannelsLogos ] = useState(JSON.parse(sessionStorage.getItem('channels-logos')) || {}); //Logo of the picked channel
   const [ isChannel, setIsChannel ] = useState(true); // This is the state used to determine the search criterion (e.g. channel or video)
+  const [ isLoading, setIsLoading ] = useState(false);
+
   
   useEffect(() => {
     window.addEventListener('offline', () => {
@@ -76,6 +78,7 @@ export function Home({
         setChannelLogo={setChannelLogo}
         isDarkMode={isDarkMode}
         setWatchTitle={setWatchTitle}
+        setIsLoading={setIsLoading}
       />
       {/* Render the SidePanel */}
       {
@@ -116,7 +119,8 @@ export function Home({
         />
       }
       {
-        (!channelVideos.items && !channelsLogos.items) && <WebIntro isDarkMode={isDarkMode} />
+        isLoading &&
+        <LoadingVideos />
       }
     </>
   );

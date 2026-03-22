@@ -19,7 +19,8 @@ export function Header({
   setPopUpChannelLogo,
   setChannelLogo,
   isDarkMode,
-  setWatchTitle
+  setWatchTitle,
+  setIsLoading
 }) {
   const [isSuggestions, setIsSuggestions] = useState(false); // This state controls whether to show the channels search suggestions or not
   const [searchHistory, setSearchHistory] = useState(JSON.parse(localStorage.getItem('search-history')) || []);
@@ -79,6 +80,10 @@ export function Header({
 
     // If search filter is set to video, then search for videos instead
     if (!isChannel && search.trim()) {
+
+      setIsSuggestions(false);
+      setChannelsLogos({});
+      setIsLoading(true);
             
       const videosRequest = await axios.get('https://www.googleapis.com/youtube/v3/search', {
         params: {
@@ -114,6 +119,8 @@ export function Header({
       setSearchText('');
 
       AddToSearchHistory(search);
+
+      setIsLoading(false);
     }
     // If the search field is empty 
     if (!search.trim()) {
@@ -178,6 +185,7 @@ export function Header({
               fetchChannelsData={fetchChannelsData}
               searchField={searchField}
               setSearchText={setSearchText}
+              setIsLoading={setIsLoading}
             />
           }
         </div>

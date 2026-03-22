@@ -4,7 +4,8 @@ import {
   MediaPlayer,
   MediaProvider,
   TimeSlider,
-  Gesture
+  Gesture,
+  Spinner
 } from '@vidstack/react';
 import './VideoPlayer.scss';
 import { useState, useRef } from 'react';
@@ -18,11 +19,11 @@ export function VideoPlayer() {
   const [isShowControls, setIsShowControls] = useState(false);
   const video = `https://youtube.com/watch?v=${searchParams.get('v')}`;
   const isActive = useRef(null);
-  const [ isMuted, setIsMuted ] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
 
   function hideControls() {
     setIsShowControls(true);
-    clearTimeout(isActive);
+    clearTimeout(isActive.current);
 
     isActive.current = setTimeout(() => setIsShowControls(false), 3000);
   }
@@ -30,9 +31,10 @@ export function VideoPlayer() {
   function handleControlsMobile() {
     if (isShowControls) {
       setIsShowControls(false);
+
     } else if (!isShowControls) {
       setIsShowControls(true);
-      clearTimeout(isActive);
+      clearTimeout(isActive.current);
 
       isActive.current = setTimeout(() => setIsShowControls(false), 3000);
     }
@@ -72,7 +74,14 @@ export function VideoPlayer() {
         <div aria-hidden="true" className="blur-layer"></div>
       }
 
-      <TimeSlider.Root className={isShowControls ? "timeslider" : "timeslider hidden"} >
+      <div className="vds-buffering-indicator">
+        <Spinner.Root className="vds-buffering-spinner">
+          <Spinner.Track className="vds-buffering-track" />
+          <Spinner.TrackFill className="vds-buffering-track-fill" />
+        </Spinner.Root>
+      </div>
+
+      <TimeSlider.Root className={isShowControls ? "timeslider" : "timeslider hidden"}>
         <TimeSlider.Track className="timeslider-track" />
         <TimeSlider.TrackFill className="timeslider-trackfill" />
         <TimeSlider.Progress className="timeslider-progress" />

@@ -12,11 +12,14 @@ export function Suggestions({
   searchText,
   fetchChannelsData,
   searchField,
-  setSearchText
+  setSearchText,
+  setIsLoading
 }) {
   // The function that fetches the videos of the desired channel
   const fetchChannelVideos = async (index) => {
     setIsSuggestions(false); // Hide the suggestions component
+    setChannelVideos({});
+    setIsLoading(true);
 
     // Make request to YouTube API, channels resource, to pull the IDs of the playlist of the last 50 videos uploaded to that particular channel
     const request = await axios.get('https://www.googleapis.com/youtube/v3/channels', {
@@ -50,6 +53,8 @@ export function Suggestions({
     sessionStorage.setItem('channel-videos', JSON.stringify(videoStats.data));
     setChannelLogo(popUpChannelLogo);
     sessionStorage.setItem('channel-logo', JSON.stringify(popUpChannelLogo));
+
+    setIsLoading(false);
   }
 
   function deleteHistorySuggestion(key) {
