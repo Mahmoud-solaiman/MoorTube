@@ -64,7 +64,7 @@ export function SavedVideos({
 
               <SavedVideosGrid savedVideosDetails={savedVideosDetails} />
             </> :
-            "Seems Like you haven't added any videos to this Disc!"
+            "Seems like you haven't added any videos to this Disc!"
         }
         
       </div>

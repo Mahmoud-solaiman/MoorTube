@@ -1,5 +1,6 @@
 import axios from 'axios'; // Import axios from the axios package
 import './Suggestions.scss'; // Import the style sheet of this component
+import LoadingChannels from '../../components/LoadingChannels';
 
 export function Suggestions({
   popUpChannelLogo,
@@ -13,7 +14,8 @@ export function Suggestions({
   fetchChannelsData,
   searchField,
   setSearchText,
-  setIsLoading
+  setIsLoading,
+  isLoadingChannels
 }) {
   // The function that fetches the videos of the desired channel
   const fetchChannelVideos = async (index) => {
@@ -70,7 +72,8 @@ export function Suggestions({
   // The JSX of the Suggestions component
   return (
     <div className="suggestions-box">
-      {popUpChannelLogo?.items ?
+      {
+        popUpChannelLogo?.items &&
         popUpChannelLogo.items.map((item, index) => {
           return (
             <div
@@ -91,7 +94,11 @@ export function Suggestions({
               </div>
             </div>
           );
-        }) :
+        })
+      }
+
+      {
+        (!popUpChannelLogo?.items && !isLoadingChannels) &&
         <div className="search-history">
           <div className="clear-history-container">
             <button
@@ -123,7 +130,7 @@ export function Suggestions({
                     </svg>
                   </div>
 
-                  <div 
+                  <div
                     className="suggestion-text"
                     onClick={() => {
                       setIsSuggestions(false);
@@ -145,6 +152,11 @@ export function Suggestions({
             })
           }
         </div>
+      }
+
+      {
+        isLoadingChannels &&
+        <LoadingChannels />
       }
     </div>
   );

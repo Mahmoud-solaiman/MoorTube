@@ -25,6 +25,7 @@ export function Header({
   const [isSuggestions, setIsSuggestions] = useState(false); // This state controls whether to show the channels search suggestions or not
   const [searchHistory, setSearchHistory] = useState(JSON.parse(localStorage.getItem('search-history')) || []);
   const [searchText, setSearchText] = useState(''); // The state of the search field to control its value
+  const [ isLoadingChannels, setIsLoadingChannels ] = useState(false);
   const searchField = useRef(null);
 
   // This function handles adding the searches to the search history making sure none repeats twice.
@@ -45,6 +46,10 @@ export function Header({
   async function fetchChannelsData(search) {
     // If the search filter is set to channel, then search for channels using the following
     if (isChannel && search.trim()) {
+      setIsLoadingChannels(true);
+      setPopUpChannelLogo({});
+      setIsSuggestions(true); // Then finally show those channels of the desired user search visually in the search suggestion popup
+      
       //This initial request handles pulling the channel IDs using regular text search keywords rather than handlers or IDs
       const channelsRequest = await axios.get('https://www.googleapis.com/youtube/v3/search', {
         params: {
@@ -68,10 +73,10 @@ export function Header({
         }
       });
 
+      setIsLoadingChannels(false);
       // Then we set the response to that final result to be used to render the channels visually in the suggestions popup
       setPopUpChannelLogo(channelInfo.data);
       setSearchText(''); // Then set the search field value back to empty for better UX
-      setIsSuggestions(true); // Then finally show those channels of the desired user search visually in the search suggestion popup
 
       AddToSearchHistory(search);
 
@@ -186,6 +191,7 @@ export function Header({
               searchField={searchField}
               setSearchText={setSearchText}
               setIsLoading={setIsLoading}
+              isLoadingChannels={isLoadingChannels}
             />
           }
         </div>

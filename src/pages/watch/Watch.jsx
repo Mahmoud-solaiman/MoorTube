@@ -37,7 +37,6 @@ export function Watch({
         <VideoPlayer />
 
         <WatchPanel />
-
       </div>
 
       {
