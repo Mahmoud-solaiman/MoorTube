@@ -151,7 +151,7 @@ export function Header({
               />
             </svg>
           </div>
-          <div className="logo-container" title="YouTube Organized">
+          <div className="logo-container" title="MoorTube">
             <img src={isDarkMode ? "./logo-dark.png" : "./logo-light.png"} alt="website logo" />
           </div>
         </div>

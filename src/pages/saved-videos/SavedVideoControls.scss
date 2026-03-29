@@ -1,0 +1,46 @@
+.saved-video-controls-btn {
+  position: relative;
+}
+
+.saved-video-controls {
+  position: absolute;
+  inset: 25px 20px auto auto;
+  background-color: red;
+  width: 300px;
+  padding-block: .2em;
+  border-radius: 5px;
+  box-shadow: 3px 3px 10px rgb(0, 0, 0);
+  background-color: var(--suggestions-bg);
+  z-index: 10;
+  animation: controls .15s linear;
+
+  .control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: .3em .5em;
+    font-size: .96rem;
+
+    &:hover {
+      background-color: var(--primary-color-transparent);
+    }
+
+    svg {
+      width: 27px;
+      fill: var(--text-color);
+    }
+  }
+}
+
+@keyframes controls {
+  from {
+    transform: translateY(30%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

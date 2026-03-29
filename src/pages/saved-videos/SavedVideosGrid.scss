@@ -26,7 +26,7 @@
 
 .saved-video {
   display: grid;
-  grid-template-columns: 25px 1fr 25px;
+  grid-template-columns: 25px 1fr 30px;
   gap: .2rem;
   align-items: center;
   cursor: pointer;
@@ -35,6 +35,10 @@
 
   &:hover {
     background-color: var(--saved-video-hover);
+  }
+
+  &:has(.saved-video-controls-btn > .saved-video-controls:hover) {
+    background-color: initial;
   }
 
   @media (width < 520px) {
@@ -125,8 +129,16 @@
   }
 }
 
-.saved-video-controls svg {
+.saved-video-controls-btn > svg {
   fill: var(--text-color);
+  transition: .15s linear;
+  width: 100%;
+  border-radius: 50%;
+  padding: .2em;
+
+  &:hover {
+    background-color: var(--video-settings-hover);
+  }
 }
 
 @media (hover: none) {

@@ -16,10 +16,10 @@
     display:grid;
     grid-template-columns: 1fr 25px;
     align-items: center;
-    padding: .5em 1em;
+    padding: .3em .5em;
 
     &:hover {
-      background-color: var(--suggestion-hover-bg);
+      background-color: var(--primary-color-transparent);
     }
 
     span {

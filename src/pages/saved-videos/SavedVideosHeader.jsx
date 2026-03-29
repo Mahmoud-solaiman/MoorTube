@@ -23,7 +23,7 @@ export function SavedVideosHeader({
             />
           </svg>
         </div>
-        <div className="logo-container" title="YouTube Organized Home">
+        <div className="logo-container" title="MoorTube Home">
           <Link to="/">
             <img src={isDarkMode ? "./logo-dark.png" : "./logo-light.png"} alt="website logo" />
           </Link>

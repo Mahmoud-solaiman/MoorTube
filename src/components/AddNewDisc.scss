@@ -26,6 +26,7 @@
   border: 1px solid var(--text-color);
   border-radius: 3px;
   background-color: var(--page-bg);
+  color: var(--text-color);
 
   &:focus-within {
     outline: none;

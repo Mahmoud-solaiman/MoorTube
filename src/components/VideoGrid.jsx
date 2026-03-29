@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { handleDuration, handleViewCount, youtubeTimeAgo } from '../../formatting';
+import { handleDuration, handleViewCount, youtubeTimeAgo } from '../../utils/formatting';
 import { Actions } from './Actions';
 import './VideoGrid.scss';
 import { DiscsActions } from './DiscsActions';

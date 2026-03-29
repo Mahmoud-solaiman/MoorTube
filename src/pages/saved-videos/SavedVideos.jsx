@@ -24,6 +24,7 @@ export function SavedVideos({
 }) {
   const [ savedVideosDetails, setSavedVideosDetails ] = useState([]);
   const menuContainer = useRef(null);
+  console.log(savedVideos);
 
   useEffect(() => {
     const fetchSavedVideos = async () => {
