@@ -1,8 +1,32 @@
 import { useEffect, useRef } from 'react';
 import './SavedVideoControls.scss';
 
-export default function SavedVideoControls({ setOpenControls, controlsBtnRef }) {
+export default function SavedVideoControls({ 
+    setOpenControls, 
+    controlsBtnRef, 
+    savedVideosDetails, 
+    setSavedVideosDetails, 
+    targetIndex,
+    setSavedVideos
+  }) {
   const controlsRef = useRef(null);
+
+  function removeVideo() {
+    const discVideos = JSON.parse(localStorage.getItem('disc'));
+    discVideos.items = discVideos.items.filter((_item, index) => index !== targetIndex);
+
+    const currentDiscs = JSON.parse(localStorage.getItem('current-discs'));
+    currentDiscs.forEach(disc => {
+      if (discVideos.id === disc.id) {
+        disc.items = discVideos.items;
+      }
+    });
+
+    localStorage.setItem('current-discs', JSON.stringify(currentDiscs));
+    localStorage.setItem('disc', JSON.stringify(discVideos));
+    setSavedVideos(discVideos);
+    setSavedVideosDetails(savedVideosDetails.filter((_video, index) => index !== targetIndex));
+  }
 
   useEffect(() => {
     function hideControls(e) {
@@ -19,7 +43,7 @@ export default function SavedVideoControls({ setOpenControls, controlsBtnRef }) 
     return () => document.removeEventListener('click', hideControls);
   });
   return (
-    <div className="saved-video-controls" ref={controlsRef}>
+    <div className="saved-video-controls" ref={controlsRef} onClick={removeVideo}>
       <div className="control">
         <h3 className="control-label">Remove from this disc</h3>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">

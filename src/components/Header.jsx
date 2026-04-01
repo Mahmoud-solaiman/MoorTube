@@ -4,6 +4,7 @@ import { Search } from "../pages/home/Search"; // Import the Search component
 import { Suggestions } from "../pages/home/Suggestions"; // Import the Suggestions component
 import { ToggleSearch } from "./ToggleSearch"; // Import the ToggleSearch component
 import './Header.scss'; // Import the style sheet of this component
+import { generateID } from "../../utils/formatting";
 
 export function Header({
   setVideos,
@@ -35,7 +36,7 @@ export function Header({
       searchHistory.push(
         {
           searchName: search.trim(),
-          key: crypto.randomUUID()
+          key: generateID()
         }
       );
 

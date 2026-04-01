@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'; // Import these hooks from the React package
 import { Disc } from './Disc'; // Import the Disc component
+import { generateID } from '../../utils/formatting';
 import './SidePanel.scss'; // Import the style sheet of this component
 
 export function SidePanel({
@@ -31,7 +32,7 @@ export function SidePanel({
       // Push the new disc to the current discs
       currentDiscs.push({
         name: discValueTrimmed,
-        id: crypto.randomUUID(),
+        id: generateID(),
         items: []
       });
 
@@ -69,7 +70,8 @@ export function SidePanel({
     }
 
     document.addEventListener('pointerup', hideSidePanel);
-  });
+    setDiscs(JSON.parse(localStorage.getItem('current-discs')));
+  }, [menuContainer, setDiscs, setTranslate]);
 
   // The function that handles toggling the mode between light and dark
   function toggleMode() {

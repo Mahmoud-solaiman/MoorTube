@@ -1,4 +1,5 @@
 import { useState } from 'react'; // Importing the useState hook from the react package
+import { generateID } from '../../utils/formatting';
 import './AddNewDisc.scss'; // Importing the sass styles for this component
 
 export function AddNewDisc({
@@ -24,7 +25,7 @@ export function AddNewDisc({
       // Push the new disc to the current discs
       currentDiscs.push({
         name: newDiscValueTrimmed,
-        id: crypto.randomUUID(),
+        id: generateID(),
         items: []
       });
 

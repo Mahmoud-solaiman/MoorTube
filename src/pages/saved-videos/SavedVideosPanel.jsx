@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import './SavedVideosPanel.scss';
 
-export function SavedVideosPanel({ savedVideos, video }) {
+export function SavedVideosPanel({ savedVideos, video, savedVideosDetails }) {
   const navigate = useNavigate();
 
   return (
@@ -39,7 +39,7 @@ export function SavedVideosPanel({ savedVideos, video }) {
         </div>
         <div className="disc-details">
           <h2>{savedVideos.name}</h2>
-          <p>{savedVideos.items.length} &#8226; {savedVideos.items.length === 1 ? "video" : "videos"}</p>
+          <p>{savedVideosDetails.length} &#8226; {savedVideos.items.length === 1 ? "video" : "videos"}</p>
         </div>
       </section>
     </aside>

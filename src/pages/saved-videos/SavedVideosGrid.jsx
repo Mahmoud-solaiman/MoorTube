@@ -4,7 +4,7 @@ import './SavedVideosGrid.scss';
 import SavedVideoControls from './SavedVideoControls';
 import { useRef, useState } from 'react';
 
-export function SavedVideosGrid({ savedVideosDetails }) {
+export function SavedVideosGrid({ savedVideosDetails, setSavedVideosDetails, setSavedVideos }) {
   const [ openControls, setOpenControls ] = useState(null);
   const navigate = useNavigate();
   const controlsBtnRef = useRef(null);
@@ -56,7 +56,14 @@ export function SavedVideosGrid({ savedVideosDetails }) {
                   </svg>
                   {
                     openControls === index &&
-                    <SavedVideoControls setOpenControls={setOpenControls} controlsBtnRef={controlsBtnRef} />
+                    <SavedVideoControls 
+                      setOpenControls={setOpenControls} 
+                      controlsBtnRef={controlsBtnRef} 
+                      savedVideosDetails={savedVideosDetails}
+                      setSavedVideosDetails={setSavedVideosDetails}
+                      targetIndex={index}
+                      setSavedVideos={setSavedVideos}
+                    />
                   }
                 </div>
               </div>

@@ -103,3 +103,15 @@ export function formatPrayerTime(prayerTime) {
     return `${hour}:${minute}AM`;
   }
 }
+
+export function generateID() {
+  const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let id = '';
+
+  for (let i = 0; i < 15; i++) {
+    const randomNum = Math.floor(Math.random() * characters.length);
+    id += characters.charAt(randomNum);
+  }
+
+  return id;
+}
