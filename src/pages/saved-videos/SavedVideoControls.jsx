@@ -1,8 +1,25 @@
+import { useEffect, useRef } from 'react';
 import './SavedVideoControls.scss';
 
-export default function SavedVideoControls() {
+export default function SavedVideoControls({ setOpenControls, controlsBtnRef }) {
+  const controlsRef = useRef(null);
+
+  useEffect(() => {
+    function hideControls(e) {
+      if (
+          !controlsRef.current?.contains(e.target) && 
+          !controlsBtnRef.current?.contains(e.target)
+        ) {
+        setOpenControls(null);
+      }
+    }
+
+    document.addEventListener('click', hideControls);
+
+    return () => document.removeEventListener('click', hideControls);
+  });
   return (
-    <div className="saved-video-controls">
+    <div className="saved-video-controls" ref={controlsRef}>
       <div className="control">
         <h3 className="control-label">Remove from this disc</h3>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">

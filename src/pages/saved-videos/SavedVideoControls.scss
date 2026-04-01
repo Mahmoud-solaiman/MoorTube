@@ -22,8 +22,15 @@
     padding: .3em .5em;
     font-size: .96rem;
 
-    &:hover {
+    
+    &:active {
       background-color: var(--primary-color-transparent);
+    }
+    
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--primary-color-transparent);
+      }
     }
 
     svg {
