@@ -3,11 +3,14 @@ import { handleDuration, handleViewCount, youtubeTimeAgo } from '../../../utils/
 import './SavedVideosGrid.scss';
 import SavedVideoControls from './SavedVideoControls';
 import { useRef, useState } from 'react';
+import DiscsControls from './DiscsControls';
 
-export function SavedVideosGrid({ savedVideosDetails, setSavedVideosDetails, setSavedVideos }) {
+export function SavedVideosGrid({ savedVideosDetails, setSavedVideosDetails, setSavedVideos, handleErrorMessage }) {
   const [ openControls, setOpenControls ] = useState(null);
+  const [ openDiscs, setOpenDiscs ] = useState(null);
   const navigate = useNavigate();
   const controlsBtnRef = useRef(null);
+  const discsRef = useRef(null);
 
   return (
     <section className="saved-videos-grid">
@@ -63,6 +66,19 @@ export function SavedVideosGrid({ savedVideosDetails, setSavedVideosDetails, set
                       setSavedVideosDetails={setSavedVideosDetails}
                       targetIndex={index}
                       setSavedVideos={setSavedVideos}
+                      setOpenDiscs={setOpenDiscs}
+                      discsRef={discsRef}
+                    />
+                  }
+
+                  {
+                    openDiscs === index &&
+                    <DiscsControls 
+                      discsRef={discsRef} 
+                      videoId={item.id} 
+                      setOpenControls={setOpenControls}
+                      setOpenDiscs={setOpenDiscs}
+                      handleErrorMessage={handleErrorMessage}
                     />
                   }
                 </div>

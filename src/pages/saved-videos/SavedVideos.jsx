@@ -60,12 +60,13 @@ export function SavedVideos({
         {
           savedVideos.items.length ? 
             <>
-              <SavedVideosPanel savedVideos={savedVideos} video={savedVideosDetails[0]} savedVideosDetails={savedVideosDetails} />
+              <SavedVideosPanel savedVideos={savedVideos} savedVideosDetails={savedVideosDetails} />
 
               <SavedVideosGrid 
                 savedVideosDetails={savedVideosDetails} 
                 setSavedVideosDetails={setSavedVideosDetails}
                 setSavedVideos={setSavedVideos}
+                handleErrorMessage={handleErrorMessage}
               />
             </> :
             "Seems like you haven't added any videos to this Disc!"
