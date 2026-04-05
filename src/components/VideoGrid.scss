@@ -16,6 +16,18 @@
   color: var(--text-color);
   position: relative;
   background-color: var(--bg-video-hover);
+
+  &:has(.actions-popup:hover) {
+    background-color: initial;
+  }
+
+  &:has(.discs-actions-container:hover) {
+    background-color: initial;
+  }
+
+  &:has(.new-disc-adder:hover) {
+    background-color: initial;
+  }
 }
 
 @keyframes videoSection {

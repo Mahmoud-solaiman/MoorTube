@@ -18,8 +18,14 @@
     align-items: center;
     padding: .3em .5em;
 
-    &:hover {
+    &:active {
       background-color: var(--primary-color-transparent);
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--primary-color-transparent);
+      }
     }
 
     span {

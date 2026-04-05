@@ -5,14 +5,19 @@
 
 .error-message {
   color: var(--primary-color-white);
-  padding:.5em 1em;
-  font-size:1.4rem;
-  font-weight:600;
+  padding: .5em 1em;
+  font-size: 1.4rem;
+  font-weight: 600;
   position: fixed;
-  top:10px;
+  top: 10px;
   z-index: 1000;
-  border-radius:30px;
+  border-radius: 30px;
   animation: errorMessage .075s linear;
+  text-align: center;
+
+  @media (max-width: 500px) {
+    font-size: 1.1rem;
+  }
 }
 
 @keyframes errorMessage {

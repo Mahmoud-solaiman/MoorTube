@@ -1,4 +1,4 @@
-export function handleDuration(iso) {
+export function handleDuration(iso: string): string {
   // Convert ISO 8601 duration (YouTube's format) to human-readable "YouTube style"
   // 1) Regex parse
   const match = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
@@ -24,11 +24,11 @@ export function handleDuration(iso) {
   }
 }
 
-export function handleViewCount(views) {
+export function handleViewCount(views: string): string | undefined{
   const viewsCount = Number(views);
 
   if (viewsCount < 1000) {
-    return viewsCount;
+    return `${viewsCount}`;
 
   } if (viewsCount >= 1000 && viewsCount < 10000) {
     if ((viewsCount % 1000) < 100) {
@@ -65,10 +65,10 @@ export function handleViewCount(views) {
   }
 }
 
-export function youtubeTimeAgo(publishedAt) {
+export function youtubeTimeAgo(publishedAt: string) {
   const now = new Date();
   const past = new Date(publishedAt);
-  const seconds = Math.floor((now - past) / 1000);
+  const seconds = Math.floor((Number(now) - Number(past)) / 1000);
 
   const intervals = {
     year: 31536000,
@@ -93,24 +93,23 @@ export function youtubeTimeAgo(publishedAt) {
   return "just now";
 }
 
-export function formatPrayerTime(prayerTime) {
-  const [ hour, minute ] = prayerTime.split(':');
-  Number(hour), Number(minute);
+export function formatPrayerTime(prayerTime: string): string {
+  const [ hour, minute ]: string[] = prayerTime.split(':');
 
-  if (hour >= 13) {
-    return `0${hour - 12}:${minute}PM`;
+  if (Number(hour) >= 13) {
+    return `0${Number(hour) - 12}:${minute}PM`;
   } else {
     return `${hour}:${minute}AM`;
   }
 }
 
-export function generateID() {
+export function generateID(): string {
   const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let id = '';
 
   for (let i = 0; i < 15; i++) {
     const randomNum = Math.floor(Math.random() * characters.length);
-    id += characters.charAt(randomNum);
+    id += characters[randomNum];
   }
 
   return id;

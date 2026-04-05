@@ -13,6 +13,10 @@
   z-index: 10;
   animation: controls .15s linear;
 
+  @media (max-width: 340px) {
+    width: 85vw;
+  }
+
   .control {
     display: flex;
     justify-content: space-between;
