@@ -1,13 +1,28 @@
 import './Controls.scss';
-import { FullscreenButton, MuteButton, PlayButton, Time, useMediaState } from '@vidstack/react';
+import { FullscreenButton, MuteButton, PlayButton, Time, useMediaState, useMediaRemote, SeekButton } from '@vidstack/react';
 
 export function Controls({ isBlur, setIsBlur, isShowControls }) {
   const isFullScreen = useMediaState('fullscreen');
   const isPaused = useMediaState('paused');
   const isMuted = useMediaState('muted');
+  const remote = useMediaRemote();
+
+  function handleReplay() {
+    remote.play();
+  }
 
   return (
     <div onTouchEnd={e => e.stopPropagation()} className={isShowControls ? "controls-container" : "controls-container hidden"} >
+      
+      <div className="replay-container">
+        <SeekButton seconds={0} onClick={handleReplay}>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+            <path d="M3 3v5h5"/>
+          </svg>
+        </SeekButton>
+      </div>
+      
       <div className="play-controls">
 
         <PlayButton>

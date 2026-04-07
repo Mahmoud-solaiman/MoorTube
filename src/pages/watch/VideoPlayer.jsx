@@ -5,7 +5,8 @@ import {
   MediaProvider,
   TimeSlider,
   Gesture,
-  Spinner
+  Spinner,
+  Poster
 } from '@vidstack/react';
 import './VideoPlayer.scss';
 import { useState, useRef } from 'react';
@@ -62,6 +63,12 @@ export function VideoPlayer() {
       style={{ cursor: isShowControls ? 'default' : 'none' }}
     >
       <MediaProvider />
+
+      <Poster 
+        src="https://i.ytimg.com/vi/fNk6ZFK8NsI/maxresdefault.jpg"
+        alt="video poster"
+        className="vds-poster"
+      />
 
       <Gesture className="vds-gesture" event="dblmouseup" action="toggle:fullscreen" />
       <Gesture className="vds-gesture" event="mouseup" action="toggle:paused" />

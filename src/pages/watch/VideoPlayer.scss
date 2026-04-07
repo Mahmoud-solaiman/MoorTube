@@ -9,6 +9,18 @@ $slider-size: 5px;
   }
 }
 
+.vds-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  border-radius: 15px;
+  z-index: 0;
+}
+
+[data-started] .vds-poster {
+  display: none;
+}
+
 .vds-gesture {
   position: absolute;
   inset: 0;
@@ -81,6 +93,10 @@ $slider-size: 5px;
 .vds-buffering-track-fill {
   color: var(--primary-color);
   stroke-linecap: round;
+}
+
+[data-ended] .timeslider {
+  display: none;
 }
 
 .timeslider {

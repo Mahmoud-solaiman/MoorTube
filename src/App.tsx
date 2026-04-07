@@ -7,20 +7,23 @@ import { useEffect, useRef, useState } from "react";
 
 // The JSX of the App component and the Routes
 export default function App() {
-  const [ savedVideos, setSavedVideos ] = useState(JSON.parse(localStorage.getItem('disc')) || []);
-  const api_key = import.meta.env.VITE_API_KEY; //My google console API Key
+  const discStorage = localStorage.getItem('disc');
+  const currentDiscsStorage = localStorage.getItem('current-discs');
+  const modePreferenceStorage = localStorage.getItem('mode-preference');
+  const [ savedVideos, setSavedVideos ] = useState(discStorage ? JSON.parse(discStorage) : []);
+  const api_key = import.meta.env.VITE_API_KEY //My google console API Key
   const [ translate, setTranslate ] = useState(false); //The translateY value of the SidePanel
   const menuContainer = useRef(null); //The reference of the menu container
-  const [ discs, setDiscs ] = useState(JSON.parse(localStorage.getItem('current-discs')) || []); //The latest disc list from localStorage
-  const [ errorMessage, setErrorMessage ] = useState(null); //The error message state
+  const [ discs, setDiscs ] = useState(currentDiscsStorage ? JSON.parse(currentDiscsStorage) : []); //The latest disc list from localStorage
+  const [ errorMessage, setErrorMessage ] = useState(''); //The error message state
   const [ isErrorMessage, setIsErrorMessage ] = useState(false); //State to render and disrender the error message
-  const [ showErrorMessage, setShowErrorMessage ] = useState(null); //State to handle the setTimeout for disrendering the error message
+  const [ showErrorMessage, setShowErrorMessage ] = useState<number | undefined>(undefined); //State to handle the setTimeout for disrendering the error message
   const sysPreferences = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const [ isDarkMode, setIsDarkMode ] = useState(localStorage.getItem('mode-preference') ? JSON.parse(localStorage.getItem('mode-preference')) : sysPreferences);
+  const [ isDarkMode, setIsDarkMode ] = useState(modePreferenceStorage ? JSON.parse(modePreferenceStorage) : sysPreferences);
   const [ watchTitle, setWatchTitle ] = useState('Channel search');
 
   //Function that handles the rendering and disrendering and the content of the error message
-  function handleErrorMessage(message) {
+  function handleErrorMessage(message: string): void {
     clearTimeout(showErrorMessage);
     setErrorMessage(message);
     setShowErrorMessage(setTimeout(() => setIsErrorMessage(false), 1400));
