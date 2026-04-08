@@ -1,5 +1,6 @@
 import { useEffect } from 'react'; // Import the useState hook from react package
 import './Search.scss'; // Import the style sheet of this component
+import { SearchHistory, SearchProps } from '../../../utils/types';
 
 export function Search({
   isChannel,
@@ -10,10 +11,11 @@ export function Search({
   setSearchText,
   fetchChannelsData,
   searchField
-}) {
-  const searchHistory = JSON.parse(localStorage.getItem('search-history')) || [];
+}: SearchProps) {
+  const searchHistoryStorage = localStorage.getItem('search-history');
+  const searchHistory: SearchHistory[] = searchHistoryStorage ? JSON.parse(searchHistoryStorage) : [];
   
-  function recommendSearch(search) {
+  function recommendSearch(search: string) {
     const searchHistorySuggestions = searchHistory.filter(item => search && (search.toLowerCase() === item.searchName.slice(0, search.length).toLowerCase()));
     setSearchHistory(searchHistorySuggestions);
 
@@ -22,13 +24,13 @@ export function Search({
       setIsSuggestions(true);
     } else if (!search || !searchHistorySuggestions.length) {
       setIsSuggestions(false);
-      setSearchHistory(JSON.parse(localStorage.getItem('search-history')) || []);
+      setSearchHistory(searchHistoryStorage ? JSON.parse(searchHistoryStorage) : []);
     }
   }
 
   useEffect(() => {
     document.addEventListener('keyup', e => {
-      if (e.key === '/') {
+      if (e.key === '/' && searchField.current) {
         searchField.current.focus();
       }
     });
@@ -62,8 +64,10 @@ export function Search({
       />
       <button
         className="search-btn"
+        type="button"
         onPointerUp={() => {
-          fetchChannelsData(searchField.current.value);
+          if (searchField.current)
+            fetchChannelsData(searchField.current.value);
         }}
         title="Search button"
       >

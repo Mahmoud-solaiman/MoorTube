@@ -5,6 +5,7 @@ import { SidePanel } from "../../components/SidePanel"; // Import the SidePanel 
 import { ErrorMessage } from "../../components/ErrorMessage"; // Import the ErrorMessage component
 import { SearchVideos } from "../../components/SearchVideos"; // Import the SearchVideos component
 import LoadingVideos from "../../components/LoadingVideos";
+import type { HomeProps } from  "../../../utils/types.ts";
 
 export function Home({ 
     setSavedVideos, 
@@ -20,13 +21,17 @@ export function Home({
     isDarkMode,
     setIsDarkMode,
     setWatchTitle
-  }) {
+  }: HomeProps) {
   //Variables and states that are shared across the app
-  const [ channelVideos, setChannelVideos ] = useState(JSON.parse(sessionStorage.getItem('channel-videos')) || {}); // The videos for a specific channels returned from the channel filter
-  const [ videos, setVideos ] = useState(JSON.parse(sessionStorage.getItem('videos')) || {}); // Videos returned from the video filter
-  const [ popUpChannelLogo, setPopUpChannelLogo ] = useState(null); // State for the logos of the search popup
-  const [ channelLogo, setChannelLogo ] = useState(JSON.parse(sessionStorage.getItem('channel-logo')) || {}); // Channel logo of the channel filter
-  const [ channelsLogos, setChannelsLogos ] = useState(JSON.parse(sessionStorage.getItem('channels-logos')) || {}); //Logo of the picked channel
+  const channelVideosStorage = sessionStorage.getItem('channel-videos');
+  const videosStorage = sessionStorage.getItem('videos');
+  const channelLogoStorage = sessionStorage.getItem('channel-logo');
+  const channelsLogosStorage = sessionStorage.getItem('channels-logos');
+  const [ channelVideos, setChannelVideos ] = useState(channelVideosStorage ? JSON.parse(channelVideosStorage) : {}); // The videos for a specific channels returned from the channel filter
+  const [ videos, setVideos ] = useState(videosStorage ? JSON.parse(videosStorage) : {}); // Videos returned from the video filter
+  const [ popUpChannelLogo, setPopUpChannelLogo ] = useState({}); // State for the logos of the search popup
+  const [ channelLogo, setChannelLogo ] = useState(channelLogoStorage ? JSON.parse(channelLogoStorage) : {}); // Channel logo of the channel filter
+  const [ channelsLogos, setChannelsLogos ] = useState(channelsLogosStorage ? JSON.parse(channelsLogosStorage) : {}); //Logo of the picked channel
   const [ isChannel, setIsChannel ] = useState(true); // This is the state used to determine the search criterion (e.g. channel or video)
   const [ isLoading, setIsLoading ] = useState(false);
 
@@ -45,10 +50,10 @@ export function Home({
       setVideos({});
       setChannelLogo({});
       setChannelsLogos({});
-      sessionStorage.setItem('videos', null);
-      sessionStorage.setItem('channels-logos', null);
-      sessionStorage.setItem('channel-videos', null);
-      sessionStorage.setItem('channel-logo', null);
+      sessionStorage.removeItem('videos');
+      sessionStorage.removeItem('channels-logos');
+      sessionStorage.removeItem('channel-videos');
+      sessionStorage.removeItem('channel-logo');
     });
   });
 

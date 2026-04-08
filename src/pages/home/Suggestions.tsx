@@ -1,6 +1,7 @@
 import axios from 'axios'; // Import axios from the axios package
 import './Suggestions.scss'; // Import the style sheet of this component
 import LoadingChannels from '../../components/LoadingChannels';
+import { PlaylistInfoItem, SearchHistory, SuggestionsProps } from '../../../utils/types';
 
 export function Suggestions({
   popUpChannelLogo,
@@ -16,9 +17,9 @@ export function Suggestions({
   setSearchText,
   setIsLoading,
   isLoadingChannels
-}) {
+}: SuggestionsProps) {
   // The function that fetches the videos of the desired channel
-  const fetchChannelVideos = async (index) => {
+  const fetchChannelVideos = async (index: number) => {
     setIsSuggestions(false); // Hide the suggestions component
     setChannelVideos({});
     setIsLoading(true);
@@ -28,7 +29,7 @@ export function Suggestions({
       params: {
         part: 'contentDetails',
         key: apiKey,
-        id: popUpChannelLogo.items[index].id
+        id: popUpChannelLogo.items?.[index].id
       }
     });
 
@@ -47,7 +48,7 @@ export function Suggestions({
       params: {
         part: 'snippet,contentDetails,statistics',
         key: apiKey,
-        id: uploadPlaylistInfo.data.items.map(item => item.contentDetails.videoId).join(',')
+        id: uploadPlaylistInfo.data.items.map((item: PlaylistInfoItem) => item.contentDetails.videoId).join(',')
       }
     });
 
@@ -59,9 +60,10 @@ export function Suggestions({
     setIsLoading(false);
   }
 
-  function deleteHistorySuggestion(key) {
-    const currentHistory = JSON.parse(localStorage.getItem('search-history'));
-    const updatedHistory = currentHistory.filter(item => item.key !== key);
+  function deleteHistorySuggestion(key: string) {
+    const currentHistoryStorage = localStorage.getItem('search-history');
+    const currentHistory = currentHistoryStorage && JSON.parse(currentHistoryStorage);
+    const updatedHistory = currentHistory.filter((item: SearchHistory) => item.key !== key);
     const updatedSuggestions = searchHistory.filter(item => item.key !== key);
     setSearchHistory(updatedSuggestions);
 
@@ -85,6 +87,7 @@ export function Suggestions({
                   src={
                     item.snippet?.thumbnails.default.url
                   }
+                  alt="logo"
                   className="channel-icon" />
               </div>
               <div className="channel-semantics">
@@ -116,11 +119,13 @@ export function Suggestions({
                   key={index}
                   className="search-history-suggestion"
                   onMouseEnter={() => {
-                    searchField.current.value = searchText + item.searchName.slice(searchText.length);
+                    if (searchField.current)
+                      searchField.current.value = searchText + item.searchName.slice(searchText.length);
                   }}
 
                   onMouseLeave={() => {
-                    searchField.current.value = searchText;
+                    if (searchField.current)
+                      searchField.current.value = searchText;
                   }}
                 >
 

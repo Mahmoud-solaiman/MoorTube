@@ -5,6 +5,7 @@ import { Suggestions } from "../pages/home/Suggestions"; // Import the Suggestio
 import { ToggleSearch } from "./ToggleSearch"; // Import the ToggleSearch component
 import './Header.scss'; // Import the style sheet of this component
 import { generateID } from "../../utils/formatting";
+import { ChannelItem, HeaderProps, SearchHistory, VideosChannelsItem, VideosItem } from "../../utils/types";
 
 export function Header({
   setVideos,
@@ -22,15 +23,16 @@ export function Header({
   isDarkMode,
   setWatchTitle,
   setIsLoading
-}) {
+}: HeaderProps) {
   const [isSuggestions, setIsSuggestions] = useState(false); // This state controls whether to show the channels search suggestions or not
-  const [searchHistory, setSearchHistory] = useState(JSON.parse(localStorage.getItem('search-history')) || []);
+  const searchHistoryStorage = localStorage.getItem('search-history');
+  const [searchHistory, setSearchHistory] = useState<SearchHistory[]>(searchHistoryStorage ? JSON.parse(searchHistoryStorage) : []);
   const [searchText, setSearchText] = useState(''); // The state of the search field to control its value
   const [ isLoadingChannels, setIsLoadingChannels ] = useState(false);
   const searchField = useRef(null);
 
   // This function handles adding the searches to the search history making sure none repeats twice.
-  function AddToSearchHistory(search) {
+  function AddToSearchHistory(search: string) {
     const isSuggestion = searchHistory.find(item => item.searchName.toLowerCase() === search.trim().toLowerCase());
     if (!isSuggestion) {
       searchHistory.push(
@@ -44,7 +46,7 @@ export function Header({
     }
   }
 
-  async function fetchChannelsData(search) {
+  async function fetchChannelsData(search: string) {
     // If the search filter is set to channel, then search for channels using the following
     if (isChannel && search.trim()) {
       setIsLoadingChannels(true);
@@ -70,7 +72,7 @@ export function Header({
         params: {
           part: 'snippet',
           key: api_key,
-          id: channelsRequest.data.items.map(item => item.id.channelId).join(',') // We loop through the channels set up the new request to pull up the needed data for all of the returned channels
+          id: channelsRequest.data.items.map((item: ChannelItem) => item.id.channelId).join(',') // We loop through the channels set up the new request to pull up the needed data for all of the returned channels
         }
       });
 
@@ -105,7 +107,7 @@ export function Header({
         params: {
           part: 'snippet',
           key: api_key,
-          id: videosRequest.data.items.map(item => item.snippet.channelId).join(',')
+          id: videosRequest.data.items.map((item: VideosChannelsItem) => item.snippet.channelId).join(',')
         }
       });
 
@@ -113,10 +115,9 @@ export function Header({
         params: {
           part: 'snippet,contentDetails,statistics',
           key: api_key,
-          id: videosRequest.data.items.map(item => item.id.videoId).join(',')
+          id: videosRequest.data.items.map((item: VideosItem) => item.id.videoId).join(',')
         }
       });
-
 
       setChannelsLogos(channelsLogos.data);
       sessionStorage.setItem('channels-logos', JSON.stringify(channelsLogos.data));
@@ -181,7 +182,6 @@ export function Header({
             <Suggestions
               popUpChannelLogo={popUpChannelLogo}
               apiKey={api_key}
-              setChannelsLogos={setChannelsLogos}
               setIsSuggestions={setIsSuggestions}
               setChannelVideos={setChannelVideos}
               setChannelLogo={setChannelLogo}
