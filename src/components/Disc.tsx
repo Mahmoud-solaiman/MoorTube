@@ -2,6 +2,7 @@ import { useState } from 'react'; // Import useState from the React package
 import { DeleteDisc } from './DeleteDisc'; // Import the DeleteDisc component
 import './Disc.scss'; // Import the style sheet of this compoenent
 import { Link } from 'react-router-dom';
+import type { DiscProps, DiscType } from '../../utils/types';
 
 export function Disc({
   disc,
@@ -13,7 +14,7 @@ export function Disc({
   setSavedVideos,
   discObject,
   setWatchTitle
-}) {
+}: DiscProps) {
   //Functions and Variables ==> Javascript + React
   // Hooks
   const [showDelete, setShowDelete] = useState(false);
@@ -22,25 +23,28 @@ export function Disc({
 
   // The function that handles editing the desired disc
   function editDisc() {
-    const currentDiscs = JSON.parse(localStorage.getItem('current-discs')); // Pull the current discs from local storage
+    const currentDiscsStorage = localStorage.getItem('current-discs');
+    const currentDiscs: DiscType[] = currentDiscsStorage && JSON.parse(currentDiscsStorage); // Pull the current discs from local storage
     const discToEdit = currentDiscs.find(item => item.id === discId); // Locate the disc that the user wants to edit by using the disc Id
     const isDisc = currentDiscs.find(item => item.name.toLowerCase() === discName.trim().toLowerCase()); // Check if the new edited disc already exists
 
-    if ((!isDisc || isDisc.id === discToEdit.id) && discName.trim().length >= 5) { // If the new disc doesn't exist or if the user wants to withdraw the editing action
-      discToEdit.name = discName.trim(); // Update the disc name
-      localStorage.setItem('current-discs', JSON.stringify(currentDiscs)); // Update the local storage
-      setDiscs(currentDiscs); // Update the discs in the SidePanel
-      setIsEdit(false); // Hide the editing field
-
-    } if (isDisc && isDisc.id !== discToEdit.id) { // If disc does exist and it's not the current disc
-      setIsEdit(true); // Keep the edit field
-      handleErrorMessage('Disc already exists! Please try a different name.'); // Show this error message to tell the user that the disc already exists 
-
-    } if (!discName.trim()) { // If the new disc value is empty
-      setIsEdit(true); // Keep the edit field
-      handleErrorMessage("Disc name can't be an empty value."); // Tell the user that the disc name can't be an empty value
-    } if (discName.trim() && discName.trim().length < 5) {
-      handleErrorMessage("Disc name should at least be 5 characters.");
+    if (discToEdit) {
+      if ((!isDisc || isDisc.id === discToEdit.id) && discName.trim().length >= 5) { // If the new disc doesn't exist or if the user wants to withdraw the editing action
+        discToEdit.name = discName.trim(); // Update the disc name
+        localStorage.setItem('current-discs', JSON.stringify(currentDiscs)); // Update the local storage
+        setDiscs(currentDiscs); // Update the discs in the SidePanel
+        setIsEdit(false); // Hide the editing field
+  
+      } else if (isDisc && isDisc.id !== discToEdit.id) { // If disc does exist and it's not the current disc
+        setIsEdit(true); // Keep the edit field
+        handleErrorMessage('Disc already exists! Please try a different name.'); // Show this error message to tell the user that the disc already exists 
+  
+      } else if (!discName.trim()) { // If the new disc value is empty
+        setIsEdit(true); // Keep the edit field
+        handleErrorMessage("Disc name can't be an empty value."); // Tell the user that the disc name can't be an empty value
+      } else if (discName.trim() && discName.trim().length < 5) {
+        handleErrorMessage("Disc name should at least be 5 characters.");
+      }
     }
 
   }
@@ -51,6 +55,7 @@ export function Disc({
       {isEdit &&
         <input
           autoComplete="off"
+          placeholder="Edit your disc"
           type="text"
           id="edit-disc-name"
           autoFocus
@@ -65,25 +70,26 @@ export function Disc({
           }}
         />
       }
-      <Link 
-        to="/savedVideos" 
-        className='disc-name'
-        title={title}
-        style={isEdit ? { display: 'none' } : null}
-        onPointerDown={() => { 
-          setSavedVideos(discObject);
-          setWatchTitle(discObject.name);
-          localStorage.setItem('disc', JSON.stringify(discObject));
-        }}
-      >
-        {disc}
-      </Link>
+      {
+        !isEdit &&
+        <Link 
+          to="/savedVideos" 
+          className='disc-name'
+          title={title}
+          onPointerDown={() => { 
+            setSavedVideos(discObject);
+            setWatchTitle(discObject.name);
+            localStorage.setItem('disc', JSON.stringify(discObject));
+          }}
+        >
+          {disc}
+        </Link>
+      }
       <div className='disc-controls-container'>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 640 640"
-          className='edit-btn'
-          onTransitionEnd={e => e.stopPropagation()}
+          className="edit-btn"
           onPointerUp={() => {
             setIsEdit(!isEdit);
             if (isEdit) {
@@ -102,7 +108,6 @@ export function Disc({
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 640 640"
           onPointerUp={() => setShowDelete(true)}
-          onTransitionEnd={e => e.stopPropagation()}
           className="delete-btn"
         >
           <path d="M232.7 69.9C237.1 56.8 249.3 48 263.1 48L377 48C390.8 48 403 56.8 407.4 69.9L416 96L512 96C529.7 96 544 110.3 544 128C544 145.7 529.7 160 512 160L128 160C110.3 160 96 145.7 96 128C96 110.3 110.3 96 128 96L224 96L232.7 69.9zM128 208L512 208L512 512C512 547.3 483.3 576 448 576L192 576C156.7 576 128 547.3 128 512L128 208zM216 272C202.7 272 192 282.7 192 296L192 488C192 501.3 202.7 512 216 512C229.3 512 240 501.3 240 488L240 296C240 282.7 229.3 272 216 272zM320 272C306.7 272 296 282.7 296 296L296 488C296 501.3 306.7 512 320 512C333.3 512 344 501.3 344 488L344 296C344 282.7 333.3 272 320 272zM424 272C410.7 272 400 282.7 400 296L400 488C400 501.3 410.7 512 424 512C437.3 512 448 501.3 448 488L448 296C448 282.7 437.3 272 424 272z" />

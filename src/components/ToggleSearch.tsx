@@ -1,7 +1,10 @@
 import './ToggleSearch.scss'; // The style sheet of this component
 
 // The JSX of this component
-export function ToggleSearch({ toggleSearch, setWatchTitle }) {
+export function ToggleSearch({ 
+    toggleSearch, 
+    setWatchTitle 
+  }: {toggleSearch(value: boolean): void; setWatchTitle(value: string): void}) {
   return (
     <div className="toggle-search-container">
       Search for:

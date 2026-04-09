@@ -37,7 +37,7 @@ export function AddNewDisc({
       setDiscs(currentDiscs); // Update the discs the render the latest version of the discs
       setOpenIndex(null); // Hide the Actions component
       setOpenNewAdder(null); // Hide the AddnewDisc compoenent
-      setTranslate(0); // Show the SidePanel
+      setTranslate(true); // Show the SidePanel
       handleErrorMessage('Added successfully!'); // Show a message that the video has been added successfully
 
     } else if (isDisc) { // If the new disc alreay exists

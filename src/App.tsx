@@ -4,18 +4,18 @@ import { PageNotFound } from "./pages/page_not_found/PageNotFound"; // Import th
 import { SavedVideos } from "./pages/saved-videos/SavedVideos";
 import { Watch } from "./pages/watch/Watch";
 import { useEffect, useRef, useState } from "react";
-import type { Disc } from "../utils/types";
+import type { DiscType } from "../utils/types";
 
 // The JSX of the App component and the Routes
 export default function App() {
   const discStorage = localStorage.getItem('disc');
   const currentDiscsStorage = localStorage.getItem('current-discs');
   const modePreferenceStorage = localStorage.getItem('mode-preference');
-  const [ savedVideos, setSavedVideos ] = useState<Disc>(discStorage ? JSON.parse(discStorage) : []);
+  const [ savedVideos, setSavedVideos ] = useState<DiscType>(discStorage ? JSON.parse(discStorage) : []);
   const api_key = import.meta.env.VITE_API_KEY //My google console API Key
   const [ translate, setTranslate ] = useState<boolean | number>(false); //The translateY value of the SidePanel
   const menuContainer = useRef(null); //The reference of the menu container
-  const [ discs, setDiscs ] = useState<Disc[]>(currentDiscsStorage ? JSON.parse(currentDiscsStorage) : []); //The latest disc list from localStorage
+  const [ discs, setDiscs ] = useState<DiscType[]>(currentDiscsStorage ? JSON.parse(currentDiscsStorage) : []); //The latest disc list from localStorage
   const [ errorMessage, setErrorMessage ] = useState(''); //The error message state
   const [ isErrorMessage, setIsErrorMessage ] = useState(false); //State to render and disrender the error message
   const [ showErrorMessage, setShowErrorMessage ] = useState<number | undefined>(undefined); //State to handle the setTimeout for disrendering the error message

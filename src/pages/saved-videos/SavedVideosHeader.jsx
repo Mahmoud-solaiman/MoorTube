@@ -15,7 +15,7 @@ export function SavedVideosHeader({
             xmlns="http://www.w3.org/2000/svg" 
             viewBox="0 0 640 640"
             onPointerUp={() => {
-              setTranslate(0);
+              setTranslate(true);
             }}  
           >
             <path

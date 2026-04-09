@@ -1,19 +1,19 @@
 import { RefObject } from "react";
 
-export type Disc = {
+export type DiscType = {
   id: string;
   items: string[];
   name: string;
 }
 
 export type HomeProps = {
-  setSavedVideos(value: Disc): void;
+  setSavedVideos(value: DiscType): void;
   api_key: string;
   setTranslate(value: number | boolean): void;
   translate: number | boolean;
   menuContainer: RefObject<HTMLDivElement | null>;
-  discs: Disc[];
-  setDiscs(value: Disc[]): void;
+  discs: DiscType[];
+  setDiscs(value: DiscType[]): void;
   handleErrorMessage(value: string): void;
   isErrorMessage: boolean;
   errorMessage: string;
@@ -97,4 +97,36 @@ export type SuggestionsProps = {
 
 export type PlaylistInfoItem = {
   contentDetails: {videoId: string}
+}
+
+export type SidePanelProps = {
+  translate: number | boolean;
+  setTranslate(value: number | boolean): void;
+  menuContainer: RefObject<HTMLDivElement | null>;
+  discs: DiscType[];
+  setDiscs(value: DiscType[]): void;
+  handleErrorMessage(value: string): void;
+  setSavedVideos(value: DiscType): void;
+  isDarkMode: boolean;
+  setIsDarkMode(value: boolean): void;
+  setWatchTitle(value: string): void;
+}
+
+export type DiscProps = {
+  disc: string;
+  title: string;
+  discId: string;
+  setDiscs(value: DiscType[]): void;
+  deleteConfirmationRef: RefObject<HTMLElement | null>
+  handleErrorMessage(value: string): void;
+  setSavedVideos(value: DiscType): void;
+  discObject: DiscType; 
+  setWatchTitle(value: string): void;
+}
+
+export type DiscDeleteProps = {
+  setDiscs(value: DiscType[]): void;
+  setShowDelete(value: boolean): void;
+  deleteConfirmationRef: RefObject<HTMLElement | null>;
+  discId: string;
 }

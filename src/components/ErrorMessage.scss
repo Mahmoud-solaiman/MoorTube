@@ -14,10 +14,15 @@
   border-radius: 30px;
   animation: errorMessage .075s linear;
   text-align: center;
+  background-color: rgb(206, 12, 9);
 
   @media (max-width: 500px) {
     font-size: 1.1rem;
   }
+}
+
+.error-message.success {
+  background-color: rgb(25, 135, 84);
 }
 
 @keyframes errorMessage {

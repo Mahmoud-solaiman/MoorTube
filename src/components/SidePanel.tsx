@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'; // Import these hooks from 
 import { Disc } from './Disc'; // Import the Disc component
 import { generateID } from '../../utils/formatting';
 import './SidePanel.scss'; // Import the style sheet of this component
+import type { DiscType, SidePanelProps } from '../../utils/types';
 
 export function SidePanel({
   translate,
@@ -14,17 +15,18 @@ export function SidePanel({
   isDarkMode,
   setIsDarkMode,
   setWatchTitle
-}) {
+}: SidePanelProps) {
   //Javascript and React functions and variables
   const [ discFieldValue, setDiscFieldValue ] = useState('');
-  const sidePanel = useRef(null);
-  const deleteConfirmationRef = useRef(null);
-  const addDiscField = useRef(null);
+  const sidePanel = useRef<HTMLElement | null>(null);
+  const deleteConfirmationRef = useRef<HTMLElement | null>(null);
+  const addDiscField = useRef<HTMLInputElement | null>(null);
 
   //The function that handles adding a new disc to the current discs
-  const addDisc = (value) => {
+  const addDisc = (value: string) => {
     const discValueTrimmed = value.trim(); // Set the new disc value
-    const currentDiscs = JSON.parse(localStorage.getItem('current-discs')) || []; // Pull the current discs from local storage
+    const currentDiscsStorage = localStorage.getItem('current-discs');
+    const currentDiscs: DiscType[] = currentDiscsStorage ? JSON.parse(currentDiscsStorage) : []; // Pull the current discs from local storage
 
     const discExists = currentDiscs.find(item => item.name.toLowerCase() === discValueTrimmed.toLowerCase()); // Check if the new disc already exists
 
@@ -57,42 +59,43 @@ export function SidePanel({
 
   //The function that handles hidding the side panel when clicking outside of it;
   useEffect(() => {
-    function hideSidePanel(e) {
+    function hideSidePanel(e: PointerEvent) {
+      const target = e.target as Node;
       if (!sidePanel.current) return;
 
       if (
-        !sidePanel.current?.contains(e.target) &&
-        !menuContainer.current.contains(e.target) &&
-        !deleteConfirmationRef.current?.contains(e.target)
+        !sidePanel.current?.contains(target) &&
+        !menuContainer.current?.contains(target) &&
+        !deleteConfirmationRef.current?.contains(target)
       ) {
-        setTranslate(-104);
+        setTranslate(false);
       }
     }
 
     document.addEventListener('pointerup', hideSidePanel);
-    setDiscs(JSON.parse(localStorage.getItem('current-discs')));
+    const currentDiscsStorage = localStorage.getItem('current-discs');
+    setDiscs(currentDiscsStorage && JSON.parse(currentDiscsStorage));
+
+    return () => document.removeEventListener('pointerup', hideSidePanel);
   }, [menuContainer, setDiscs, setTranslate]);
 
   // The function that handles toggling the mode between light and dark
   function toggleMode() {
     setIsDarkMode(!isDarkMode);
-    localStorage.setItem('mode-preference', !isDarkMode);
+    localStorage.setItem('mode-preference', JSON.stringify(!isDarkMode));
   }
   
   //JSX elements and functions
   return (
     <aside
-      className="side-panel"
-      style={{ transform: `translateX(${translate}%)` }}
+      className={translate ? "side-panel show" : "side-panel"}
       ref={sidePanel}
-      onTransitionEnd={() => setTranslate(false)}
     >
       <header className="side-panel-header">
         <div className="mode-toggle">
           {
             !isDarkMode &&
-            <svg 
-              onTransitionEnd={e => e.stopPropagation()}
+            <svg
               onClick={toggleMode} 
               xmlns="http://www.w3.org/2000/svg" 
               className="sun" x="0px" y="0px" width="100" 
@@ -102,8 +105,7 @@ export function SidePanel({
             </svg>
           }
           { isDarkMode &&
-            <svg 
-              onTransitionEnd={e => e.stopPropagation()} 
+            <svg
               onClick={toggleMode} 
               xmlns="http://www.w3.org/2000/svg" 
               className="moon" 
@@ -113,7 +115,7 @@ export function SidePanel({
             </svg>
           }
         </div>
-        <div className="xmark" onTransitionEnd={e => e.stopPropagation()} onPointerUp={() => setTranslate(-104)}>
+        <div className="xmark" onPointerUp={() => setTranslate(false)}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
             <path d="M183.1 137.4C170.6 124.9 150.3 124.9 137.8 137.4C125.3 149.9 125.3 170.2 137.8 182.7L275.2 320L137.9 457.4C125.4 469.9 125.4 490.2 137.9 502.7C150.4 515.2 170.7 515.2 183.2 502.7L320.5 365.3L457.9 502.6C470.4 515.1 490.7 515.1 503.2 502.6C515.7 490.1 515.7 469.8 503.2 457.3L365.8 320L503.1 182.6C515.6 170.1 515.6 149.8 503.1 137.3C490.6 124.8 470.3 124.8 457.8 137.3L320.5 274.7L183.1 137.4z" />
           </svg>
@@ -140,13 +142,13 @@ export function SidePanel({
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 640 640"
-          onTransitionEnd={e => e.stopPropagation()}
           onPointerUp={() => {
             if (discFieldValue.trim()) {
               addDisc(discFieldValue);
             }
 
-            addDiscField.current.focus();
+            if (addDiscField.current)
+                addDiscField.current.focus();
           }}
         >
           <path d="M352 128C352 110.3 337.7 96 320 96C302.3 96 288 110.3 288 128L288 288L128 288C110.3 288 96 302.3 96 320C96 337.7 110.3 352 128 352L288 352L288 512C288 529.7 302.3 544 320 544C337.7 544 352 529.7 352 512L352 352L512 352C529.7 352 544 337.7 544 320C544 302.3 529.7 288 512 288L352 288L352 128z" />
@@ -155,7 +157,7 @@ export function SidePanel({
 
       <div className="current-discs">
         <span className='current-discs-label'>Current Discs</span>
-        <section className="current-discs-container" style={!discs.length ? {paddingLeft: '.8em', fontSize: '1.2rem'} : {}}>
+        <section className="current-discs-container">
           {
             discs.length ?
               discs.map(disc => {

@@ -11,7 +11,7 @@ export function PageNotFound() {
         Sorry but the page you are looking for does not exist, have been removed, name changed or is temporarily unavailable
       </p>
       <Link to="/">
-        <button className="home-page-btn">GO TO HOMEPAGE</button>
+        <button type="button" className="home-page-btn">GO TO HOMEPAGE</button>
       </Link>
       
     </div>
