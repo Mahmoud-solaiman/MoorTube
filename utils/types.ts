@@ -9,8 +9,8 @@ export type DiscType = {
 export type HomeProps = {
   setSavedVideos(value: DiscType): void;
   api_key: string;
-  setTranslate(value: number | boolean): void;
-  translate: number | boolean;
+  setTranslate(value: boolean): void;
+  translate: boolean;
   menuContainer: RefObject<HTMLDivElement | null>;
   discs: DiscType[];
   setDiscs(value: DiscType[]): void;
@@ -43,7 +43,7 @@ export type HeaderProps = {
   setChannelVideos(value: unknown): void;
   setChannelsLogos(value: unknown): void;
   api_key: string;
-  setTranslate(value: number | boolean): void;
+  setTranslate(value: boolean): void;
   menuContainer: RefObject<HTMLDivElement | null>;
   handleErrorMessage(value: string): void;
   setIsChannel(value: boolean): void;
@@ -100,8 +100,8 @@ export type PlaylistInfoItem = {
 }
 
 export type SidePanelProps = {
-  translate: number | boolean;
-  setTranslate(value: number | boolean): void;
+  translate: boolean;
+  setTranslate(value: boolean): void;
   menuContainer: RefObject<HTMLDivElement | null>;
   discs: DiscType[];
   setDiscs(value: DiscType[]): void;
@@ -129,4 +129,56 @@ export type DiscDeleteProps = {
   setShowDelete(value: boolean): void;
   deleteConfirmationRef: RefObject<HTMLElement | null>;
   discId: string;
+}
+
+export type VideoGridProps = {
+  channelLogo: {
+    items: [{
+      id: string;
+      snippet: {
+        thumbnails: {
+          default: {
+            url: string;
+          }
+        }
+      }
+    }]
+  };
+  videos: {
+    items: [{
+      id: string;
+      snippet: {
+        thumbnails: {
+          maxres: {
+            url: string;
+          },
+          standard: {
+            url: string;
+          },
+          high: {
+            url: string;
+          },
+          medium: {
+            url: string;
+          },
+          default: {
+            url: string;
+          },
+        };
+        title: string;
+        channelTitle: string;
+        channelId: string;
+        publishedAt: string;
+      };
+      contentDetails: {
+        duration: string;
+      };
+      statistics: {
+        viewCount: string;
+      }
+    }]
+  };
+  setDiscs(value: DiscType[]): void;
+  setTranslate(value: boolean): void;
+  handleErrorMessage(value: string): void;
 }

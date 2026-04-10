@@ -73,21 +73,18 @@ export function SavedVideos({
         }
         
       </div>
-      {
-        (translate || translate === 0) &&
-        <SidePanel
-          translate={translate}
-          setTranslate={setTranslate}
-          menuContainer={menuContainer}
-          discs={discs}
-          setDiscs={setDiscs}
-          handleErrorMessage={handleErrorMessage}
-          setSavedVideos={setSavedVideos}
-          isDarkMode={isDarkMode}
-          setIsDarkMode={setIsDarkMode}
-          setWatchTitle={setWatchTitle}
-        />
-      }
+      <SidePanel
+        translate={translate}
+        setTranslate={setTranslate}
+        menuContainer={menuContainer}
+        discs={discs}
+        setDiscs={setDiscs}
+        handleErrorMessage={handleErrorMessage}
+        setSavedVideos={setSavedVideos}
+        isDarkMode={isDarkMode}
+        setIsDarkMode={setIsDarkMode}
+        setWatchTitle={setWatchTitle}
+      />
 
     </div>
   );

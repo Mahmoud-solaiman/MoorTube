@@ -5,6 +5,7 @@ import './VideoGrid.scss';
 import { DiscsActions } from './DiscsActions';
 import { AddNewDisc } from './AddNewDisc';
 import { useNavigate } from 'react-router-dom';
+import { VideoGridProps } from '../../utils/types';
 
 export function VideoGrid({
   channelLogo,
@@ -12,15 +13,15 @@ export function VideoGrid({
   setDiscs,
   setTranslate,
   handleErrorMessage
-}) {
+}: VideoGridProps) {
   // This is the section for setting up all the variables and states and other hooks
-  const [openIndex, setOpenIndex] = useState(null); // The state that toggles the disc actions on and off
+  const [openIndex, setOpenIndex] = useState<number | undefined>(undefined); // The state that toggles the disc actions on and off
   const [openDisc, setOpenDisc] = useState(null); // The state that toggles the discs on and off
   const [openNewAdder, setOpenNewAdder] = useState(null); // The state the toggles the new disc adder on and off
-  const actionsContainerRef = useRef(null); // The reference to the actions container
-  const discsContainerRef = useRef(null); // The reference to the discs container
-  const dotsContainer = useRef(null); // The reference to the video dots
-  const newAdderContainerRef = useRef(null); //The reference to the new disc adder container
+  const actionsContainerRef = useRef<HTMLElement>(null); // The reference to the actions container
+  const discsContainerRef = useRef<HTMLElement>(null); // The reference to the discs container
+  const dotsContainer = useRef<SVGSVGElement>(null); // The reference to the video dots
+  const newAdderContainerRef = useRef<HTMLElement>(null); //The reference to the new disc adder container
   const videoBackgroundList = [ // The list of colors picked for the video hover effect
     '#d2042d33',
     '#5d145133',
@@ -42,20 +43,23 @@ export function VideoGrid({
       If the clicked element isn't the actions container, nor the discs container, nor the dots 
       , nor the new disc adder container, then hide all of these elements listed formerly
     */
-    function hideActions(e) {
+    function hideActions(e: PointerEvent) {
+      const target = e.target as Node;
       if (
-        !actionsContainerRef.current?.contains(e.target) &&
-        !discsContainerRef.current?.contains(e.target) &&
-        !dotsContainer.current?.contains(e.target) &&
-        !newAdderContainerRef.current?.contains(e.target)
+        !actionsContainerRef.current?.contains(target) &&
+        !discsContainerRef.current?.contains(target) &&
+        !dotsContainer.current?.contains(target) &&
+        !newAdderContainerRef.current?.contains(target)
       ) {
-        setOpenIndex(null);
+        setOpenIndex(undefined);
         setOpenDisc(null);
         setOpenNewAdder(null);
       }
     }
 
     document.addEventListener('pointerup', hideActions);
+
+    return () => document.removeEventListener('pointerup', hideActions);
   });
 
   //The JSX of the videos grid when searching for a channel
@@ -99,7 +103,7 @@ export function VideoGrid({
               </div>
               <div className="video-info">
                 <div className="video-channel-logo-container">
-                  <img src={channelLogo.items.find(channel => channel.id === item.snippet.channelId)?.snippet.thumbnails.default.url || 'default-thumbnail.png'} alt="" /> {/*channelLogo.items[index]?.snippet.thumbnails.default.url*/}
+                  <img src={channelLogo.items.find(channel => channel.id === item.snippet.channelId)?.snippet.thumbnails.default.url || 'default-thumbnail.png'} alt="" />
                 </div>
                 <div className="video-details">
                   <span className="video-title">{item.snippet.title}</span>
@@ -113,10 +117,10 @@ export function VideoGrid({
                     className='three-dots-video'
                     onPointerUp={(e) => {
                       e.stopPropagation();
-                      openIndex === index ? setOpenIndex(null) : setOpenIndex(index); // Toggle the actions when clicking the three dots
+                      openIndex === index ? setOpenIndex(undefined) : setOpenIndex(index); // Toggle the actions when clicking the three dots
                       setOpenDisc(null); // Hide the discs whenever user clicks the three dots
                       setOpenNewAdder(null); // Hide new disc adder whenever user clicks the three dots
-                      dotsContainer.current = e.target; // Set the dots reference
+                      dotsContainer.current = e.currentTarget; // Set the dots reference
 
                       // Render the actions elements and it's subsequent element optimully with the view 
                       if (window.innerHeight - e.clientY < 200) {

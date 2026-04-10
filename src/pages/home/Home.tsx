@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react"; // Import these hooks from the react package
 import { Header } from "../../components/Header"; // Import the header component
-import { ChannelVideos } from "../../components/ChannelVideos"; // Import the ChannelVideos component
 import { SidePanel } from "../../components/SidePanel"; // Import the SidePanel component
 import { ErrorMessage } from "../../components/ErrorMessage"; // Import the ErrorMessage component
-import { SearchVideos } from "../../components/SearchVideos"; // Import the SearchVideos component
 import LoadingVideos from "../../components/LoadingVideos";
 import type { HomeProps } from  "../../../utils/types.ts";
+import { VideoGrid } from "../../components/VideoGrid.jsx";
 
 export function Home({ 
     setSavedVideos, 
@@ -104,7 +103,7 @@ export function Home({
       {
         (channelVideos.items && isChannel) &&
         // Render the ChannelVideos conditionally
-        <ChannelVideos
+        <VideoGrid
           channelLogo={channelLogo}
           videos={channelVideos}
           setDiscs={setDiscs}
@@ -115,7 +114,7 @@ export function Home({
       {
         (channelsLogos.items && !isChannel) &&
         // Render the SearchVideos conditionally
-        <SearchVideos
+        <VideoGrid
           channelLogo={channelsLogos}
           videos={videos}
           setDiscs={setDiscs}
