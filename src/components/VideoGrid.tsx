@@ -16,8 +16,8 @@ export function VideoGrid({
 }: VideoGridProps) {
   // This is the section for setting up all the variables and states and other hooks
   const [openIndex, setOpenIndex] = useState<number | undefined>(undefined); // The state that toggles the disc actions on and off
-  const [openDisc, setOpenDisc] = useState(null); // The state that toggles the discs on and off
-  const [openNewAdder, setOpenNewAdder] = useState(null); // The state the toggles the new disc adder on and off
+  const [openDisc, setOpenDisc] = useState<number | null>(null); // The state that toggles the discs on and off
+  const [openNewAdder, setOpenNewAdder] = useState<number | null>(null); // The state the toggles the new disc adder on and off
   const actionsContainerRef = useRef<HTMLElement>(null); // The reference to the actions container
   const discsContainerRef = useRef<HTMLElement>(null); // The reference to the discs container
   const dotsContainer = useRef<SVGSVGElement>(null); // The reference to the video dots

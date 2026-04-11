@@ -1,6 +1,7 @@
 import { useState } from 'react'; // Importing the useState hook from the react package
 import { generateID } from '../../utils/formatting';
 import './AddNewDisc.scss'; // Importing the sass styles for this component
+import { AddNewDiscProps, DiscType } from '../../utils/types';
 
 export function AddNewDisc({
   newAdderContainerRef, // The reference of the new disc adder used at the function used to hide the actions, discs, and the new disc adder
@@ -11,14 +12,15 @@ export function AddNewDisc({
   handleErrorMessage, // This function handles the error messages
   videoId, // This is the video Id of each video in the list of videos fetched from the API used when pushing a new disc
   isOpenTop // This is the variable used to determine the position of the Actions component and its sibling components
-}) {
+}: AddNewDiscProps) {
   //Variables and hooks
   const [newDiscValue, setNewDiscValue] = useState('');
 
   //Function that handles adding a new disc
   function addDisc() {
     const newDiscValueTrimmed = newDiscValue.trim(); // Setting the new disc value
-    const currentDiscs = JSON.parse(localStorage.getItem('current-discs')) || []; // Pulling the current discs from the local storage
+    const currentDiscsStorage = localStorage.getItem('current-discs');
+    const currentDiscs: DiscType[] = currentDiscsStorage ? JSON.parse(currentDiscsStorage) : []; // Pulling the current discs from the local storage
     const isDisc = currentDiscs.find(item => item.name.toLowerCase() === newDiscValueTrimmed.toLowerCase()); // Looking for any identical discs in the current discs
 
     if (!isDisc && newDiscValueTrimmed.length >= 5) { // If disc doesn't exist and the new disc value isn't an empty value
@@ -35,7 +37,7 @@ export function AddNewDisc({
       // Then update the local storage with the latest version of the discs
       localStorage.setItem('current-discs', JSON.stringify(currentDiscs));
       setDiscs(currentDiscs); // Update the discs the render the latest version of the discs
-      setOpenIndex(null); // Hide the Actions component
+      setOpenIndex(undefined); // Hide the Actions component
       setOpenNewAdder(null); // Hide the AddnewDisc compoenent
       setTranslate(true); // Show the SidePanel
       handleErrorMessage('Added successfully!'); // Show a message that the video has been added successfully
@@ -76,12 +78,14 @@ export function AddNewDisc({
       />
       <div className="new-disc-adder-btns-container">
         <button
+          type="button"
           className="cancel-new-disc-btn"
           onPointerUp={() => {
             setOpenNewAdder(null);
           }}
         >Cancel</button>
         <button
+          type="button"
           className="add-new-disc-btn"
           onClick={addDisc}
         >Add</button>

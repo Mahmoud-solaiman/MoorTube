@@ -105,6 +105,7 @@ export function Suggestions({
         <div className="search-history">
           <div className="clear-history-container">
             <button
+              type="button"
               className="clear-history-btn"
               onClick={() => {
                 localStorage.removeItem('search-history');

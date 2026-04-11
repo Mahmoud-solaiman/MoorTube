@@ -13,17 +13,21 @@
   animation: discs .1s;
 }
 
+.discs-actions-container.open-top {
+  bottom:150px;
+  top:auto;
+}
+
+.discs-actions-container.empty {
+  text-align: center;
+}
+
 .disc-actions {
   padding: .4em;
 
   &:hover {
     background-color: var(--primary-color-transparent);
   }
-}
-
-.discs-actions-container.open-top {
-  bottom:150px;
-  top:auto;
 }
 
 @keyframes discs {

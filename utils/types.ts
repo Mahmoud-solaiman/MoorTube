@@ -182,3 +182,32 @@ export type VideoGridProps = {
   setTranslate(value: boolean): void;
   handleErrorMessage(value: string): void;
 }
+
+export type ActionsProps = {
+  setOpenDisc(value: number | null): void;
+  index: number;
+  actionsContainerRef: RefObject<HTMLElement | null>;
+  setOpenNewAdder(value: number | null): void;
+  isOpenTop: boolean;
+}
+
+export type DiscsActionsProps = {
+  discsContainerRef: RefObject<HTMLElement | null>;
+  videoId: string;
+  handleErrorMessage(value: string): void;
+  setOpenDisc(value: number | null): void;
+  setOpenIndex(value: number | undefined): void;
+  isOpenTop: boolean;
+  setDiscs(value: DiscType[]): void;
+}
+
+export type AddNewDiscProps = {
+  newAdderContainerRef: RefObject<HTMLElement | null>
+  setDiscs(value: DiscType[]): void;
+  setOpenIndex(value: number | undefined): void;
+  setOpenNewAdder(value: number | null): void;
+  setTranslate(value: boolean): void;
+  handleErrorMessage(value: string): void;
+  videoId: string;
+  isOpenTop: boolean;
+}

@@ -1,3 +1,4 @@
+import { ActionsProps } from '../../utils/types';
 import './Actions.scss'; // The sass style sheet of the elements in this component
 
 export function Actions({ 
@@ -6,7 +7,7 @@ export function Actions({
     actionsContainerRef, // The reference of the actions container used at the function that hides the actions, the discs, and the new disc adder
     setOpenNewAdder, // The state the controls which new disc adder to add
     isOpenTop // This is the variable that controls whether to show the actions and it's subsequent elements above or below the three dots
-  }) {
+  }: ActionsProps) {
 
   // The JSX of the Actions component
   return (
@@ -14,7 +15,7 @@ export function Actions({
       <div
         className="save-disc-action"
         onPointerDown={e => {
-          actionsContainerRef.current = e.target.parentElement;
+          actionsContainerRef.current = e.currentTarget.parentElement;
         }}
         onPointerUp={e => {
           e.stopPropagation();
@@ -30,7 +31,7 @@ export function Actions({
       <div 
         className="new-disc-action"
         onPointerDown={e => {
-          actionsContainerRef.current = e.target.parentElement;
+          actionsContainerRef.current = e.currentTarget.parentElement;
         }}
         onPointerUp={e => {
           e.stopPropagation();

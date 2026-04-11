@@ -1,3 +1,4 @@
+import { DiscDeleteProps, DiscsActionsProps, DiscType } from '../../utils/types';
 import './DiscsActions.scss'; // Import the style sheet of this component
 
 export function DiscsActions({ 
@@ -8,11 +9,12 @@ export function DiscsActions({
     setOpenIndex,
     isOpenTop,
     setDiscs
-  }) {
-  const discs = JSON.parse(localStorage.getItem('current-discs')) || []; // Pull the current discs from local storage
+  }: DiscsActionsProps) {
+  const currentDiscsStorage = localStorage.getItem('current-discs');
+  const discs: DiscType[] = currentDiscsStorage ? JSON.parse(currentDiscsStorage) : []; // Pull the current discs from local storage
 
   // This function saves the video into one of the existent discs so that it could be accessed later in the saved videos page
-  function saveVideo(videos) {
+  function saveVideo(videos: string[]) {
     const isVideo = videos.find(item => item === videoId); // Check if the video exists or not in this disc
     
     if (!isVideo) { // If disc doesn't exists
@@ -27,15 +29,14 @@ export function DiscsActions({
     // Then update the local storage
     localStorage.setItem('current-discs', JSON.stringify(discs));
 
-    setOpenDisc(undefined); // Hide the DiscsActions component
+    setOpenDisc(null); // Hide the DiscsActions component
     setOpenIndex(undefined); // And hide the Actions component
   }
 
   // The JSX of the DiscsActions component
   return (
-    <div 
-      style={!discs.length ? {textAlign: 'center'} : undefined}
-      className={isOpenTop ? 'discs-actions-container open-top' : 'discs-actions-container'} 
+    <div
+      className={isOpenTop ? (!discs.length ? 'discs-actions-container open-top empty' : 'discs-actions-container open-top') : (!discs.length ? 'discs-actions-container empty' : 'discs-actions-container')} 
       onPointerDown={e => {
         if (!discs.length) {
           discsContainerRef.current = e.currentTarget;
@@ -52,7 +53,7 @@ export function DiscsActions({
               className='disc-actions'
               onPointerUp={e => {
                 e.stopPropagation();
-                discsContainerRef.current = e.target.parentElement;
+                discsContainerRef.current = e.currentTarget.parentElement;
                 saveVideo(item.items);
               }}
             >{item.name.length > 18 ? `${item.name.slice(0, 18).trimEnd()}...`: item.name}</div>

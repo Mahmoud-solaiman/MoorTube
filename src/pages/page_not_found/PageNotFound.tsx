@@ -10,10 +10,7 @@ export function PageNotFound() {
       <p className="not-found-page-message">
         Sorry but the page you are looking for does not exist, have been removed, name changed or is temporarily unavailable
       </p>
-      <Link to="/">
-        <button type="button" className="home-page-btn">GO TO HOMEPAGE</button>
-      </Link>
-      
+      <Link to="/" className="home-page-btn">GO TO HOMEPAGE</Link>
     </div>
   );
 }
