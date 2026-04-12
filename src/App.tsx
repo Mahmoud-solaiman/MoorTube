@@ -13,7 +13,7 @@ export default function App() {
   const modePreferenceStorage = localStorage.getItem('mode-preference');
   const [ savedVideos, setSavedVideos ] = useState<DiscType>(discStorage ? JSON.parse(discStorage) : []);
   const api_key = import.meta.env.VITE_API_KEY //My google console API Key
-  const [ translate, setTranslate ] = useState<boolean | number>(false); //The translateY value of the SidePanel
+  const [ translate, setTranslate ] = useState<boolean>(false); //The translateY value of the SidePanel
   const menuContainer = useRef(null); //The reference of the menu container
   const [ discs, setDiscs ] = useState<DiscType[]>(currentDiscsStorage ? JSON.parse(currentDiscsStorage) : []); //The latest disc list from localStorage
   const [ errorMessage, setErrorMessage ] = useState(''); //The error message state
@@ -22,6 +22,7 @@ export default function App() {
   const sysPreferences = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const [ isDarkMode, setIsDarkMode ] = useState(modePreferenceStorage ? JSON.parse(modePreferenceStorage) : sysPreferences);
   const [ watchTitle, setWatchTitle ] = useState('Channel search');
+  const [ poster, setPoster ] = useState('');
 
   //Function that handles the rendering and disrendering and the content of the error message
   function handleErrorMessage(message: string): void {
@@ -54,6 +55,7 @@ export default function App() {
           isDarkMode={isDarkMode}
           setIsDarkMode={setIsDarkMode}
           setWatchTitle={setWatchTitle}
+          setPoster={setPoster}
         />
       } />
       <Route path="savedVideos" element={
@@ -71,6 +73,7 @@ export default function App() {
           errorMessage={errorMessage}
           isErrorMessage={isErrorMessage}
           setWatchTitle={setWatchTitle}
+          setPoster={setPoster}
         />
       } />
       <Route path="/watch" element={
@@ -88,6 +91,7 @@ export default function App() {
           errorMessage={errorMessage}
           watchTitle={watchTitle}
           setWatchTitle={setWatchTitle}
+          poster={poster}
         />
       } />
       <Route path="*" element={<PageNotFound />} />

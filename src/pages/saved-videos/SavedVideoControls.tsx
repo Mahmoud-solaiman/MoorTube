@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import './SavedVideoControls.scss';
+import { DiscType, SavedVideosControlsProps } from '../../../utils/types';
 
 export default function SavedVideoControls({ 
     setOpenControls, 
@@ -10,14 +11,16 @@ export default function SavedVideoControls({
     setSavedVideos,
     setOpenDiscs, 
     discsRef
-  }) {
-  const controlsRef = useRef(null);
+  }: SavedVideosControlsProps) {
+  const controlsRef = useRef<HTMLDivElement>(null);
 
   function removeVideo() {
-    const discVideos = JSON.parse(localStorage.getItem('disc'));
+    const discVideosStorage = localStorage.getItem('disc');
+    const discVideos: DiscType = discVideosStorage && JSON.parse(discVideosStorage);
     discVideos.items = discVideos.items.filter((_item, index) => index !== targetIndex);
 
-    const currentDiscs = JSON.parse(localStorage.getItem('current-discs'));
+    const currentDiscsStorage = localStorage.getItem('current-discs');
+    const currentDiscs: DiscType[] = currentDiscsStorage && JSON.parse(currentDiscsStorage);
     currentDiscs.forEach(disc => {
       if (discVideos.id === disc.id) {
         disc.items = discVideos.items;
@@ -31,11 +34,12 @@ export default function SavedVideoControls({
   }
 
   useEffect(() => {
-    function hideControls(e) {
+    function hideControls(e: PointerEvent) {
+      const target = e.target as Node;
       if (
-          !controlsRef.current?.contains(e.target) && 
-          !controlsBtnRef.current?.contains(e.target) &&
-          !discsRef.current?.contains(e.target)
+          !controlsRef.current?.contains(target) && 
+          !controlsBtnRef.current?.contains(target) &&
+          !discsRef.current?.contains(target)
         ) {
         setOpenControls(null);
         setOpenDiscs(null);

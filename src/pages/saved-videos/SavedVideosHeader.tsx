@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import './SavedVideosHeader.scss';
+import { SavedVideosHeaderProps } from '../../../utils/types';
 
 export function SavedVideosHeader({ 
     discTitle, 
     setTranslate, 
     menuContainer, 
     isDarkMode
-  }) {
+  }: SavedVideosHeaderProps) {
   return (
     <header className="saved-videos-header">
       <div className="logo-menu-container">

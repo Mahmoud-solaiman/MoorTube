@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { SavedVideosGrid } from './SavedVideosGrid';
 import { SidePanel } from '../../components/SidePanel';
 import { ErrorMessage } from '../../components/ErrorMessage';
+import { SavedVideosDetails, SavedVideosProps } from '../../../utils/types';
 
 export function SavedVideos({
   savedVideos,
@@ -20,9 +21,10 @@ export function SavedVideos({
   setIsDarkMode,
   errorMessage,
   isErrorMessage,
-  setWatchTitle
-}) {
-  const [ savedVideosDetails, setSavedVideosDetails ] = useState([]);
+  setWatchTitle,
+  setPoster
+}: SavedVideosProps) {
+  const [ savedVideosDetails, setSavedVideosDetails ] = useState<SavedVideosDetails[] | undefined>(undefined);
   const menuContainer = useRef(null);
 
   useEffect(() => {
@@ -44,7 +46,7 @@ export function SavedVideos({
   }, [savedVideos]);
   
   return (
-    <div className='saved-videos-container'>
+    <div className="saved-videos-container">
       {
         isErrorMessage &&
         <ErrorMessage errorMessage={errorMessage}/>
@@ -60,13 +62,18 @@ export function SavedVideos({
         {
           savedVideos.items.length ? 
             <>
-              <SavedVideosPanel savedVideos={savedVideos} savedVideosDetails={savedVideosDetails} />
+              <SavedVideosPanel 
+                savedVideos={savedVideos} 
+                savedVideosDetails={savedVideosDetails} 
+                setPoster={setPoster}
+              />
 
               <SavedVideosGrid 
                 savedVideosDetails={savedVideosDetails} 
                 setSavedVideosDetails={setSavedVideosDetails}
                 setSavedVideos={setSavedVideos}
                 handleErrorMessage={handleErrorMessage}
+                setPoster={setPoster}
               />
             </> :
             "Seems like you haven't added any videos to this Disc!"

@@ -12,7 +12,8 @@ export function VideoGrid({
   videos,
   setDiscs,
   setTranslate,
-  handleErrorMessage
+  handleErrorMessage,
+  setPoster
 }: VideoGridProps) {
   // This is the section for setting up all the variables and states and other hooks
   const [openIndex, setOpenIndex] = useState<number | undefined>(undefined); // The state that toggles the disc actions on and off
@@ -69,7 +70,11 @@ export function VideoGrid({
         // If the videos from the YouTube data API returns the videos for that channel, then  render those videos onto the page
         Object.hasOwn(videos, 'items') &&
         videos.items.map((item, index) => { // Loop through the video list and return each video and render it on the page
-
+          const videoThumbnail = item.snippet.thumbnails.maxres?.url ||
+            item.snippet.thumbnails.standard?.url ||
+            item.snippet.thumbnails.high?.url ||
+            item.snippet.thumbnails.medium?.url ||
+            item.snippet.thumbnails.default?.url;
           return (
             <div
               key={item.id}
@@ -81,20 +86,16 @@ export function VideoGrid({
                 e.currentTarget.style.setProperty('--bg-video-hover', videoBackgroundList[randomNum]);
               }}
               onMouseLeave={e => e.currentTarget.style.setProperty('--bg-video-hover', 'initial')} // Reset color when the hover is over
-              onPointerUp={() => navigate(`/watch?v=${item.id}`)}
+              onPointerUp={() => {
+                navigate(`/watch?v=${item.id}`);
+                setPoster(videoThumbnail);
+              }}
             >
               <div className="video">
                 <img
                   className='video-thumbnail'
                   loading="lazy"
-                  src={
-                    item.snippet.thumbnails.maxres?.url ||
-                    item.snippet.thumbnails.standard?.url ||
-                    item.snippet.thumbnails.high?.url ||
-                    item.snippet.thumbnails.medium?.url ||
-                    item.snippet.thumbnails.default?.url ||
-                    'default-thumbnail.png'
-                  }
+                  src={videoThumbnail || 'default-thumbnail.png'}
                   alt="video thumbnail"
                 />
                 <div className="video-duration">
@@ -142,6 +143,8 @@ export function VideoGrid({
                     actionsContainerRef={actionsContainerRef}
                     setOpenNewAdder={setOpenNewAdder}
                     isOpenTop={isOpenTop}
+                    handleErrorMessage={handleErrorMessage}
+                    setOpenIndex={setOpenIndex}
                   />
                 }
                 {

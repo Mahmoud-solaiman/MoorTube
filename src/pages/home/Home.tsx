@@ -19,7 +19,8 @@ export function Home({
     errorMessage,
     isDarkMode,
     setIsDarkMode,
-    setWatchTitle
+    setWatchTitle,
+    setPoster
   }: HomeProps) {
   //Variables and states that are shared across the app
   const channelVideosStorage = sessionStorage.getItem('channel-videos');
@@ -109,6 +110,7 @@ export function Home({
           setDiscs={setDiscs}
           setTranslate={setTranslate}
           handleErrorMessage={handleErrorMessage}
+          setPoster={setPoster}
         />
       }
       {
@@ -120,6 +122,7 @@ export function Home({
           setDiscs={setDiscs}
           setTranslate={setTranslate}
           handleErrorMessage={handleErrorMessage}
+          setPoster={setPoster}
         />
       }
       {

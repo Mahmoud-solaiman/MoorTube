@@ -18,7 +18,8 @@ export function Watch({
   isErrorMessage,
   errorMessage,
   watchTitle,
-  setWatchTitle
+  setWatchTitle,
+  poster
 }) {
   return (
     <>
@@ -34,7 +35,7 @@ export function Watch({
       />
 
       <div className="player-videos-container">
-        <VideoPlayer />
+        <VideoPlayer poster={poster} />
 
         <WatchPanel />
       </div>

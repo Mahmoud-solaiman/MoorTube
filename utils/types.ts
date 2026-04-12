@@ -20,6 +20,7 @@ export type HomeProps = {
   isDarkMode: boolean;
   setIsDarkMode(value: boolean): void;
   setWatchTitle(value: string): void;
+  setPoster(value: string): void;
 }
 
 export type SearchProps = {
@@ -96,7 +97,7 @@ export type SuggestionsProps = {
 }
 
 export type PlaylistInfoItem = {
-  contentDetails: {videoId: string}
+  contentDetails: { videoId: string }
 }
 
 export type SidePanelProps = {
@@ -120,7 +121,7 @@ export type DiscProps = {
   deleteConfirmationRef: RefObject<HTMLElement | null>
   handleErrorMessage(value: string): void;
   setSavedVideos(value: DiscType): void;
-  discObject: DiscType; 
+  discObject: DiscType;
   setWatchTitle(value: string): void;
 }
 
@@ -181,6 +182,7 @@ export type VideoGridProps = {
   setDiscs(value: DiscType[]): void;
   setTranslate(value: boolean): void;
   handleErrorMessage(value: string): void;
+  setPoster(value: string): void;
 }
 
 export type ActionsProps = {
@@ -189,6 +191,8 @@ export type ActionsProps = {
   actionsContainerRef: RefObject<HTMLElement | null>;
   setOpenNewAdder(value: number | null): void;
   isOpenTop: boolean;
+  handleErrorMessage(value: string): void;
+  setOpenIndex(value: number | undefined): void;
 }
 
 export type DiscsActionsProps = {
@@ -210,4 +214,93 @@ export type AddNewDiscProps = {
   handleErrorMessage(value: string): void;
   videoId: string;
   isOpenTop: boolean;
+}
+
+export type SavedVideosProps = {
+  savedVideos: DiscType;
+  api_key: string;
+  setTranslate(value: boolean): void;
+  translate: boolean;
+  discs: DiscType[];
+  setDiscs(value: DiscType[]): void;
+  handleErrorMessage(value: string): void;
+  setSavedVideos(value: DiscType): void;
+  isDarkMode: boolean;
+  setIsDarkMode(value: boolean): void;
+  errorMessage: string;
+  isErrorMessage: boolean;
+  setWatchTitle(value: string): void;
+  setPoster(value: string): void;
+}
+
+export type SavedVideosHeaderProps = {
+  discTitle: string;
+  setTranslate(value: boolean): void;
+  menuContainer: RefObject<HTMLDivElement | null>;
+  isDarkMode: boolean;
+}
+
+export type SavedVideosDetails = {
+  snippet: {
+    thumbnails: {
+      maxres: {
+        url: string;
+      },
+      standard: {
+        url: string;
+      },
+      high: {
+        url: string;
+      },
+      medium: {
+        url: string;
+      },
+      default: {
+        url: string;
+      },
+    },
+    channelTitle: string;
+    title: string;
+    publishedAt: string;
+  };
+  id: string;
+  statistics: {
+    viewCount: string;
+  };
+  contentDetails: {
+    duration: string;
+  }
+};
+
+export type SavedVideosPanelProps = {
+  savedVideos: DiscType;
+  savedVideosDetails: SavedVideosDetails[] | undefined;
+  setPoster(value: string | undefined): void;
+}
+
+export type SavedVideosGridProps = {
+  savedVideosDetails: SavedVideosDetails[] | undefined;
+  setSavedVideosDetails(value: SavedVideosDetails[]): void;
+  setSavedVideos(value: DiscType): void;
+  handleErrorMessage(value: string): void;
+  setPoster(value: string): void;
+}
+
+export type SavedVideosControlsProps = {
+  setOpenControls(value: number | null): void;
+  controlsBtnRef: RefObject<SVGSVGElement | null>;
+  savedVideosDetails: SavedVideosDetails[];
+  setSavedVideosDetails(value: SavedVideosDetails[]): void;
+  targetIndex: number;
+  setSavedVideos(value: DiscType): void;
+  setOpenDiscs(value: number | null): void;
+  discsRef: RefObject<HTMLDivElement | null>;
+}
+
+export type DiscsControlsProps = {
+  discsRef: RefObject<HTMLDivElement | null>;
+  videoId: string;
+  setOpenControls(value: number | null): void;
+  setOpenDiscs(value: number | null): void;
+  handleErrorMessage(value: string): void;
 }

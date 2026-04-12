@@ -14,7 +14,7 @@ import { Controls } from './Controls';
 import { useSearchParams } from 'react-router-dom';
 import ControlsMobile from './ControlsMobile';
 
-export function VideoPlayer() {
+export function VideoPlayer({ poster }) {
   const [isBlur, setIsBlur] = useState(false);
   const [searchParams] = useSearchParams();
   const [isShowControls, setIsShowControls] = useState(false);
@@ -65,7 +65,7 @@ export function VideoPlayer() {
       <MediaProvider />
 
       <Poster 
-        src="https://i.ytimg.com/vi/fNk6ZFK8NsI/maxresdefault.jpg"
+        src={poster}
         alt="video poster"
         className="vds-poster"
       />

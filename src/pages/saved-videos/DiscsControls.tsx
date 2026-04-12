@@ -1,3 +1,4 @@
+import { DiscsControlsProps, DiscType } from '../../../utils/types';
 import './DiscsControls.scss';
 
 export default function DiscsControls({ 
@@ -6,12 +7,14 @@ export default function DiscsControls({
     setOpenControls, 
     setOpenDiscs,
     handleErrorMessage
-  }) {
-  const currentDiscs = JSON.parse(localStorage.getItem('current-discs'));
-  const disc = JSON.parse(localStorage.getItem('disc'));
+  }: DiscsControlsProps) {
+  const currentDiscsStorage = localStorage.getItem('current-discs');
+  const discStorage = localStorage.getItem('disc');
+  const currentDiscs: DiscType[] = currentDiscsStorage && JSON.parse(currentDiscsStorage);
+  const disc: DiscType = discStorage && JSON.parse(discStorage);
   const updatedCurrentDiscs = currentDiscs.filter(item => item.id !== disc.id);
 
-  function addVideoToNewDisc(discId) {
+  function addVideoToNewDisc(discId: string) {
     currentDiscs.map(currentDisc => {
       if (currentDisc.id === discId) {
         const video = currentDisc.items.find(item => item === videoId);
