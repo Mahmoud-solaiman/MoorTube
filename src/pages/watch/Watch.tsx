@@ -4,6 +4,7 @@ import { ErrorMessage } from '../../components/ErrorMessage';
 import './Watch.scss';
 import { VideoPlayer } from './VideoPlayer';
 import WatchPanel from './WatchPanel';
+import { WatchProps } from '../../../utils/types';
 
 export function Watch({
   setTranslate,
@@ -20,7 +21,7 @@ export function Watch({
   watchTitle,
   setWatchTitle,
   poster
-}) {
+}: WatchProps) {
   return (
     <>
       {
@@ -39,22 +40,19 @@ export function Watch({
 
         <WatchPanel />
       </div>
-
-      {
-        (translate || translate === 0) &&
-        <SidePanel
-          translate={translate}
-          setTranslate={setTranslate}
-          menuContainer={menuContainer}
-          discs={discs}
-          setDiscs={setDiscs}
-          handleErrorMessage={handleErrorMessage}
-          setSavedVideos={setSavedVideos}
-          isDarkMode={isDarkMode}
-          setIsDarkMode={setIsDarkMode}
-          setWatchTitle={setWatchTitle}
-        />
-      }
+        
+      <SidePanel
+        translate={translate}
+        setTranslate={setTranslate}
+        menuContainer={menuContainer}
+        discs={discs}
+        setDiscs={setDiscs}
+        handleErrorMessage={handleErrorMessage}
+        setSavedVideos={setSavedVideos}
+        isDarkMode={isDarkMode}
+        setIsDarkMode={setIsDarkMode}
+        setWatchTitle={setWatchTitle}
+      />
     </>
   );
 }

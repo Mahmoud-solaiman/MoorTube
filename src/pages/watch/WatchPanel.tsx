@@ -2,7 +2,7 @@ import PrayerTimesPanel from './PrayerTimesPanel';
 import './WatchPanel.scss';
 
 function WatchPanel() {
-  const toggleLabels = ['prayers', 'videos'];
+  const toggleLabels: string[] = ['prayers', 'videos'];
 
   return (
     <aside className="watch-panel">

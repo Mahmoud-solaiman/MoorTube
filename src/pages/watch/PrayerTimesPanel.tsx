@@ -2,25 +2,28 @@ import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { formatPrayerTime } from '../../../utils/formatting';
 import './PrayerTimesPanel.scss';
+import { Location, NextPrayer } from '../../../utils/types';
 
 function PrayerTimesPanel() {
-  const prayers = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+  const prayers: string[] = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
   const [prayerTimesData, setPrayerTimesData] = useState(null);
-  const [nextPrayer, setNextPrayer] = useState(null);
+  const [nextPrayer, setNextPrayer] = useState<NextPrayer | null>(null);
   const [hour, setHour] = useState(0);
   const [minute, setMinute] = useState(0);
   const [second, setSecond] = useState(0);
-  const [coords, setCoords] = useState({});
+  const [coords, setCoords] = useState<Location | null>(null);
 
-  const fetchNextPrayer = useCallback(async (location) => {
-    const nextPrayerTime = await axios.get('https://api.aladhan.com/v1/nextPrayer?', {
-      params: {
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude
-      }
-    });
-
-    setNextPrayer(nextPrayerTime.data.data);
+  const fetchNextPrayer = useCallback(async (location: Location | null) => {
+    if (location) {
+      const nextPrayerTime = await axios.get('https://api.aladhan.com/v1/nextPrayer?', {
+        params: {
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude
+        }
+      });
+  
+      setNextPrayer(nextPrayerTime.data.data);
+    }
   }, []);
 
   useEffect(() => {
@@ -31,7 +34,7 @@ function PrayerTimesPanel() {
       console.log('not supported');
     }
 
-    async function fetchPrayerTimes(location) {
+    async function fetchPrayerTimes(location: Location) {
       try {
         const prayerTimes = await axios.get(`https://api.aladhan.com/v1/timings?`, {
           params: {
@@ -66,7 +69,7 @@ function PrayerTimesPanel() {
 
       if (prayerDate < now) prayerDate.setDate(prayerDate.getDate() + 1);
 
-      const diff = prayerDate - now;
+      const diff = Number(prayerDate) - Number(now);
 
       const hrs = Math.floor(diff / (1000 * 60 * 60));
       const mins = Math.floor((diff / (1000 * 60)) % 60);
@@ -85,7 +88,7 @@ function PrayerTimesPanel() {
 
     return () => clearInterval(timer);
 
-  }, [nextPrayer, coords, fetchNextPrayer]);
+  }, [nextPrayer]);
 
   return (
     <section className="prayer-card-container">

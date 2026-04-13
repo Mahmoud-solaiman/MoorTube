@@ -1,7 +1,12 @@
+import { ControlsProps } from '../../../utils/types';
 import './Controls.scss';
-import { FullscreenButton, MuteButton, PlayButton, Time, useMediaState, useMediaRemote, SeekButton } from '@vidstack/react';
+import { FullscreenButton, MuteButton, PlayButton, Time, useMediaState, useMediaRemote, SeekButton} from '@vidstack/react';
 
-export function Controls({ isBlur, setIsBlur, isShowControls }) {
+export function Controls({ 
+    isBlur, 
+    setIsBlur, 
+    isShowControls 
+  }: ControlsProps) {
   const isFullScreen = useMediaState('fullscreen');
   const isPaused = useMediaState('paused');
   const isMuted = useMediaState('muted');

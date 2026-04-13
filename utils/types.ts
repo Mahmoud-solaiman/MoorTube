@@ -304,3 +304,37 @@ export type DiscsControlsProps = {
   setOpenDiscs(value: number | null): void;
   handleErrorMessage(value: string): void;
 }
+
+export type WatchProps = {
+  setTranslate(value: boolean): void;
+  menuContainer: RefObject<HTMLDivElement | null>
+  isDarkMode: boolean;
+  translate: boolean;
+  discs: DiscType[];
+  setDiscs(value: DiscType[]): void;
+  handleErrorMessage(value: string): void;
+  setSavedVideos(value: DiscType): void;
+  setIsDarkMode(value: boolean): void;
+  isErrorMessage: boolean;
+  errorMessage: string;
+  watchTitle: string;
+  setWatchTitle(value: string): void;
+  poster: string;
+}
+
+export type ControlsProps = {
+  isBlur: boolean;
+  setIsBlur(value: boolean): void;
+  isShowControls: boolean;
+}
+
+export type Location = {
+  coords: {
+    latitude: number;
+    longitude: number;
+  }
+}
+
+export type NextPrayer = {
+  timings: {[key: string]: string}
+}

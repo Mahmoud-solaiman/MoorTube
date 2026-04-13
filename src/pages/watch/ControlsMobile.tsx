@@ -1,3 +1,4 @@
+import { ControlsProps } from '../../../utils/types';
 import './ControlsMobile.scss';
 import { PlayButton, useMediaState, FullscreenButton, Time } from '@vidstack/react';
 
@@ -5,7 +6,7 @@ function ControlsMobile({
   isBlur,
   setIsBlur,
   isShowControls
-}) {
+}: ControlsProps) {
   const isPaused = useMediaState('paused');
   const isFullScreen = useMediaState('fullscreen');
 

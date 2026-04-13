@@ -14,12 +14,12 @@ import { Controls } from './Controls';
 import { useSearchParams } from 'react-router-dom';
 import ControlsMobile from './ControlsMobile';
 
-export function VideoPlayer({ poster }) {
+export function VideoPlayer({ poster }: {poster: string}) {
   const [isBlur, setIsBlur] = useState(false);
   const [searchParams] = useSearchParams();
   const [isShowControls, setIsShowControls] = useState(false);
   const video = `https://youtube.com/watch?v=${searchParams.get('v')}`;
-  const isActive = useRef(null);
+  const isActive = useRef<number | undefined>(undefined);
   const [isMuted, setIsMuted] = useState(true);
 
   function hideControls() {
