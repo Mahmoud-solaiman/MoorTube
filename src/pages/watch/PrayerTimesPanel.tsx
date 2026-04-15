@@ -54,7 +54,7 @@ function PrayerTimesPanel() {
 
     }
 
-  }, [fetchNextPrayer]);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {

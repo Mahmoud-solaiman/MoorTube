@@ -4,7 +4,7 @@ import { PageNotFound } from "./pages/page_not_found/PageNotFound"; // Import th
 import { SavedVideos } from "./pages/saved-videos/SavedVideos";
 import { Watch } from "./pages/watch/Watch";
 import { useEffect, useRef, useState } from "react";
-import type { DiscType } from "../utils/types";
+import type { DiscType, SavedVideosDetails } from "../utils/types";
 
 // The JSX of the App component and the Routes
 export default function App() {
@@ -23,6 +23,7 @@ export default function App() {
   const [ isDarkMode, setIsDarkMode ] = useState(modePreferenceStorage ? JSON.parse(modePreferenceStorage) : sysPreferences);
   const [ watchTitle, setWatchTitle ] = useState('Channel search');
   const [ poster, setPoster ] = useState('');
+  const [ savedVideosDetails, setSavedVideosDetails ] = useState<SavedVideosDetails[] | undefined>(undefined);
 
   //Function that handles the rendering and disrendering and the content of the error message
   function handleErrorMessage(message: string): void {
@@ -74,6 +75,8 @@ export default function App() {
           isErrorMessage={isErrorMessage}
           setWatchTitle={setWatchTitle}
           setPoster={setPoster}
+          savedVideosDetails={savedVideosDetails}
+          setSavedVideosDetails={setSavedVideosDetails}
         />
       } />
       <Route path="/watch" element={
@@ -92,6 +95,10 @@ export default function App() {
           watchTitle={watchTitle}
           setWatchTitle={setWatchTitle}
           poster={poster}
+          savedVideosDetails={savedVideosDetails}
+          setSavedVideosDetails={setSavedVideosDetails}
+          setPoster={setPoster}
+          layout="watch-panel"
         />
       } />
       <Route path="*" element={<PageNotFound />} />

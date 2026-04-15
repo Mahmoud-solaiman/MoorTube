@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { handleDuration, handleViewCount, youtubeTimeAgo } from '../../../utils/formatting';
 import './SavedVideosGrid.scss';
 import SavedVideoControls from './SavedVideoControls';
@@ -11,16 +11,18 @@ export function SavedVideosGrid({
   setSavedVideosDetails,
   setSavedVideos,
   handleErrorMessage,
-  setPoster
+  setPoster,
+  layout
 }: SavedVideosGridProps) {
   const [openControls, setOpenControls] = useState<number | null>(null);
   const [openDiscs, setOpenDiscs] = useState<number | null>(null);
   const navigate = useNavigate();
   const controlsBtnRef = useRef<SVGSVGElement | null>(null);
   const discsRef = useRef<HTMLDivElement | null>(null);
+  const [ searchParams ] = useSearchParams();
 
   return (
-    <section className="saved-videos-grid">
+    <section className={ layout === 'saved-videos' ? "saved-videos-grid" : "saved-videos-grid watch-panel-videos"}>
       {
         savedVideosDetails &&
         savedVideosDetails.map((item, index) => {
@@ -30,8 +32,8 @@ export function SavedVideosGrid({
             item.snippet.thumbnails.medium?.url ||
             item.snippet.thumbnails.default?.url;
           return (
-            <div className="saved-video" key={item.id}>
-              <div className="sorting-method">{index + 1}</div>
+            <div className={(searchParams.get('v') && searchParams.get('v') === item.id) ? "saved-video video-playing" : "saved-video"} key={item.id}>
+              {layout === 'saved-videos' && <div className="sorting-method">{index + 1}</div>}
               <div 
                 className="saved-video-details" 
                 onClick={() => {
@@ -50,8 +52,13 @@ export function SavedVideosGrid({
                   <h3 className="saved-video-title">{item.snippet.title}</h3>
                   <h4 className="saved-video-statistics">
                     <span>{item.snippet.channelTitle}</span>
-                    <span> &#8226; {handleViewCount(item.statistics.viewCount)} &#8226; </span>
-                    <span>{youtubeTimeAgo(item.snippet.publishedAt)}</span>
+                    {
+                      layout === 'saved-videos' &&
+                      <>
+                        <span> &#8226; {handleViewCount(item.statistics.viewCount)} &#8226; </span>
+                        <span>{youtubeTimeAgo(item.snippet.publishedAt)}</span>
+                      </>
+                    }
                   </h4>
                 </div>
               </div>
@@ -79,6 +86,7 @@ export function SavedVideosGrid({
                     setSavedVideos={setSavedVideos}
                     setOpenDiscs={setOpenDiscs}
                     discsRef={discsRef}
+                    handleErrorMessage={handleErrorMessage}
                   />
                 }
 

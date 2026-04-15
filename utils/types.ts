@@ -231,6 +231,8 @@ export type SavedVideosProps = {
   isErrorMessage: boolean;
   setWatchTitle(value: string): void;
   setPoster(value: string): void;
+  savedVideosDetails: SavedVideosDetails[] | undefined;
+  setSavedVideosDetails(value: SavedVideosDetails[] | undefined): void;
 }
 
 export type SavedVideosHeaderProps = {
@@ -284,6 +286,7 @@ export type SavedVideosGridProps = {
   setSavedVideos(value: DiscType): void;
   handleErrorMessage(value: string): void;
   setPoster(value: string): void;
+  layout: 'saved-videos' | 'watch-panel';
 }
 
 export type SavedVideosControlsProps = {
@@ -295,6 +298,7 @@ export type SavedVideosControlsProps = {
   setSavedVideos(value: DiscType): void;
   setOpenDiscs(value: number | null): void;
   discsRef: RefObject<HTMLDivElement | null>;
+  handleErrorMessage(value: string): void;
 }
 
 export type DiscsControlsProps = {
@@ -305,7 +309,7 @@ export type DiscsControlsProps = {
   handleErrorMessage(value: string): void;
 }
 
-export type WatchProps = {
+export type WatchProps = SavedVideosGridProps & {
   setTranslate(value: boolean): void;
   menuContainer: RefObject<HTMLDivElement | null>
   isDarkMode: boolean;
@@ -321,6 +325,8 @@ export type WatchProps = {
   setWatchTitle(value: string): void;
   poster: string;
 }
+
+export type WatchPanelProps = SavedVideosGridProps;
 
 export type ControlsProps = {
   isBlur: boolean;

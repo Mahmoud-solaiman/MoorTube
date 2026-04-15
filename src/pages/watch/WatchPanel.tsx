@@ -1,8 +1,19 @@
+import { useState } from 'react';
 import PrayerTimesPanel from './PrayerTimesPanel';
 import './WatchPanel.scss';
+import { WatchPanelProps } from '../../../utils/types';
+import { SavedVideosGrid } from '../saved-videos/SavedVideosGrid';
 
-function WatchPanel() {
+function WatchPanel({
+  savedVideosDetails,
+  setSavedVideosDetails,
+  setSavedVideos,
+  handleErrorMessage,
+  setPoster,
+  layout
+}: WatchPanelProps) {
   const toggleLabels: string[] = ['prayers', 'videos'];
+  const [ panelChoice, setPanelChoice ] = useState('prayers');
 
   return (
     <aside className="watch-panel">
@@ -15,14 +26,30 @@ function WatchPanel() {
                 <div className="toggle-outer" aria-hidden="true">
                   <div className="toggle-inner" aria-hidden="true"></div>
                 </div>
-                <label htmlFor={item}>{item.slice(0, 1).toUpperCase() + item.slice(1)}</label>
+                <label htmlFor={item} onClick={() => setPanelChoice(item)}>{item.slice(0, 1).toUpperCase() + item.slice(1)}</label>
               </div>
             )
           })
         }
       </header>
 
-      <PrayerTimesPanel />
+      {
+        panelChoice === 'prayers' &&
+        <PrayerTimesPanel />
+      }
+
+      {
+        panelChoice === 'videos' &&
+        <SavedVideosGrid
+          savedVideosDetails={savedVideosDetails}
+          setSavedVideosDetails={setSavedVideosDetails}
+          setSavedVideos={setSavedVideos}
+          handleErrorMessage={handleErrorMessage}
+          setPoster={setPoster}
+          layout={layout}
+        />
+      }
+
     </aside>
   );
 }

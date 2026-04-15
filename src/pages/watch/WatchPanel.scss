@@ -4,9 +4,10 @@
   border: 1px solid var(--text-color);
   display: flex;
   flex-direction: column;
+  max-height: 470px;
 
   @media (max-width: 800px) {
-    width: 90%;
+    width: 95%;
     justify-self: center;
   }
 }

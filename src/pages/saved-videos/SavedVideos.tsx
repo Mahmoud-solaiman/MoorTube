@@ -22,9 +22,11 @@ export function SavedVideos({
   errorMessage,
   isErrorMessage,
   setWatchTitle,
-  setPoster
+  setPoster,
+  savedVideosDetails,
+  setSavedVideosDetails
 }: SavedVideosProps) {
-  const [ savedVideosDetails, setSavedVideosDetails ] = useState<SavedVideosDetails[] | undefined>(undefined);
+  
   const menuContainer = useRef(null);
 
   useEffect(() => {
@@ -74,6 +76,7 @@ export function SavedVideos({
                 setSavedVideos={setSavedVideos}
                 handleErrorMessage={handleErrorMessage}
                 setPoster={setPoster}
+                layout="saved-videos"
               />
             </> :
             "Seems like you haven't added any videos to this Disc!"

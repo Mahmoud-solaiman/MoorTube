@@ -20,7 +20,11 @@ export function Watch({
   errorMessage,
   watchTitle,
   setWatchTitle,
-  poster
+  poster,
+  savedVideosDetails,
+  setSavedVideosDetails,
+  setPoster,
+  layout
 }: WatchProps) {
   return (
     <>
@@ -38,9 +42,16 @@ export function Watch({
       <div className="player-videos-container">
         <VideoPlayer poster={poster} />
 
-        <WatchPanel />
+        <WatchPanel
+          savedVideosDetails={savedVideosDetails}
+          setSavedVideosDetails={setSavedVideosDetails}
+          setSavedVideos={setSavedVideos}
+          handleErrorMessage={handleErrorMessage}
+          setPoster={setPoster}
+          layout={layout}
+        />
       </div>
-        
+
       <SidePanel
         translate={translate}
         setTranslate={setTranslate}

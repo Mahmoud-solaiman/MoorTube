@@ -3,6 +3,7 @@ $slider-size: 5px;
 .player-container {
   border-radius: 15px;
   position: relative;
+  aspect-ratio: '9/6';
 
   .vds-blocker {
     height: 100% !important;

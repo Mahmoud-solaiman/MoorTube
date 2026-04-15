@@ -41,6 +41,10 @@
     background-color: initial;
   }
 
+  &:has(.saved-video-controls-btn > .discs-container:hover) {
+    background-color: initial;
+  }
+
   @media (width < 520px) {
     grid-template-columns: 1fr 25px;
     padding: .5em .3em;
@@ -150,5 +154,32 @@
 @media (hover: none) {
   .saved-video:hover {
     background-color: initial;
+  }
+}
+
+.watch-panel-videos {
+  height: 88%;
+  border: none;
+    
+  &::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  .saved-video {
+    grid-template-columns: 1fr 30px;
+    padding: .3em 0 .3em .5em;
+
+    .saved-video-details {
+      grid-template-columns: 120px 1fr;
+
+      .saved-video-thumbnail-container {
+        height: 65px;
+      }
+    }
+  }
+
+  .saved-video.video-playing {
+    background-color: var(--primary-color-transparent);
+    border-radius: 0;
   }
 }
