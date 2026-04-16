@@ -287,6 +287,7 @@ export type SavedVideosGridProps = {
   handleErrorMessage(value: string): void;
   setPoster(value: string): void;
   layout: 'saved-videos' | 'watch-panel';
+  setDiscs(value: DiscType[]): void;
 }
 
 export type SavedVideosControlsProps = {
@@ -299,6 +300,7 @@ export type SavedVideosControlsProps = {
   setOpenDiscs(value: number | null): void;
   discsRef: RefObject<HTMLDivElement | null>;
   handleErrorMessage(value: string): void;
+  setDiscs(value: DiscType[]): void;
 }
 
 export type DiscsControlsProps = {
@@ -307,6 +309,7 @@ export type DiscsControlsProps = {
   setOpenControls(value: number | null): void;
   setOpenDiscs(value: number | null): void;
   handleErrorMessage(value: string): void;
+  setDiscs(value: DiscType[]): void;
 }
 
 export type WatchProps = SavedVideosGridProps & {

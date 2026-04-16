@@ -6,7 +6,8 @@ export default function DiscsControls({
     videoId, 
     setOpenControls, 
     setOpenDiscs,
-    handleErrorMessage
+    handleErrorMessage,
+    setDiscs
   }: DiscsControlsProps) {
   const currentDiscsStorage = localStorage.getItem('current-discs');
   const discStorage = localStorage.getItem('disc');
@@ -23,6 +24,7 @@ export default function DiscsControls({
           currentDisc.items.unshift(videoId);
           handleErrorMessage('Added successfully!');
           localStorage.setItem('current-discs', JSON.stringify(currentDiscs));
+          setDiscs(currentDiscs);
         
         } else {
           handleErrorMessage('Video already exists in this disc!');

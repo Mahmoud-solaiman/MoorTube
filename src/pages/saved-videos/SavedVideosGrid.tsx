@@ -12,7 +12,8 @@ export function SavedVideosGrid({
   setSavedVideos,
   handleErrorMessage,
   setPoster,
-  layout
+  layout,
+  setDiscs
 }: SavedVideosGridProps) {
   const [openControls, setOpenControls] = useState<number | null>(null);
   const [openDiscs, setOpenDiscs] = useState<number | null>(null);
@@ -87,6 +88,7 @@ export function SavedVideosGrid({
                     setOpenDiscs={setOpenDiscs}
                     discsRef={discsRef}
                     handleErrorMessage={handleErrorMessage}
+                    setDiscs={setDiscs}
                   />
                 }
 
@@ -98,6 +100,7 @@ export function SavedVideosGrid({
                     setOpenControls={setOpenControls}
                     setOpenDiscs={setOpenDiscs}
                     handleErrorMessage={handleErrorMessage}
+                    setDiscs={setDiscs}
                   />
                 }
               </div>

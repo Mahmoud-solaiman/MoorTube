@@ -49,6 +49,7 @@ export function Watch({
           handleErrorMessage={handleErrorMessage}
           setPoster={setPoster}
           layout={layout}
+          setDiscs={setDiscs}
         />
       </div>
 

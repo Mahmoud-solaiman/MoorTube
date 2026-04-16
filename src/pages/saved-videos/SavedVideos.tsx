@@ -77,6 +77,7 @@ export function SavedVideos({
                 handleErrorMessage={handleErrorMessage}
                 setPoster={setPoster}
                 layout="saved-videos"
+                setDiscs={setDiscs}
               />
             </> :
             "Seems like you haven't added any videos to this Disc!"

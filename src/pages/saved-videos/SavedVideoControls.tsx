@@ -11,7 +11,8 @@ export default function SavedVideoControls({
   setSavedVideos,
   setOpenDiscs,
   discsRef,
-  handleErrorMessage
+  handleErrorMessage,
+  setDiscs
 }: SavedVideosControlsProps) {
   const controlsRef = useRef<HTMLDivElement>(null);
 
@@ -31,6 +32,7 @@ export default function SavedVideoControls({
     localStorage.setItem('current-discs', JSON.stringify(currentDiscs));
     localStorage.setItem('disc', JSON.stringify(discVideos));
     setSavedVideos(discVideos);
+    setDiscs(currentDiscs);
     setSavedVideosDetails(savedVideosDetails.filter((_video, index) => index !== targetIndex));
   }
 

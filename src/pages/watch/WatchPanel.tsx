@@ -10,7 +10,8 @@ function WatchPanel({
   setSavedVideos,
   handleErrorMessage,
   setPoster,
-  layout
+  layout,
+  setDiscs
 }: WatchPanelProps) {
   const toggleLabels: string[] = ['prayers', 'videos'];
   const [ panelChoice, setPanelChoice ] = useState('prayers');
@@ -47,6 +48,7 @@ function WatchPanel({
           handleErrorMessage={handleErrorMessage}
           setPoster={setPoster}
           layout={layout}
+          setDiscs={setDiscs}
         />
       }
 
