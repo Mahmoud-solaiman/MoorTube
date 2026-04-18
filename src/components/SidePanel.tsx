@@ -88,7 +88,7 @@ export function SidePanel({
   //JSX elements and functions
   return (
     <aside
-      className={translate ? "side-panel show" : "side-panel"}
+      className="side-panel"
       ref={sidePanel}
     >
       <header className="side-panel-header">

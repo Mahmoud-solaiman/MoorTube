@@ -79,7 +79,7 @@ export function Disc({
           onPointerDown={() => { 
             setSavedVideos(discObject);
             setWatchTitle(discObject.name);
-            localStorage.setItem('disc', JSON.stringify(discObject));
+            sessionStorage.setItem('disc', JSON.stringify(discObject));
           }}
         >
           {disc}

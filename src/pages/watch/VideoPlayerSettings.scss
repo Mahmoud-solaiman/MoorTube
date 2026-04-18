@@ -1,0 +1,46 @@
+.settings-container {
+  position: absolute;
+  inset: auto -30px 53px auto;
+  width: 300px;
+  background-color: var(--primary-color-transparent);
+  border-radius: 7px;
+  padding: .5em .2em;
+  animation: settings .15s linear;
+}
+
+@keyframes settings {
+  from {
+    opacity: 0;
+    transform: translateY(10%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);    
+  }
+}
+
+.settings-title {
+  padding-left: .2em;
+}
+
+.settings {
+  list-style: none;
+  padding-top: .3em;
+}
+
+.setting {
+  display: flex;
+  gap: .3rem;
+  align-items: center;
+  cursor: pointer;
+  padding: .3em .2em;
+  border-radius: 5px;
+  
+  &:hover {
+    background-color: var(--primary-color);
+  }
+
+  svg {
+    width: 25px;
+  }
+}

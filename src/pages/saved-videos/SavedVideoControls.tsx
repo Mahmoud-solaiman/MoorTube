@@ -17,7 +17,7 @@ export default function SavedVideoControls({
   const controlsRef = useRef<HTMLDivElement>(null);
 
   function removeVideo() {
-    const discVideosStorage = localStorage.getItem('disc');
+    const discVideosStorage = sessionStorage.getItem('disc');
     const discVideos: DiscType = discVideosStorage && JSON.parse(discVideosStorage);
     discVideos.items = discVideos.items.filter((_item, index) => index !== targetIndex);
 
@@ -30,7 +30,7 @@ export default function SavedVideoControls({
     });
 
     localStorage.setItem('current-discs', JSON.stringify(currentDiscs));
-    localStorage.setItem('disc', JSON.stringify(discVideos));
+    sessionStorage.setItem('disc', JSON.stringify(discVideos));
     setSavedVideos(discVideos);
     setDiscs(currentDiscs);
     setSavedVideosDetails(savedVideosDetails.filter((_video, index) => index !== targetIndex));

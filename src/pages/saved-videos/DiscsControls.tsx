@@ -10,7 +10,7 @@ export default function DiscsControls({
     setDiscs
   }: DiscsControlsProps) {
   const currentDiscsStorage = localStorage.getItem('current-discs');
-  const discStorage = localStorage.getItem('disc');
+  const discStorage = sessionStorage.getItem('disc');
   const currentDiscs: DiscType[] = currentDiscsStorage && JSON.parse(currentDiscsStorage);
   const disc: DiscType = discStorage && JSON.parse(discStorage);
   const updatedCurrentDiscs = currentDiscs.filter(item => item.id !== disc.id);

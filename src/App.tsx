@@ -8,7 +8,7 @@ import type { DiscType, SavedVideosDetails } from "../utils/types";
 
 // The JSX of the App component and the Routes
 export default function App() {
-  const discStorage = localStorage.getItem('disc');
+  const discStorage = sessionStorage.getItem('disc');
   const currentDiscsStorage = localStorage.getItem('current-discs');
   const modePreferenceStorage = localStorage.getItem('mode-preference');
   const [ savedVideos, setSavedVideos ] = useState<DiscType>(discStorage ? JSON.parse(discStorage) : []);

@@ -52,19 +52,21 @@ export function Watch({
           setDiscs={setDiscs}
         />
       </div>
-
-      <SidePanel
-        translate={translate}
-        setTranslate={setTranslate}
-        menuContainer={menuContainer}
-        discs={discs}
-        setDiscs={setDiscs}
-        handleErrorMessage={handleErrorMessage}
-        setSavedVideos={setSavedVideos}
-        isDarkMode={isDarkMode}
-        setIsDarkMode={setIsDarkMode}
-        setWatchTitle={setWatchTitle}
-      />
+      {
+        translate &&
+        <SidePanel
+          translate={translate}
+          setTranslate={setTranslate}
+          menuContainer={menuContainer}
+          discs={discs}
+          setDiscs={setDiscs}
+          handleErrorMessage={handleErrorMessage}
+          setSavedVideos={setSavedVideos}
+          isDarkMode={isDarkMode}
+          setIsDarkMode={setIsDarkMode}
+          setWatchTitle={setWatchTitle}
+        />
+      }
     </>
   );
 }

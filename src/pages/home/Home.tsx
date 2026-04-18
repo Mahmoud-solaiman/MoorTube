@@ -87,7 +87,7 @@ export function Home({
       />
       {/* Render the SidePanel */}
       {
-        // translate &&
+        translate &&
         <SidePanel
           translate={translate}
           setTranslate={setTranslate}

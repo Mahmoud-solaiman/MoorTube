@@ -119,12 +119,24 @@
   padding: .3em .6em;
   border-radius: 30px;
 
-  svg, button {
+  svg, button, .settings-btn {
     fill: #fff;
     cursor: pointer;
     height: 100%;
     background-color: transparent;
     border: none;
+  }
+
+  .settings-btn {
+    position: relative;
+
+    svg {
+      transition: .15s linear;
+    }
+
+    .settings-toggled {
+      transform: rotateZ(-45deg);
+    }
   }
 }
 
