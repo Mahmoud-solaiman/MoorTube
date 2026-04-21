@@ -14,7 +14,7 @@ import { Controls } from './Controls';
 import { useSearchParams } from 'react-router-dom';
 import ControlsMobile from './ControlsMobile';
 
-export function VideoPlayer({ poster }: {poster: string}) {
+export function VideoPlayer({ poster }: { poster: string }) {
   const [isBlur, setIsBlur] = useState(false);
   const [searchParams] = useSearchParams();
   const [isShowControls, setIsShowControls] = useState(false);
@@ -64,7 +64,7 @@ export function VideoPlayer({ poster }: {poster: string}) {
     >
       <MediaProvider />
 
-      <Poster 
+      <Poster
         src={poster}
         alt="video poster"
         className="vds-poster"
@@ -95,7 +95,7 @@ export function VideoPlayer({ poster }: {poster: string}) {
         <TimeSlider.Thumb className="timeslider-thumb" />
       </TimeSlider.Root>
 
-      <Controls isBlur={isBlur} setIsBlur={setIsBlur} isShowControls={isShowControls} />
+      <Controls isBlur={isBlur} setIsBlur={setIsBlur} isShowControls={isShowControls} hideControls={hideControls} />
       <ControlsMobile isBlur={isBlur} setIsBlur={setIsBlur} isShowControls={isShowControls} />
 
     </MediaPlayer>

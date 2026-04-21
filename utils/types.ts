@@ -335,6 +335,7 @@ export type ControlsProps = {
   isBlur: boolean;
   setIsBlur(value: boolean): void;
   isShowControls: boolean;
+  hideControls?(): void;
 }
 
 export type Location = {
@@ -347,3 +348,10 @@ export type Location = {
 export type NextPrayer = {
   timings: {[key: string]: string}
 }
+
+export type VideoPlayerSettingsProps = {
+  setIsSpeedSettings(value: boolean): void;
+  setIsSettings(value: boolean): void;
+} 
+
+export type PlaySpeedControlsProps = VideoPlayerSettingsProps;

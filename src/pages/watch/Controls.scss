@@ -4,13 +4,11 @@
   .replay-container {
     position: absolute;
     inset: 0;
-    // background-color: blue;
     display: flex;
     justify-content: center;
     align-items: center;
 
     button {
-      // background-color: var(--primary-color-transparent);
       background-color: transparent;
       border: none;
       width: 70px;

@@ -1,0 +1,75 @@
+.speed-controls-container {
+  position: absolute;
+  inset: auto -30px 53px auto;
+  width: 300px;
+  background-color: var(--primary-color-transparent);
+  border-radius: 7px;
+  padding: .5em .2em;
+  animation: speedSettings .15s linear;
+
+  h4 {
+    cursor: pointer;
+    border-bottom: 1px solid #fff;
+    padding-bottom: .5em;
+  }
+}
+
+@keyframes speedSettings {
+  from {
+    opacity: 0;
+    transform: translateY(10%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);    
+  }
+}
+
+.controls-area {
+  padding: .5em;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  & > span {
+    font-size: 1.6rem;
+    display: block;
+    text-align: center;
+  }
+}
+
+.custom-speed {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 40px 1fr 40px;
+  gap: .5rem;
+
+  & > button {
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:active {
+      opacity: .8;
+    }
+  }
+}
+
+.default-speeds {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    background-color: var(--primary-color);
+    font-size: 1.1rem;
+    width: 50px;
+    padding: .2em .5em;
+    border-radius: 30px;
+  
+    &:active {
+      opacity: .8;
+    }
+  }
+}
