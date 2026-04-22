@@ -55,6 +55,38 @@
       opacity: .8;
     }
   }
+
+  input[type="range"] {
+    -ms-appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;    
+    appearance: none;
+    background-color: transparent;
+  }
+  
+  input[type="range"]::-webkit-slider-runnable-track {
+    -ms-appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;    
+    appearance: none;
+    background-color: var(--shadow-color);
+    border-radius: 10px;
+    height: 10px;
+    cursor: pointer;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -ms-appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;    
+    appearance: none;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    margin-top: -3px;
+    background-color: var(--primary-color);
+    box-shadow: 0 0 5px 2px #fff;
+  }
 }
 
 .default-speeds {
