@@ -55,7 +55,6 @@ export function Watch({
       {
         translate &&
         <SidePanel
-          translate={translate}
           setTranslate={setTranslate}
           menuContainer={menuContainer}
           discs={discs}

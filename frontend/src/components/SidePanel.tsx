@@ -5,7 +5,6 @@ import './SidePanel.scss'; // Import the style sheet of this component
 import type { DiscType, SidePanelProps } from '../../utils/types';
 
 export function SidePanel({
-  translate,
   setTranslate,
   menuContainer,
   discs,
@@ -159,7 +158,7 @@ export function SidePanel({
         <span className='current-discs-label'>Current Discs</span>
         <section className="current-discs-container">
           {
-            discs.length ?
+            (discs && discs.length) ?
               discs.map(disc => {
                 const finalDisc = disc.name.length > 25 ? `${disc.name.slice(0, 25).trimEnd()}...` : disc.name;
                 return (

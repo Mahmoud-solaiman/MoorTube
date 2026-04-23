@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom"; // Import the Routes, and Route components from react-router-dom
 import { Home } from "./pages/home/Home"; // Import the Home component
-import { PageNotFound } from "./pages/page_not_found/PageNotFound"; // Import the PageNotFound component
+import { PageNotFound } from "./pages/404/PageNotFound"; // Import the PageNotFound component
 import { SavedVideos } from "./pages/saved-videos/SavedVideos";
 import { Watch } from "./pages/watch/Watch";
 import { useEffect, useRef, useState } from "react";
@@ -12,7 +12,7 @@ export default function App() {
   const currentDiscsStorage = localStorage.getItem('current-discs');
   const modePreferenceStorage = localStorage.getItem('mode-preference');
   const [ savedVideos, setSavedVideos ] = useState<DiscType>(discStorage ? JSON.parse(discStorage) : []);
-  const api_key = import.meta.env.VITE_API_KEY //My google console API Key
+  const api_key = import.meta.env.VITE_YOUTUBE_API_KEY //My google console API Key
   const [ translate, setTranslate ] = useState<boolean>(false); //The translateY value of the SidePanel
   const menuContainer = useRef(null); //The reference of the menu container
   const [ discs, setDiscs ] = useState<DiscType[]>(currentDiscsStorage ? JSON.parse(currentDiscsStorage) : []); //The latest disc list from localStorage

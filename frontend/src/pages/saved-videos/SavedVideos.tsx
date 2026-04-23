@@ -87,7 +87,6 @@ export function SavedVideos({
       {
         translate &&
         <SidePanel
-          translate={translate}
           setTranslate={setTranslate}
           menuContainer={menuContainer}
           discs={discs}

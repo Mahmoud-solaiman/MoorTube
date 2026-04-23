@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react"; // Import these hooks from the react package
-import { Header } from "../../components/Header"; // Import the header component
-import { SidePanel } from "../../components/SidePanel"; // Import the SidePanel component
-import { ErrorMessage } from "../../components/ErrorMessage"; // Import the ErrorMessage component
-import LoadingVideos from "../../components/LoadingVideos";
+import { Header } from "../../components/Header.tsx"; // Import the header component
+import { SidePanel } from "../../components/SidePanel.tsx"; // Import the SidePanel component
+import { ErrorMessage } from "../../components/ErrorMessage.tsx"; // Import the ErrorMessage component
+import LoadingVideos from "../../components/LoadingVideos.tsx";
 import type { HomeProps } from  "../../../utils/types.ts";
-import { VideoGrid } from "../../components/VideoGrid.jsx";
+import { VideoGrid } from "../../components/VideoGrid.js";
 
 export function Home({ 
     setSavedVideos, 
@@ -89,7 +89,6 @@ export function Home({
       {
         translate &&
         <SidePanel
-          translate={translate}
           setTranslate={setTranslate}
           menuContainer={menuContainer}
           discs={discs}

@@ -101,7 +101,6 @@ export type PlaylistInfoItem = {
 }
 
 export type SidePanelProps = {
-  translate: boolean;
   setTranslate(value: boolean): void;
   menuContainer: RefObject<HTMLDivElement | null>;
   discs: DiscType[];
