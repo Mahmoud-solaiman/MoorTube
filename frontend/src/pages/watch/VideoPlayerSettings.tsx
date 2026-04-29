@@ -3,7 +3,8 @@ import './VideoPlayerSettings.scss';
 
 export default function VideoPlayerSettings({
     setIsSpeedSettings,
-    setIsSettings
+    setIsSettings,
+    setIsQuality
   }: VideoPlayerSettingsProps) {
   return (
     <div className="settings-container">
@@ -24,7 +25,10 @@ export default function VideoPlayerSettings({
           </svg>
           <span className="setting-title">Playback speed</span>
         </li>
-        <li className="setting">
+        <li className="setting" onClick={() => {
+          setIsSettings(false);
+          setIsQuality(true);
+        }}>
           <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 24 24">
             <path d="M14.75 16.5h1.5V15H17q.425 0 .713-.288T18 14v-4q0-.425-.288-.713T17 9h-3q-.425 0-.713.288T13 10v4q0 .425.288.713T14 15h.75v1.5ZM6 15h1.5v-2h2v2H11V9H9.5v2.5h-2V9H6v6Zm8.5-1.5v-3h2v3h-2ZM4 20q-.825 0-1.413-.588T2 18V6q0-.825.588-1.413T4 4h16q.825 0 1.413.588T22 6v12q0 .825-.588 1.413T20 20H4Z"/>
           </svg>

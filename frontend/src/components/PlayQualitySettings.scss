@@ -1,0 +1,40 @@
+.video-qualities-container {
+  position: absolute;
+  inset: auto 20px 60px auto;
+  width: 300px;
+  background-color: var(--primary-color-transparent);
+  border-radius: 7px;
+  padding: .5em .2em;
+  animation: speedSettings .15s linear;
+
+  h4 {
+    cursor: pointer;
+    border-bottom: 1px solid #fff;
+    padding-bottom: .5em;
+    display: flex;
+    align-items: center;
+
+    svg {
+      width: 20px;
+    }
+  }
+}
+
+.qualities-area {
+  list-style: none;
+  padding-top: .5em;
+
+  .quality {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    justify-content: center;
+    cursor: pointer;
+    gap: .2rem;
+    padding: .3em .2em;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: var(--primary-color);
+    }
+  }
+}

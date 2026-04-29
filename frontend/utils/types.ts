@@ -351,6 +351,9 @@ export type NextPrayer = {
 export type VideoPlayerSettingsProps = {
   setIsSpeedSettings(value: boolean): void;
   setIsSettings(value: boolean): void;
+  setIsQuality(value: boolean): void;
 } 
 
-export type PlaySpeedControlsProps = VideoPlayerSettingsProps;
+export type PlaySpeedControlsProps = Omit<VideoPlayerSettingsProps, 'setIsQuality'>;
+
+export type PlayQualityProps = Omit<VideoPlayerSettingsProps, 'setIsSpeedSettings'>;

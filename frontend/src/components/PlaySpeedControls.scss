@@ -1,6 +1,6 @@
 .speed-controls-container {
   position: absolute;
-  inset: auto -30px 53px auto;
+  inset: auto 20px 60px auto;
   width: 300px;
   background-color: var(--primary-color-transparent);
   border-radius: 7px;
@@ -11,6 +11,12 @@
     cursor: pointer;
     border-bottom: 1px solid #fff;
     padding-bottom: .5em;
+    display: flex;
+    align-items: center;
+
+    svg {
+      width: 20px;
+    }
   }
 }
 
