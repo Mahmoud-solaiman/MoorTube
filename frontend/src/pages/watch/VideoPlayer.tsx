@@ -13,6 +13,7 @@ import { useState, useRef } from 'react';
 import { Controls } from './Controls';
 import { useSearchParams } from 'react-router-dom';
 import ControlsMobile from './ControlsMobile';
+import BlurBox from '../../components/BlurBox';
 
 export function VideoPlayer({ poster }: { poster: string }) {
   const [isBlur, setIsBlur] = useState(false);
@@ -80,6 +81,8 @@ export function VideoPlayer({ poster }: { poster: string }) {
         isBlur &&
         <div aria-hidden="true" className="blur-layer"></div>
       }
+
+      {/* <BlurBox /> */}
 
       <div className="vds-buffering-indicator">
         <Spinner.Root className="vds-buffering-spinner">

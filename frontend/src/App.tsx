@@ -1,10 +1,11 @@
-import { Routes, Route } from "react-router-dom"; // Import the Routes, and Route components from react-router-dom
+import { Routes, Route, useNavigate } from "react-router-dom"; // Import the Routes, and Route components from react-router-dom
 import { Home } from "./pages/home/Home"; // Import the Home component
 import { PageNotFound } from "./pages/404/PageNotFound"; // Import the PageNotFound component
 import { SavedVideos } from "./pages/saved-videos/SavedVideos";
 import { Watch } from "./pages/watch/Watch";
 import { useEffect, useRef, useState } from "react";
 import type { DiscType, SavedVideosDetails } from "../utils/types";
+import Authentication from "./pages/auth/Authentication";
 
 // The JSX of the App component and the Routes
 export default function App() {
@@ -21,10 +22,12 @@ export default function App() {
   const [ showErrorMessage, setShowErrorMessage ] = useState<number | undefined>(undefined); //State to handle the setTimeout for disrendering the error message
   const sysPreferences = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const [ isDarkMode, setIsDarkMode ] = useState(modePreferenceStorage ? JSON.parse(modePreferenceStorage) : sysPreferences);
-  const [ watchTitle, setWatchTitle ] = useState('Channel search');
+  const [ watchTitle, setWatchTitle ] = useState('Channel Search');
   const [ poster, setPoster ] = useState('');
   const [ savedVideosDetails, setSavedVideosDetails ] = useState<SavedVideosDetails[] | undefined>(undefined);
+  const navigate = useNavigate();
 
+  
   //Function that handles the rendering and disrendering and the content of the error message
   function handleErrorMessage(message: string): void {
     clearTimeout(showErrorMessage);
@@ -34,14 +37,17 @@ export default function App() {
   }
 
   useEffect(() => {
-    isDarkMode ? 
-      document.documentElement.classList.add('darkmode') :
-      document.documentElement.classList.remove('darkmode');
+    const isUser = localStorage.getItem('isUser') ? JSON.parse(localStorage.getItem('isUser') as string) : false;
+    isDarkMode 
+    ? document.documentElement.classList.add('darkmode') 
+    : document.documentElement.classList.remove('darkmode');
+    
+    isUser ? navigate('/home') : navigate('/auth/register');
   }, [isDarkMode]);
   
   return (
     <Routes>
-      <Route path="/" element={
+      <Route path="/home" element={
         <Home
           setSavedVideos={setSavedVideos}
           api_key={api_key}
@@ -59,7 +65,7 @@ export default function App() {
           setPoster={setPoster}
         />
       } />
-      <Route path="savedVideos" element={
+      <Route path="disc" element={
         <SavedVideos
           savedVideos={savedVideos}
           api_key={api_key}
@@ -102,6 +108,22 @@ export default function App() {
         />
       } />
       <Route path="*" element={<PageNotFound />} />
+      <Route path="/auth/register" element={
+        <Authentication 
+          errorMessage={errorMessage}
+          isErrorMessage={isErrorMessage}
+          handleErrorMessage={handleErrorMessage}
+          layout="register"
+        />
+      } />
+      <Route path="/auth/login" element={
+        <Authentication 
+          errorMessage={errorMessage}
+          isErrorMessage={isErrorMessage}
+          handleErrorMessage={handleErrorMessage}
+          layout="login"
+        />
+      } />
     </Routes>
   );
 }

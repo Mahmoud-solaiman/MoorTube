@@ -15,6 +15,9 @@ function PrayerTimesPanel() {
 
   const fetchNextPrayer = useCallback(async (location: Location | null) => {
     if (location) {
+      const nextPrayerStorage = sessionStorage.getItem('next-prayer');
+      if (nextPrayerStorage) return setNextPrayer(JSON.parse(nextPrayerStorage));
+
       const nextPrayerTime = await axios.get('https://api.aladhan.com/v1/nextPrayer?', {
         params: {
           latitude: location.coords.latitude,
@@ -23,6 +26,7 @@ function PrayerTimesPanel() {
       });
   
       setNextPrayer(nextPrayerTime.data.data);
+      sessionStorage.setItem('next-prayer', JSON.stringify(nextPrayerTime.data.data));
     }
   }, []);
 
@@ -36,6 +40,11 @@ function PrayerTimesPanel() {
 
     async function fetchPrayerTimes(location: Location) {
       try {
+        fetchNextPrayer(location);
+        setCoords(location);
+        const prayerTimesStorage = sessionStorage.getItem('prayer-times');
+        if (prayerTimesStorage) return setPrayerTimesData(JSON.parse(prayerTimesStorage));
+
         const prayerTimes = await axios.get(`https://api.aladhan.com/v1/timings?`, {
           params: {
             latitude: location.coords.latitude,
@@ -44,9 +53,8 @@ function PrayerTimesPanel() {
         });
 
         setPrayerTimesData(prayerTimes.data.data.timings);
+        sessionStorage.setItem('prayer-times', JSON.stringify(prayerTimes.data.data.timings));
 
-        fetchNextPrayer(location);
-        setCoords(location);
 
       } catch (error) {
         console.error(error);

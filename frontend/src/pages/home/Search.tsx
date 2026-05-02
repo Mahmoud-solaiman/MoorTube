@@ -34,9 +34,7 @@ export function Search({
         searchField.current.focus();
       }
     });
-  })
-
-
+  });
 
   // The JSX of the search related elements (e.g. search field and button)
   return (

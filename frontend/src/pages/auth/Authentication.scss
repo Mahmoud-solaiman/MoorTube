@@ -1,0 +1,85 @@
+.register-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3em;
+
+  h1, h2 {
+    margin-bottom: 1rem;
+  }
+}
+
+.register-form {
+  margin-top: 2rem;
+  width: 40%;
+  text-align: center;
+
+  fieldset {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: .5em;
+    gap: 2rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+
+    legend {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: .3rem;
+      width: 98%;
+
+      label {
+        cursor: pointer;
+        align-self: flex-start;
+        margin-left: -5px;
+        font-size: 1.2rem;
+      }
+
+      input {
+        height: 45px;
+        font-size: 1.1rem;
+        padding: .4em;
+        border-radius: 5px;
+        border: none;
+        color: var(--text-color);
+        background-color: var(--primary-color-transparent);
+      
+        &:focus-within {
+          outline: 2px solid var(--primary-color);
+        }
+
+        &::placeholder {
+          color: var(--placeholder-color);
+        }
+      }
+
+      button[type="submit"] {
+        font-size: 1.2rem;
+        cursor: pointer;
+        padding-block: .5em;
+        background-color: var(--primary-color);
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+      }
+
+      span {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .login-navigator-btn {
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--primary-color);
+  }
+}

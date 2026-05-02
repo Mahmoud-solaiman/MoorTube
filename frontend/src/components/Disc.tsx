@@ -73,7 +73,7 @@ export function Disc({
       {
         !isEdit &&
         <Link 
-          to="/savedVideos" 
+          to="/disc" 
           className='disc-name'
           title={title}
           onPointerDown={() => { 

@@ -25,7 +25,7 @@ export function SavedVideosHeader({
           </svg>
         </div>
         <div className="logo-container" title="MoorTube Home">
-          <Link to="/">
+          <Link to="/home">
             <img src={isDarkMode ? "./logo-dark.png" : "./logo-light.png"} alt="website logo" />
           </Link>
           
