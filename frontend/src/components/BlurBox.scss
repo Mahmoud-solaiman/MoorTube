@@ -1,0 +1,24 @@
+.blur-box-container {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .blur-box {
+    width: 150px;
+    height: 150px;
+    background-color: rgb(100 100 100 / .4);
+    cursor: grab;
+    z-index: 10;
+    pointer-events: all;
+    position: fixed;
+    border-radius: 10px;
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+    overflow: hidden;
+    resize: both;
+  }
+}

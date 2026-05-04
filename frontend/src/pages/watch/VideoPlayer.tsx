@@ -22,6 +22,7 @@ export function VideoPlayer({ poster }: { poster: string }) {
   const video = `https://youtube.com/watch?v=${searchParams.get('v')}`;
   const isActive = useRef<number | undefined>(undefined);
   const [isMuted, setIsMuted] = useState(true);
+  const [ blurBoxes, setBlurBoxes ] = useState<string[]>([]);
 
   function hideControls() {
     setIsShowControls(true);
@@ -82,7 +83,7 @@ export function VideoPlayer({ poster }: { poster: string }) {
         <div aria-hidden="true" className="blur-layer"></div>
       }
 
-      {/* <BlurBox /> */}
+      <BlurBox blurBoxes={blurBoxes}/>
 
       <div className="vds-buffering-indicator">
         <Spinner.Root className="vds-buffering-spinner">
@@ -98,8 +99,15 @@ export function VideoPlayer({ poster }: { poster: string }) {
         <TimeSlider.Thumb className="timeslider-thumb" />
       </TimeSlider.Root>
 
-      <Controls isBlur={isBlur} setIsBlur={setIsBlur} isShowControls={isShowControls} hideControls={hideControls} />
-      <ControlsMobile isBlur={isBlur} setIsBlur={setIsBlur} isShowControls={isShowControls} />
+      <Controls 
+        isBlur={isBlur} 
+        setIsBlur={setIsBlur} 
+        isShowControls={isShowControls} 
+        hideControls={hideControls}
+        setBlurBoxes={setBlurBoxes}
+        blurBoxes={blurBoxes}
+      />
+      {/* <ControlsMobile isBlur={isBlur} setIsBlur={setIsBlur} isShowControls={isShowControls} /> */}
 
     </MediaPlayer>
   );

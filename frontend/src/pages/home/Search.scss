@@ -1,6 +1,10 @@
 .search-container {
   display: grid;
   grid-template-columns: minmax(20px, 1fr) 70px;
+
+  &:has(input:focus) ~ .suggestions-box {
+    opacity: 1;
+  }
 }
 
 #search-channel-field {

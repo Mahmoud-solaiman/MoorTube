@@ -9,7 +9,9 @@ export function Controls({
   isBlur,
   setIsBlur,
   isShowControls,
-  hideControls
+  hideControls,
+  setBlurBoxes,
+  blurBoxes
 }: ControlsProps) {
   const isFullScreen = useMediaState('fullscreen');
   const isPaused = useMediaState('paused');
@@ -108,6 +110,8 @@ export function Controls({
           <VideoPlayerSettings
             setIsSpeedSettings={setIsSpeedSettings}
             setIsSettings={setIsSettings}
+            setBlurBoxes={setBlurBoxes}
+            blurBoxes={blurBoxes}
           />
         }
 

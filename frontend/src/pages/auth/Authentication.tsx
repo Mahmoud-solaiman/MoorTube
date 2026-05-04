@@ -40,12 +40,10 @@ export default function Authentication({
       if (res.data.isRegistered) {
         navigate('/home');
         localStorage.setItem('isUser', JSON.stringify(true));
-      } else {
-        handleErrorMessage(res.data.message);
       }
       
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      handleErrorMessage(error.response?.data?.message);
     }
   }
 
@@ -58,7 +56,9 @@ export default function Authentication({
         password
       });
 
-      res.data.isRegistered && navigate('/home');
+      res.data.token && localStorage.setItem('token', res.data.token);
+      localStorage.setItem('isUser', JSON.stringify(true));
+      navigate('/home');
     } catch (error: any) {
       handleErrorMessage(error.response?.data?.message);
     }
@@ -115,7 +115,11 @@ export default function Authentication({
           </div>
 
           <div>
-            <button type="submit" className="register-btn">Become a MoorTuber</button>
+            <button type="submit" className="register-btn">
+              {
+                layout === 'register' ? 'Become a MoorTuber' : 'Login'
+              }
+            </button>
             <span>Or</span>
             <Link to={layout === 'register' ? "/auth/login" : "/auth/register"} className="login-navigator-btn">
               {

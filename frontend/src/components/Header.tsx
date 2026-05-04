@@ -177,7 +177,7 @@ export function Header({
           />
           {/* This renders the Suggestions component condictionally */}
           {
-            isSuggestions &&
+            (isSuggestions && isChannel) &&
             // The Suggestions component
             <Suggestions
               popUpChannelLogo={popUpChannelLogo}

@@ -11,6 +11,7 @@
   box-shadow: 2px 2px 10px var(--shadow-color);
   top: 55px;
   animation: suggestions .15s linear;
+  opacity: 0;
 
   &::-webkit-scrollbar {
     background-color: transparent;

@@ -38,11 +38,18 @@ export default function App() {
 
   useEffect(() => {
     const isUser = localStorage.getItem('isUser') ? JSON.parse(localStorage.getItem('isUser') as string) : false;
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') as string : false;
     isDarkMode 
     ? document.documentElement.classList.add('darkmode') 
     : document.documentElement.classList.remove('darkmode');
-    
-    isUser ? navigate('/home') : navigate('/auth/register');
+
+    if ((token && isUser) || token) {
+      navigate('/home');
+    } else if (isUser) {
+      navigate('/auth/login');
+    } else {
+      navigate('/auth/register');
+    }
   }, [isDarkMode]);
   
   return (

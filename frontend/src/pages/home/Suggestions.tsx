@@ -142,6 +142,7 @@ export function Suggestions({
                       setIsSuggestions(false);
                       setSearchText(item.searchName);
                       fetchChannelsData(item.searchName);
+                      searchField.current?.focus();
                     }}
                   >
                     {searchText}

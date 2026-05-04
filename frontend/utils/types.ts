@@ -335,6 +335,8 @@ export type ControlsProps = {
   setIsBlur(value: boolean): void;
   isShowControls: boolean;
   hideControls?(): void;
+  setBlurBoxes(value: string[]): void;
+  blurBoxes: string[];
 }
 
 export type Location = {
@@ -351,13 +353,19 @@ export type NextPrayer = {
 export type VideoPlayerSettingsProps = {
   setIsSpeedSettings(value: boolean): void;
   setIsSettings(value: boolean): void;
+  setBlurBoxes(value: string[]): void;
+  blurBoxes: string[];
 } 
 
-export type PlaySpeedControlsProps = VideoPlayerSettingsProps;
+export type PlaySpeedControlsProps = Omit<VideoPlayerSettingsProps, 'setBlurBoxes' | 'blurBoxes'>;
 
 export type AuthenticationProps = {
   errorMessage: string;
   handleErrorMessage(value: string): void;
   isErrorMessage: boolean;
   layout: 'register' | 'login';
+}
+
+export type BlurBoxProps = {
+  blurBoxes: string[];
 }

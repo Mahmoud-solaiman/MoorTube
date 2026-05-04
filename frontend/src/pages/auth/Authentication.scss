@@ -6,13 +6,22 @@
 
   h1, h2 {
     margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  @media (max-width: 530px) {
+    padding-inline: 1em;
   }
 }
 
 .register-form {
   margin-top: 2rem;
-  width: 40%;
+  width: 420px;
   text-align: center;
+
+  @media (max-width: 530px) {
+    width: 100%;
+  }
 
   fieldset {
     display: flex;
@@ -46,6 +55,7 @@
         font-size: 1.1rem;
         padding: .4em;
         border-radius: 5px;
+        min-width: 0px;
         border: none;
         color: var(--text-color);
         background-color: var(--primary-color-transparent);
@@ -67,6 +77,10 @@
         border: none;
         border-radius: 5px;
         color: #fff;
+
+        &:active {
+          opacity: .7;
+        }
       }
 
       span {
