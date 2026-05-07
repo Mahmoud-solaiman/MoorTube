@@ -16,9 +16,34 @@
     pointer-events: all;
     position: fixed;
     border-radius: 10px;
-    -webkit-backdrop-filter: blur(15px);
-    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(25px);
+    backdrop-filter: blur(25px);
     overflow: hidden;
     resize: both;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    &:active {
+      cursor: grabbing;
+    }
+
+    &:focus > svg {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    svg {
+      width: 40px;
+      fill: #fff;
+      cursor: pointer;
+      transition: .15s linear;
+      opacity: 0;
+      pointer-events: none;
+
+      &:hover {
+        fill: rgb(200 200 200 / .8);
+      }
+    }
   }
 }

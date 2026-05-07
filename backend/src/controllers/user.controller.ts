@@ -9,7 +9,7 @@ export const registerUser = async (req: Request, res: Response) => {
 
     if (!username || !password || !email) return res.status(400).json({ message: 'All fields are required', isRegistered: false });
 
-    const existingUser = await UserModel.findOne({ username });
+    const existingUser = await UserModel.findOne({ $or: [{ username }, { email }] });
     if (existingUser) return res.status(400).json({ message: "User already exists. Try logging in instead.", isRegistered: false });
 
     const salt = await bcrypt.genSalt(10);

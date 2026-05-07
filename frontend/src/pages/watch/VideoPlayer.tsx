@@ -83,7 +83,7 @@ export function VideoPlayer({ poster }: { poster: string }) {
         <div aria-hidden="true" className="blur-layer"></div>
       }
 
-      <BlurBox blurBoxes={blurBoxes}/>
+      <BlurBox blurBoxes={blurBoxes} setBlurBoxes={setBlurBoxes} />
 
       <div className="vds-buffering-indicator">
         <Spinner.Root className="vds-buffering-spinner">

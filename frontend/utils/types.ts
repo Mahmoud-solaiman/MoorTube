@@ -368,4 +368,5 @@ export type AuthenticationProps = {
 
 export type BlurBoxProps = {
   blurBoxes: string[];
+  setBlurBoxes(value: string[]): void;
 }

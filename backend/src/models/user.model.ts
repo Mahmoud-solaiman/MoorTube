@@ -1,13 +1,5 @@
-import mongoose, { Schema, Document } from 'mongoose';
-
-export interface User extends Document {
-  _id: mongoose.Types.ObjectId;
-  username: string;
-  email: string;
-  password: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import mongoose, { Schema } from 'mongoose';
+import { User } from '../types/types';
 
 const userSchema: Schema = new Schema({
   username: {
@@ -25,7 +17,7 @@ const userSchema: Schema = new Schema({
     type: String,
     required: true,
     trim: true,
-    min: 6
+    minLength: 6
   }
 }, { timestamps: true});
 

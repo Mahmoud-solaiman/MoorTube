@@ -31,6 +31,8 @@ export default function Authentication({
 
       if (!isEmail(email)) return handleErrorMessage('Not a valid email address.');
 
+      if (password.length < 6) return handleErrorMessage("Password must be at least 6 characters long.");
+
       const res: AuthenticationRes = await API.post('/auth/register', {
         username: username.toLowerCase(),
         email: email.toLowerCase(),
@@ -121,7 +123,7 @@ export default function Authentication({
               }
             </button>
             <span>Or</span>
-            <Link to={layout === 'register' ? "/auth/login" : "/auth/register"} className="login-navigator-btn">
+            <Link to={layout === 'register' ? "/login" : "/register"} className="login-navigator-btn">
               {
                 layout === 'register' ? 'Already have an account?' : 'Become a MoorTuber'
               }

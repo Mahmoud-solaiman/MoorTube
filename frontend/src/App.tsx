@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate } from "react-router-dom"; // Import the Routes, and Route components from react-router-dom
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom"; // Import the Routes, and Route components from react-router-dom
 import { Home } from "./pages/home/Home"; // Import the Home component
 import { PageNotFound } from "./pages/404/PageNotFound"; // Import the PageNotFound component
 import { SavedVideos } from "./pages/saved-videos/SavedVideos";
@@ -46,9 +46,9 @@ export default function App() {
     if ((token && isUser) || token) {
       navigate('/home');
     } else if (isUser) {
-      navigate('/auth/login');
+      navigate('/login');
     } else {
-      navigate('/auth/register');
+      navigate('/register');
     }
   }, [isDarkMode]);
   
@@ -72,6 +72,7 @@ export default function App() {
           setPoster={setPoster}
         />
       } />
+      <Route path="/" element={<Navigate to="/home" replace />} />
       <Route path="disc" element={
         <SavedVideos
           savedVideos={savedVideos}
@@ -115,7 +116,7 @@ export default function App() {
         />
       } />
       <Route path="*" element={<PageNotFound />} />
-      <Route path="/auth/register" element={
+      <Route path="/register" element={
         <Authentication 
           errorMessage={errorMessage}
           isErrorMessage={isErrorMessage}
@@ -123,7 +124,7 @@ export default function App() {
           layout="register"
         />
       } />
-      <Route path="/auth/login" element={
+      <Route path="/login" element={
         <Authentication 
           errorMessage={errorMessage}
           isErrorMessage={isErrorMessage}
