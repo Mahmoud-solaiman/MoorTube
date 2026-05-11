@@ -1,4 +1,4 @@
-import { DiscsControlsProps, DiscType } from '../../../utils/types';
+import { DiscsControlsProps, DiscType } from '../../types/types';
 import './DiscsControls.scss';
 
 export default function DiscsControls({ 

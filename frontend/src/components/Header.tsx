@@ -5,7 +5,7 @@ import { Suggestions } from "../pages/home/Suggestions"; // Import the Suggestio
 import { ToggleSearch } from "./ToggleSearch"; // Import the ToggleSearch component
 import './Header.scss'; // Import the style sheet of this component
 import { generateID } from "../../utils/formatting";
-import { ChannelItem, HeaderProps, SearchHistory, VideosChannelsItem, VideosItem } from "../../utils/types";
+import { ChannelItem, HeaderProps, SearchHistory, VideosChannelsItem, VideosItem } from "../types/types";
 
 export function Header({
   setVideos,

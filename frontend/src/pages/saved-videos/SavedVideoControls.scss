@@ -33,6 +33,7 @@
     @media (hover: hover) {
       &:hover {
         background-color: var(--primary-color-transparent);
+        border-radius: 6px;
       }
     }
 

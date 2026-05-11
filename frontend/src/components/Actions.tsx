@@ -1,4 +1,4 @@
-import { ActionsProps } from '../../utils/types';
+import { ActionsProps } from '../types/types';
 import './Actions.scss'; // The sass style sheet of the elements in this component
 
 export function Actions({ 

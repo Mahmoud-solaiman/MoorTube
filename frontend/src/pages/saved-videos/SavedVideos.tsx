@@ -1,4 +1,3 @@
-import axios from 'axios';
 import './SavedVideos.scss';
 import { SavedVideosHeader } from './SavedVideosHeader';
 import { SavedVideosPanel } from './SavedVideosPanel';
@@ -6,17 +5,16 @@ import { useEffect, useRef, useState } from 'react';
 import { SavedVideosGrid } from './SavedVideosGrid';
 import { SidePanel } from '../../components/SidePanel';
 import { ErrorMessage } from '../../components/ErrorMessage';
-import { SavedVideosDetails, SavedVideosProps } from '../../../utils/types';
+import { SavedVideosDetailsResponse, SavedVideosProps } from '../../types/types';
+import API from '../../api/axios';
+import { useParams } from 'react-router-dom';
 
 export function SavedVideos({
-  savedVideos,
-  api_key,
   setTranslate,
   translate,
   discs,
   setDiscs,
   handleErrorMessage,
-  setSavedVideos,
   isDarkMode,
   setIsDarkMode,
   errorMessage,
@@ -28,24 +26,27 @@ export function SavedVideos({
 }: SavedVideosProps) {
   
   const menuContainer = useRef(null);
+  const [ discName, setDiscName ] = useState<string>('');
+  const id = useParams().id;
+
 
   useEffect(() => {
-    const fetchSavedVideos = async () => {
-      const savedVideosRequest = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
-        params: {
-          part: "snippet,contentDetails,statistics",
-          key: api_key,
-          id: savedVideos.items.map(item => item).join(',')
-        }
-      });
-
-      setSavedVideosDetails(savedVideosRequest.data.items);
+    try {
+      const fetchSavedVideos = async () => {
+        const videos = await API.get<SavedVideosDetailsResponse>(`/discs/${id}`);
+        setSavedVideosDetails(videos.data.videos.items);
+        setDiscName(videos.data.discName);
+      }
+      fetchSavedVideos();
+      
+    } catch (error: any) {
+      const errorMessage = error.response?.data.message || "Server error. Please, try again later!";
+      handleErrorMessage(errorMessage);
     }
 
-    fetchSavedVideos();
     setTranslate(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [savedVideos]);
+  }, [id]);
   
   return (
     <div className="saved-videos-container">
@@ -53,19 +54,19 @@ export function SavedVideos({
         isErrorMessage &&
         <ErrorMessage errorMessage={errorMessage}/>
       }
-      <SavedVideosHeader 
-        discTitle={savedVideos.name} 
+      <SavedVideosHeader
+        discName={discName}
         setTranslate={setTranslate} 
         menuContainer={menuContainer}
         isDarkMode={isDarkMode}
       />
 
-      <div className={savedVideos.items.length ? "saved-videos" : "saved-videos empty"}>
+      <div className={(savedVideosDetails && savedVideosDetails.length )? "saved-videos" : "saved-videos empty"}>
         {
-          savedVideos.items.length ? 
+          (savedVideosDetails && savedVideosDetails.length) ? 
             <>
-              <SavedVideosPanel 
-                savedVideos={savedVideos} 
+              <SavedVideosPanel
+                discName={discName}
                 savedVideosDetails={savedVideosDetails} 
                 setPoster={setPoster}
               />
@@ -73,7 +74,6 @@ export function SavedVideos({
               <SavedVideosGrid 
                 savedVideosDetails={savedVideosDetails} 
                 setSavedVideosDetails={setSavedVideosDetails}
-                setSavedVideos={setSavedVideos}
                 handleErrorMessage={handleErrorMessage}
                 setPoster={setPoster}
                 layout="saved-videos"
@@ -92,7 +92,6 @@ export function SavedVideos({
           discs={discs}
           setDiscs={setDiscs}
           handleErrorMessage={handleErrorMessage}
-          setSavedVideos={setSavedVideos}
           isDarkMode={isDarkMode}
           setIsDarkMode={setIsDarkMode}
           setWatchTitle={setWatchTitle}

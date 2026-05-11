@@ -5,7 +5,7 @@ import './VideoGrid.scss';
 import { DiscsActions } from './DiscsActions';
 import { AddNewDisc } from './AddNewDisc';
 import { useNavigate } from 'react-router-dom';
-import { VideoGridProps } from '../../utils/types';
+import { VideoGridProps } from '../types/types';
 
 export function VideoGrid({
   channelLogo,
@@ -13,7 +13,8 @@ export function VideoGrid({
   setDiscs,
   setTranslate,
   handleErrorMessage,
-  setPoster
+  setPoster,
+  discs
 }: VideoGridProps) {
   // This is the section for setting up all the variables and states and other hooks
   const [openIndex, setOpenIndex] = useState<number | undefined>(undefined); // The state that toggles the disc actions on and off
@@ -158,6 +159,7 @@ export function VideoGrid({
                     setOpenIndex={setOpenIndex}
                     isOpenTop={isOpenTop}
                     setDiscs={setDiscs}
+                    discs={discs}
                   />
                 }
                 {

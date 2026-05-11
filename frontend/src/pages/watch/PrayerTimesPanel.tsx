@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { formatPrayerTime } from '../../../utils/formatting';
 import './PrayerTimesPanel.scss';
-import { Location, NextPrayer } from '../../../utils/types';
+import { Location, NextPrayer } from '../../types/types';
 
 function PrayerTimesPanel() {
   const prayers: string[] = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];

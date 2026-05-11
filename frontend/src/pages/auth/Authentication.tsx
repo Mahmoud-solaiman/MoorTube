@@ -3,16 +3,9 @@ import './Authentication.scss';
 import API from '../../api/axios';
 import { useState } from 'react';
 import { ErrorMessage } from '../../components/ErrorMessage';
-import { AuthenticationProps } from '../../../utils/types';
+import { AuthenticationProps, AuthenticationRes } from '../../types/types';
 import isEmail from 'validator/es/lib/isEmail';
 
-type AuthenticationRes = {
-  data: {
-    message: string; 
-    isRegistered: boolean;
-    token?: string;
-  }
-}
 
 export default function Authentication({
   errorMessage,
@@ -42,6 +35,7 @@ export default function Authentication({
       if (res.data.isRegistered) {
         navigate('/home');
         localStorage.setItem('isUser', JSON.stringify(true));
+        localStorage.setItem('token', res.data.token);
       }
       
     } catch (error: any) {
@@ -96,7 +90,9 @@ export default function Authentication({
         
       }}>
         <fieldset>
-          <legend>Register a new account</legend>
+          <legend>
+            { layout === 'register' ? "Register a new account" : "LOGIN"}
+          </legend>
 
           <div>
             <label htmlFor="username">Username:</label>
@@ -119,7 +115,7 @@ export default function Authentication({
           <div>
             <button type="submit" className="register-btn">
               {
-                layout === 'register' ? 'Become a MoorTuber' : 'Login'
+                layout === 'register' ? 'Become a MoorTuber' : 'LOGIN'
               }
             </button>
             <span>Or</span>

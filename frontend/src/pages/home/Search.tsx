@@ -1,6 +1,6 @@
 import { useEffect } from 'react'; // Import the useState hook from react package
 import './Search.scss'; // Import the style sheet of this component
-import { SearchHistory, SearchProps } from '../../../utils/types';
+import { SearchHistory, SearchProps } from '../../types/types';
 
 export function Search({
   isChannel,

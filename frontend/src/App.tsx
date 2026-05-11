@@ -4,19 +4,17 @@ import { PageNotFound } from "./pages/404/PageNotFound"; // Import the PageNotFo
 import { SavedVideos } from "./pages/saved-videos/SavedVideos";
 import { Watch } from "./pages/watch/Watch";
 import { useEffect, useRef, useState } from "react";
-import type { DiscType, SavedVideosDetails } from "../utils/types";
+import { jwtDecode } from "jwt-decode";
+import type { DiscType, SavedVideosDetails } from "./types/types";
 import Authentication from "./pages/auth/Authentication";
 
 // The JSX of the App component and the Routes
 export default function App() {
-  const discStorage = sessionStorage.getItem('disc');
-  const currentDiscsStorage = localStorage.getItem('current-discs');
   const modePreferenceStorage = localStorage.getItem('mode-preference');
-  const [ savedVideos, setSavedVideos ] = useState<DiscType>(discStorage ? JSON.parse(discStorage) : []);
   const api_key = import.meta.env.VITE_YOUTUBE_API_KEY //My google console API Key
   const [ translate, setTranslate ] = useState<boolean>(false); //The translateY value of the SidePanel
   const menuContainer = useRef(null); //The reference of the menu container
-  const [ discs, setDiscs ] = useState<DiscType[]>(currentDiscsStorage ? JSON.parse(currentDiscsStorage) : []); //The latest disc list from localStorage
+  const [ discs, setDiscs ] = useState<DiscType[]>([]); //The latest disc list from localStorage
   const [ errorMessage, setErrorMessage ] = useState(''); //The error message state
   const [ isErrorMessage, setIsErrorMessage ] = useState(false); //State to render and disrender the error message
   const [ showErrorMessage, setShowErrorMessage ] = useState<number | undefined>(undefined); //State to handle the setTimeout for disrendering the error message
@@ -44,7 +42,12 @@ export default function App() {
     : document.documentElement.classList.remove('darkmode');
 
     if ((token && isUser) || token) {
-      navigate('/home');
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+      if (decodedToken.exp && (decodedToken.exp < currentTime)) {
+        navigate('/login');
+      }
+      
     } else if (isUser) {
       navigate('/login');
     } else {
@@ -56,7 +59,6 @@ export default function App() {
     <Routes>
       <Route path="/home" element={
         <Home
-          setSavedVideos={setSavedVideos}
           api_key={api_key}
           setTranslate={setTranslate}
           translate={translate}
@@ -73,16 +75,13 @@ export default function App() {
         />
       } />
       <Route path="/" element={<Navigate to="/home" replace />} />
-      <Route path="disc" element={
+      <Route path="disc/:id" element={
         <SavedVideos
-          savedVideos={savedVideos}
-          api_key={api_key}
           setTranslate={setTranslate}
           translate={translate}
           discs={discs}
           setDiscs={setDiscs}
           handleErrorMessage={handleErrorMessage}
-          setSavedVideos={setSavedVideos}
           isDarkMode={isDarkMode}
           setIsDarkMode={setIsDarkMode}
           errorMessage={errorMessage}
@@ -102,7 +101,6 @@ export default function App() {
           discs={discs}
           setDiscs={setDiscs}
           handleErrorMessage={handleErrorMessage}
-          setSavedVideos={setSavedVideos}
           setIsDarkMode={setIsDarkMode}
           isErrorMessage={isErrorMessage}
           errorMessage={errorMessage}

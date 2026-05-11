@@ -1,21 +1,27 @@
 import { useRef } from 'react';
-import type { DiscDeleteProps, DiscType } from '../../utils/types';
+import type { DiscDeleteProps, DiscsResponse, DiscType } from '../types/types';
 import './DeleteDisc.scss'; // Import the style sheet of this component
+import API from '../api/axios';
 
 export function DeleteDisc({ 
     setDiscs, 
     setShowDelete, 
     deleteConfirmationRef, 
-    discId
+    discId,
+    discs
   }: DiscDeleteProps) {
 
     const deletePopUpRef = useRef<HTMLDivElement | null>(null); 
     //Handle deleting a disc functionality
-    function deleteDisc() {
-      const currentDiscsStorage = localStorage.getItem('current-discs');
-      const updatedDiscs: DiscType[] = currentDiscsStorage && JSON.parse(currentDiscsStorage).filter((item: DiscType) => item.id !== discId);
-      setDiscs(updatedDiscs);
-      localStorage.setItem('current-discs', JSON.stringify(updatedDiscs));
+    async function deleteDisc() {
+      try {
+        const deletedDisc: DiscsResponse = await API.delete(`/discs/delete/${discId}`);
+        const newDiscs = discs.filter(disc => disc._id !== deletedDisc.data.disc._id);
+        setDiscs(newDiscs);
+        
+      } catch (error: any) {
+        console.log(error.response?.data?.message);
+      }
     }
 
     function hideDeleteMessage(e: React.PointerEvent) {

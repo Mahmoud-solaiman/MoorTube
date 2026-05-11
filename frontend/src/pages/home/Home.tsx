@@ -3,11 +3,10 @@ import { Header } from "../../components/Header.tsx"; // Import the header compo
 import { SidePanel } from "../../components/SidePanel.tsx"; // Import the SidePanel component
 import { ErrorMessage } from "../../components/ErrorMessage.tsx"; // Import the ErrorMessage component
 import LoadingVideos from "../../components/LoadingVideos.tsx";
-import type { HomeProps } from  "../../../utils/types.ts";
+import type { HomeProps } from  "../../types/types.ts";
 import { VideoGrid } from "../../components/VideoGrid.js";
 
-export function Home({ 
-    setSavedVideos, 
+export function Home({
     api_key,
     setTranslate,
     translate,
@@ -94,7 +93,6 @@ export function Home({
           discs={discs}
           setDiscs={setDiscs}
           handleErrorMessage={handleErrorMessage}
-          setSavedVideos={setSavedVideos}
           isDarkMode={isDarkMode}
           setIsDarkMode={setIsDarkMode}
           setWatchTitle={setWatchTitle}
@@ -110,6 +108,7 @@ export function Home({
           setTranslate={setTranslate}
           handleErrorMessage={handleErrorMessage}
           setPoster={setPoster}
+          discs={discs}
         />
       }
       {
@@ -122,6 +121,7 @@ export function Home({
           setTranslate={setTranslate}
           handleErrorMessage={handleErrorMessage}
           setPoster={setPoster}
+          discs={discs}
         />
       }
       {

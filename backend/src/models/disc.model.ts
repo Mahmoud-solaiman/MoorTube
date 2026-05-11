@@ -2,11 +2,6 @@ import mongoose, { Schema } from "mongoose";
 import { Disc } from "../types/types";
 
 const discSchema: Schema = new Schema({
-  id: {
-    type: String,
-    required: true,
-    trim: true,
-  },
   name: {
     type: String,
     required: true,

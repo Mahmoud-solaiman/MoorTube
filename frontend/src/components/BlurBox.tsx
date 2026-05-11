@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { BlurBoxProps } from '../../utils/types';
+import { BlurBoxProps } from '../types/types';
 import './BlurBox.scss';
 
 export default function BlurBox({ blurBoxes, setBlurBoxes }: BlurBoxProps) {

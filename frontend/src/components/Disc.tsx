@@ -2,7 +2,7 @@ import { useState } from 'react'; // Import useState from the React package
 import { DeleteDisc } from './DeleteDisc'; // Import the DeleteDisc component
 import './Disc.scss'; // Import the style sheet of this compoenent
 import { Link } from 'react-router-dom';
-import type { DiscProps, DiscType } from '../../utils/types';
+import type { DiscProps, DiscType } from '../types/types';
 
 export function Disc({
   disc,
@@ -11,9 +11,9 @@ export function Disc({
   setDiscs,
   deleteConfirmationRef,
   handleErrorMessage,
-  setSavedVideos,
   discObject,
-  setWatchTitle
+  setWatchTitle,
+  discs
 }: DiscProps) {
   //Functions and Variables ==> Javascript + React
   // Hooks
@@ -25,17 +25,17 @@ export function Disc({
   function editDisc() {
     const currentDiscsStorage = localStorage.getItem('current-discs');
     const currentDiscs: DiscType[] = currentDiscsStorage && JSON.parse(currentDiscsStorage); // Pull the current discs from local storage
-    const discToEdit = currentDiscs.find(item => item.id === discId); // Locate the disc that the user wants to edit by using the disc Id
+    const discToEdit = currentDiscs.find(item => item._id === discId); // Locate the disc that the user wants to edit by using the disc Id
     const isDisc = currentDiscs.find(item => item.name.toLowerCase() === discName.trim().toLowerCase()); // Check if the new edited disc already exists
 
     if (discToEdit) {
-      if ((!isDisc || isDisc.id === discToEdit.id) && discName.trim().length >= 5) { // If the new disc doesn't exist or if the user wants to withdraw the editing action
+      if ((!isDisc || isDisc._id === discToEdit._id) && discName.trim().length >= 5) { // If the new disc doesn't exist or if the user wants to withdraw the editing action
         discToEdit.name = discName.trim(); // Update the disc name
         localStorage.setItem('current-discs', JSON.stringify(currentDiscs)); // Update the local storage
         setDiscs(currentDiscs); // Update the discs in the SidePanel
         setIsEdit(false); // Hide the editing field
   
-      } else if (isDisc && isDisc.id !== discToEdit.id) { // If disc does exist and it's not the current disc
+      } else if (isDisc && isDisc._id !== discToEdit._id) { // If disc does exist and it's not the current disc
         setIsEdit(true); // Keep the edit field
         handleErrorMessage('Disc already exists! Please try a different name.'); // Show this error message to tell the user that the disc already exists 
   
@@ -73,11 +73,10 @@ export function Disc({
       {
         !isEdit &&
         <Link 
-          to="/disc" 
-          className='disc-name'
+          to={`/disc/${discId}`}
+          className="disc-name"
           title={title}
-          onPointerDown={() => { 
-            setSavedVideos(discObject);
+          onPointerDown={() => {
             setWatchTitle(discObject.name);
             sessionStorage.setItem('disc', JSON.stringify(discObject));
           }}
@@ -121,6 +120,7 @@ export function Disc({
           setShowDelete={setShowDelete}
           deleteConfirmationRef={deleteConfirmationRef}
           discId={discId}
+          discs={discs}
         />}
     </div>
   );

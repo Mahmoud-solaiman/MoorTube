@@ -1,7 +1,7 @@
 import axios from 'axios'; // Import axios from the axios package
 import './Suggestions.scss'; // Import the style sheet of this component
 import LoadingChannels from '../../components/LoadingChannels';
-import { PlaylistInfoItem, SearchHistory, SuggestionsProps } from '../../../utils/types';
+import { PlaylistInfoItem, SearchHistory, SuggestionsProps } from '../../types/types';
 
 export function Suggestions({
   popUpChannelLogo,

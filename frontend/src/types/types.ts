@@ -1,13 +1,14 @@
 import { RefObject } from "react";
 
 export type DiscType = {
-  id: string;
-  items: string[];
+  _id: string;
   name: string;
+  user: string;
+  videos: string[];
+  subDiscs: DiscType[];
 }
 
 export type HomeProps = {
-  setSavedVideos(value: DiscType): void;
   api_key: string;
   setTranslate(value: boolean): void;
   translate: boolean;
@@ -106,7 +107,6 @@ export type SidePanelProps = {
   discs: DiscType[];
   setDiscs(value: DiscType[]): void;
   handleErrorMessage(value: string): void;
-  setSavedVideos(value: DiscType): void;
   isDarkMode: boolean;
   setIsDarkMode(value: boolean): void;
   setWatchTitle(value: string): void;
@@ -119,9 +119,9 @@ export type DiscProps = {
   setDiscs(value: DiscType[]): void;
   deleteConfirmationRef: RefObject<HTMLElement | null>
   handleErrorMessage(value: string): void;
-  setSavedVideos(value: DiscType): void;
   discObject: DiscType;
   setWatchTitle(value: string): void;
+  discs: DiscType[];
 }
 
 export type DiscDeleteProps = {
@@ -129,6 +129,7 @@ export type DiscDeleteProps = {
   setShowDelete(value: boolean): void;
   deleteConfirmationRef: RefObject<HTMLElement | null>;
   discId: string;
+  discs: DiscType[];
 }
 
 export type VideoGridProps = {
@@ -182,6 +183,7 @@ export type VideoGridProps = {
   setTranslate(value: boolean): void;
   handleErrorMessage(value: string): void;
   setPoster(value: string): void;
+  discs: DiscType[];
 }
 
 export type ActionsProps = {
@@ -202,6 +204,7 @@ export type DiscsActionsProps = {
   setOpenIndex(value: number | undefined): void;
   isOpenTop: boolean;
   setDiscs(value: DiscType[]): void;
+  discs: DiscType[];
 }
 
 export type AddNewDiscProps = {
@@ -216,14 +219,11 @@ export type AddNewDiscProps = {
 }
 
 export type SavedVideosProps = {
-  savedVideos: DiscType;
-  api_key: string;
   setTranslate(value: boolean): void;
   translate: boolean;
   discs: DiscType[];
   setDiscs(value: DiscType[]): void;
   handleErrorMessage(value: string): void;
-  setSavedVideos(value: DiscType): void;
   isDarkMode: boolean;
   setIsDarkMode(value: boolean): void;
   errorMessage: string;
@@ -235,7 +235,7 @@ export type SavedVideosProps = {
 }
 
 export type SavedVideosHeaderProps = {
-  discTitle: string;
+  discName: string;
   setTranslate(value: boolean): void;
   menuContainer: RefObject<HTMLDivElement | null>;
   isDarkMode: boolean;
@@ -273,8 +273,17 @@ export type SavedVideosDetails = {
   }
 };
 
+export type SavedVideosDetailsResponse = {
+  message: string;
+  success: boolean;
+  videos: {
+    items: SavedVideosDetails[];
+  },
+  discName: string;
+}
+
 export type SavedVideosPanelProps = {
-  savedVideos: DiscType;
+  discName: string;
   savedVideosDetails: SavedVideosDetails[] | undefined;
   setPoster(value: string | undefined): void;
 }
@@ -282,7 +291,6 @@ export type SavedVideosPanelProps = {
 export type SavedVideosGridProps = {
   savedVideosDetails: SavedVideosDetails[] | undefined;
   setSavedVideosDetails(value: SavedVideosDetails[]): void;
-  setSavedVideos(value: DiscType): void;
   handleErrorMessage(value: string): void;
   setPoster(value: string): void;
   layout: 'saved-videos' | 'watch-panel';
@@ -295,7 +303,6 @@ export type SavedVideosControlsProps = {
   savedVideosDetails: SavedVideosDetails[];
   setSavedVideosDetails(value: SavedVideosDetails[]): void;
   targetIndex: number;
-  setSavedVideos(value: DiscType): void;
   setOpenDiscs(value: number | null): void;
   discsRef: RefObject<HTMLDivElement | null>;
   handleErrorMessage(value: string): void;
@@ -319,7 +326,6 @@ export type WatchProps = SavedVideosGridProps & {
   discs: DiscType[];
   setDiscs(value: DiscType[]): void;
   handleErrorMessage(value: string): void;
-  setSavedVideos(value: DiscType): void;
   setIsDarkMode(value: boolean): void;
   isErrorMessage: boolean;
   errorMessage: string;
@@ -359,6 +365,11 @@ export type VideoPlayerSettingsProps = {
 
 export type PlaySpeedControlsProps = Omit<VideoPlayerSettingsProps, 'setBlurBoxes' | 'blurBoxes'>;
 
+export type BlurBoxProps = {
+  blurBoxes: string[];
+  setBlurBoxes(value: string[]): void;
+}
+
 export type AuthenticationProps = {
   errorMessage: string;
   handleErrorMessage(value: string): void;
@@ -366,7 +377,19 @@ export type AuthenticationProps = {
   layout: 'register' | 'login';
 }
 
-export type BlurBoxProps = {
-  blurBoxes: string[];
-  setBlurBoxes(value: string[]): void;
+export type AuthenticationRes = {
+  data: {
+    message: string; 
+    isRegistered: boolean;
+    token: string;
+  }
+}
+
+export type DiscsResponse = {
+  data: {
+    message: string;
+    discs: DiscType[];
+    disc: DiscType;
+    success: boolean;
+  }
 }

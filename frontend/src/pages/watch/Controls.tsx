@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ControlsProps } from '../../../utils/types';
+import { ControlsProps } from '../../types/types';
 import './Controls.scss';
 import { FullscreenButton, MuteButton, PlayButton, Time, useMediaState, useMediaRemote, SeekButton } from '@vidstack/react';
 import VideoPlayerSettings from './VideoPlayerSettings';

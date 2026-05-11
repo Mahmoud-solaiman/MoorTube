@@ -4,7 +4,7 @@ import { ErrorMessage } from '../../components/ErrorMessage';
 import './Watch.scss';
 import { VideoPlayer } from './VideoPlayer';
 import WatchPanel from './WatchPanel';
-import { WatchProps } from '../../../utils/types';
+import { WatchProps } from '../../types/types';
 
 export function Watch({
   setTranslate,
@@ -14,7 +14,6 @@ export function Watch({
   discs,
   setDiscs,
   handleErrorMessage,
-  setSavedVideos,
   setIsDarkMode,
   isErrorMessage,
   errorMessage,
@@ -45,7 +44,6 @@ export function Watch({
         <WatchPanel
           savedVideosDetails={savedVideosDetails}
           setSavedVideosDetails={setSavedVideosDetails}
-          setSavedVideos={setSavedVideos}
           handleErrorMessage={handleErrorMessage}
           setPoster={setPoster}
           layout={layout}
@@ -60,7 +58,6 @@ export function Watch({
           discs={discs}
           setDiscs={setDiscs}
           handleErrorMessage={handleErrorMessage}
-          setSavedVideos={setSavedVideos}
           isDarkMode={isDarkMode}
           setIsDarkMode={setIsDarkMode}
           setWatchTitle={setWatchTitle}

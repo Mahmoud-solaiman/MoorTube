@@ -1,5 +1,5 @@
 import { generateID } from '../../../utils/formatting';
-import { VideoPlayerSettingsProps } from '../../../utils/types';
+import { VideoPlayerSettingsProps } from '../../types/types';
 import './VideoPlayerSettings.scss';
 
 export default function VideoPlayerSettings({

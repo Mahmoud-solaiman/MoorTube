@@ -1,4 +1,4 @@
-import { ControlsProps } from '../../../utils/types';
+import { ControlsProps } from '../../types/types';
 import './ControlsMobile.scss';
 import { PlayButton, useMediaState, FullscreenButton, Time } from '@vidstack/react';
 

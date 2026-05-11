@@ -23,7 +23,8 @@
 }
 
 .disc-actions {
-  padding: .4em;
+  padding: .3em .4em;
+  border-radius: 8px;
 
   &:hover {
     background-color: var(--primary-color-transparent);

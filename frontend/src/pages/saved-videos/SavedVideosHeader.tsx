@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import './SavedVideosHeader.scss';
-import { SavedVideosHeaderProps } from '../../../utils/types';
+import { SavedVideosHeaderProps } from '../../types/types';
 
 export function SavedVideosHeader({ 
-    discTitle, 
+    discName, 
     setTranslate, 
     menuContainer, 
     isDarkMode
@@ -26,14 +26,14 @@ export function SavedVideosHeader({
         </div>
         <div className="logo-container" title="MoorTube Home">
           <Link to="/home">
-            <img src={isDarkMode ? "./logo-dark.png" : "./logo-light.png"} alt="website logo" />
+            <img src={isDarkMode ? "/logo-dark.png" : "/logo-light.png"} alt="website logo" />
           </Link>
           
         </div>
       </div>
 
       <h1 className="disc-name-title">
-        {discTitle}
+        {discName}
       </h1>
     </header>
   );

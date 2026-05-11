@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import './SavedVideosPanel.scss';
-import { SavedVideosPanelProps } from '../../../utils/types';
+import { SavedVideosPanelProps } from '../../types/types';
 // import React from 'react';
 import { useRef, useEffect } from 'react';
 
 export function SavedVideosPanel({
-  savedVideos,
+  discName,
   savedVideosDetails,
   setPoster
 }: SavedVideosPanelProps) {
@@ -57,8 +57,8 @@ export function SavedVideosPanel({
           />
         </div>
         <div className="disc-details">
-          <h2>{savedVideos.name}</h2>
-          <p>{savedVideosDetails && savedVideosDetails.length} &#8226; {savedVideos.items.length === 1 ? "video" : "videos"}</p>
+          <h2>{discName}</h2>
+          <p>{savedVideosDetails && savedVideosDetails.length} &#8226; {savedVideosDetails && savedVideosDetails.length === 1 ? "video" : "videos"}</p>
         </div>
       </section>
     </aside>

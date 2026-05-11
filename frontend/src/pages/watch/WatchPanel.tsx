@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import PrayerTimesPanel from './PrayerTimesPanel';
 import './WatchPanel.scss';
-import { WatchPanelProps } from '../../../utils/types';
+import { WatchPanelProps } from '../../types/types';
 import { SavedVideosGrid } from '../saved-videos/SavedVideosGrid';
 
 function WatchPanel({
   savedVideosDetails,
   setSavedVideosDetails,
-  setSavedVideos,
   handleErrorMessage,
   setPoster,
   layout,
@@ -44,7 +43,6 @@ function WatchPanel({
         <SavedVideosGrid
           savedVideosDetails={savedVideosDetails}
           setSavedVideosDetails={setSavedVideosDetails}
-          setSavedVideos={setSavedVideos}
           handleErrorMessage={handleErrorMessage}
           setPoster={setPoster}
           layout={layout}

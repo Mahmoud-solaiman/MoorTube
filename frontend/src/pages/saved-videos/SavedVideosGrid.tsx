@@ -4,12 +4,11 @@ import './SavedVideosGrid.scss';
 import SavedVideoControls from './SavedVideoControls';
 import { useRef, useState } from 'react';
 import DiscsControls from './DiscsControls';
-import { SavedVideosGridProps } from '../../../utils/types';
+import { SavedVideosGridProps } from '../../types/types';
 
 export function SavedVideosGrid({
   savedVideosDetails,
   setSavedVideosDetails,
-  setSavedVideos,
   handleErrorMessage,
   setPoster,
   layout,
@@ -84,7 +83,6 @@ export function SavedVideosGrid({
                     savedVideosDetails={savedVideosDetails}
                     setSavedVideosDetails={setSavedVideosDetails}
                     targetIndex={index}
-                    setSavedVideos={setSavedVideos}
                     setOpenDiscs={setOpenDiscs}
                     discsRef={discsRef}
                     handleErrorMessage={handleErrorMessage}

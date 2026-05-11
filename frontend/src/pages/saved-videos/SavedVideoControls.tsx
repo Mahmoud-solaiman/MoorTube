@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import './SavedVideoControls.scss';
-import { DiscType, SavedVideosControlsProps } from '../../../utils/types';
+import { DiscType, SavedVideosControlsProps } from '../../types/types';
 
 export default function SavedVideoControls({
   setOpenControls,
@@ -8,7 +8,6 @@ export default function SavedVideoControls({
   savedVideosDetails,
   setSavedVideosDetails,
   targetIndex,
-  setSavedVideos,
   setOpenDiscs,
   discsRef,
   handleErrorMessage,
@@ -31,7 +30,6 @@ export default function SavedVideoControls({
 
     localStorage.setItem('current-discs', JSON.stringify(currentDiscs));
     sessionStorage.setItem('disc', JSON.stringify(discVideos));
-    setSavedVideos(discVideos);
     setDiscs(currentDiscs);
     setSavedVideosDetails(savedVideosDetails.filter((_video, index) => index !== targetIndex));
   }

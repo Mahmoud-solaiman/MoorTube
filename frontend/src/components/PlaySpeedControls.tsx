@@ -1,7 +1,7 @@
 import { useMediaRemote } from '@vidstack/react';
 import './PlaySpeedControls.scss';
 import { useState } from 'react';
-import { PlaySpeedControlsProps } from '../../utils/types';
+import { PlaySpeedControlsProps } from '../types/types';
 
 export default function PlaySpeedControls({
   setIsSpeedSettings,
