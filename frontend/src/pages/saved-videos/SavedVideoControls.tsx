@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react';
 import './SavedVideoControls.scss';
-import { DiscType, SavedVideosControlsProps } from '../../types/types';
+import { SavedVideosControlsProps, SavedVideosDetailsResponse } from '../../types/types';
+import API from '../../api/axios';
+import { useParams } from 'react-router-dom';
 
 export default function SavedVideoControls({
   setOpenControls,
@@ -11,27 +13,28 @@ export default function SavedVideoControls({
   setOpenDiscs,
   discsRef,
   handleErrorMessage,
-  setDiscs
+  videos,
+  setVideos
 }: SavedVideosControlsProps) {
   const controlsRef = useRef<HTMLDivElement>(null);
+  const id = useParams().id;
 
-  function removeVideo() {
-    const discVideosStorage = sessionStorage.getItem('disc');
-    const discVideos: DiscType = discVideosStorage && JSON.parse(discVideosStorage);
-    discVideos.items = discVideos.items.filter((_item, index) => index !== targetIndex);
+  async function removeVideo() {
+    try {
+      const updatedVideos = videos.filter(video => video !== savedVideosDetails[targetIndex].id);
+      const updatedDisc = await API.put<SavedVideosDetailsResponse>(`/discs/update/${id}`, {
+        videos: updatedVideos
+      });
 
-    const currentDiscsStorage = localStorage.getItem('current-discs');
-    const currentDiscs: DiscType[] = currentDiscsStorage && JSON.parse(currentDiscsStorage);
-    currentDiscs.forEach(disc => {
-      if (discVideos.id === disc.id) {
-        disc.items = discVideos.items;
-      }
-    });
-
-    localStorage.setItem('current-discs', JSON.stringify(currentDiscs));
-    sessionStorage.setItem('disc', JSON.stringify(discVideos));
-    setDiscs(currentDiscs);
-    setSavedVideosDetails(savedVideosDetails.filter((_video, index) => index !== targetIndex));
+      handleErrorMessage(updatedDisc.data.message);
+      setSavedVideosDetails(updatedDisc.data.videos.items);
+      setOpenControls(null);
+      setOpenDiscs(null);
+      setVideos(updatedVideos);
+      
+    } catch (error: any) {
+      handleErrorMessage(error.response?.data?.message);
+    }
   }
 
   useEffect(() => {

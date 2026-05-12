@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import type { DiscDeleteProps, DiscsResponse, DiscType } from '../types/types';
+import type { DiscDeleteProps, DiscsResponse, DiscType, SingleDiscResponse } from '../types/types';
 import './DeleteDisc.scss'; // Import the style sheet of this component
 import API from '../api/axios';
 
@@ -15,7 +15,7 @@ export function DeleteDisc({
     //Handle deleting a disc functionality
     async function deleteDisc() {
       try {
-        const deletedDisc: DiscsResponse = await API.delete(`/discs/delete/${discId}`);
+        const deletedDisc: SingleDiscResponse = await API.delete(`/discs/delete/${discId}`);
         const newDiscs = discs.filter(disc => disc._id !== deletedDisc.data.disc._id);
         setDiscs(newDiscs);
         

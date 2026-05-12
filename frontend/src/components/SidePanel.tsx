@@ -156,6 +156,7 @@ export function SidePanel({
                     disc={finalDisc}
                     title={disc.name}
                     discId={disc._id}
+                    key={disc._id}
                     setDiscs={setDiscs}
                     deleteConfirmationRef={deleteConfirmationRef}
                     handleErrorMessage={handleErrorMessage}

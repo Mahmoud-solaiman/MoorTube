@@ -232,6 +232,8 @@ export type SavedVideosProps = {
   setPoster(value: string): void;
   savedVideosDetails: SavedVideosDetails[] | undefined;
   setSavedVideosDetails(value: SavedVideosDetails[] | undefined): void;
+  videos: string[];
+  setVideos(value: string[]): void;
 }
 
 export type SavedVideosHeaderProps = {
@@ -279,7 +281,7 @@ export type SavedVideosDetailsResponse = {
   videos: {
     items: SavedVideosDetails[];
   },
-  discName: string;
+  disc: DiscType;
 }
 
 export type SavedVideosPanelProps = {
@@ -295,6 +297,8 @@ export type SavedVideosGridProps = {
   setPoster(value: string): void;
   layout: 'saved-videos' | 'watch-panel';
   setDiscs(value: DiscType[]): void;
+  videos: string[];
+  setVideos(value: string[]): void;
 }
 
 export type SavedVideosControlsProps = {
@@ -306,7 +310,8 @@ export type SavedVideosControlsProps = {
   setOpenDiscs(value: number | null): void;
   discsRef: RefObject<HTMLDivElement | null>;
   handleErrorMessage(value: string): void;
-  setDiscs(value: DiscType[]): void;
+  videos: string[];
+  setVideos(value: string[]): void;
 }
 
 export type DiscsControlsProps = {
@@ -389,7 +394,15 @@ export type DiscsResponse = {
   data: {
     message: string;
     discs: DiscType[];
+    success: boolean;
+  }
+}
+
+export type SingleDiscResponse = {
+  data: {
+    message: string;
     disc: DiscType;
     success: boolean;
+    videos: SavedVideosDetails[];
   }
 }

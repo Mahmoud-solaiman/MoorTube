@@ -22,20 +22,22 @@ export function SavedVideos({
   setWatchTitle,
   setPoster,
   savedVideosDetails,
-  setSavedVideosDetails
+  setSavedVideosDetails,
+  videos,
+  setVideos
 }: SavedVideosProps) {
   
   const menuContainer = useRef(null);
   const [ discName, setDiscName ] = useState<string>('');
   const id = useParams().id;
 
-
   useEffect(() => {
     try {
       const fetchSavedVideos = async () => {
         const videos = await API.get<SavedVideosDetailsResponse>(`/discs/${id}`);
         setSavedVideosDetails(videos.data.videos.items);
-        setDiscName(videos.data.discName);
+        setDiscName(videos.data.disc.name);
+        setVideos(videos.data.disc.videos);
       }
       fetchSavedVideos();
       
@@ -78,6 +80,8 @@ export function SavedVideos({
                 setPoster={setPoster}
                 layout="saved-videos"
                 setDiscs={setDiscs}
+                videos={videos}
+                setVideos={setVideos}
               />
             </> :
             "Seems like you haven't added any videos to this Disc!"

@@ -12,7 +12,9 @@ export function SavedVideosGrid({
   handleErrorMessage,
   setPoster,
   layout,
-  setDiscs
+  setDiscs,
+  videos,
+  setVideos
 }: SavedVideosGridProps) {
   const [openControls, setOpenControls] = useState<number | null>(null);
   const [openDiscs, setOpenDiscs] = useState<number | null>(null);
@@ -21,6 +23,7 @@ export function SavedVideosGrid({
   const discsRef = useRef<HTMLDivElement | null>(null);
   const [ searchParams ] = useSearchParams();
 
+  console.log(videos);
   return (
     <section className={ layout === 'saved-videos' ? "saved-videos-grid" : "saved-videos-grid watch-panel-videos"}>
       {
@@ -86,7 +89,8 @@ export function SavedVideosGrid({
                     setOpenDiscs={setOpenDiscs}
                     discsRef={discsRef}
                     handleErrorMessage={handleErrorMessage}
-                    setDiscs={setDiscs}
+                    videos={videos}
+                    setVideos={setVideos}
                   />
                 }
 

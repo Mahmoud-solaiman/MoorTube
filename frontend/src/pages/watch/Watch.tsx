@@ -23,7 +23,8 @@ export function Watch({
   savedVideosDetails,
   setSavedVideosDetails,
   setPoster,
-  layout
+  layout,
+  videos
 }: WatchProps) {
   return (
     <>
@@ -32,7 +33,7 @@ export function Watch({
         <ErrorMessage errorMessage={errorMessage} />
       }
       <SavedVideosHeader
-        discTitle={watchTitle}
+        discName={watchTitle}
         setTranslate={setTranslate}
         menuContainer={menuContainer}
         isDarkMode={isDarkMode}
@@ -48,6 +49,7 @@ export function Watch({
           setPoster={setPoster}
           layout={layout}
           setDiscs={setDiscs}
+          videos={videos}
         />
       </div>
       {

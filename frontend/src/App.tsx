@@ -22,6 +22,7 @@ export default function App() {
   const [ isDarkMode, setIsDarkMode ] = useState(modePreferenceStorage ? JSON.parse(modePreferenceStorage) : sysPreferences);
   const [ watchTitle, setWatchTitle ] = useState('Channel Search');
   const [ poster, setPoster ] = useState('');
+  const [ videos, setVideos ] = useState<string[]>([]);
   const [ savedVideosDetails, setSavedVideosDetails ] = useState<SavedVideosDetails[] | undefined>(undefined);
   const navigate = useNavigate();
 
@@ -90,6 +91,8 @@ export default function App() {
           setPoster={setPoster}
           savedVideosDetails={savedVideosDetails}
           setSavedVideosDetails={setSavedVideosDetails}
+          videos={videos}
+          setVideos={setVideos}
         />
       } />
       <Route path="/watch" element={
@@ -111,6 +114,7 @@ export default function App() {
           setSavedVideosDetails={setSavedVideosDetails}
           setPoster={setPoster}
           layout="watch-panel"
+          videos={videos}
         />
       } />
       <Route path="*" element={<PageNotFound />} />

@@ -11,6 +11,7 @@ const discSchema: Schema = new Schema({
   user: {
     type: mongoose.Types.ObjectId,
     required: true,
+    ref: 'User'
   },
   videos: {
     type: Array,
@@ -24,4 +25,4 @@ const discSchema: Schema = new Schema({
   }
 }, { timestamps: true});
 
-export default mongoose.model<Disc>('disc', discSchema);
+export default mongoose.model<Disc>('Disc', discSchema);

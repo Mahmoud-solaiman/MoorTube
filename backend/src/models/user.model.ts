@@ -18,6 +18,15 @@ const userSchema: Schema = new Schema({
     required: true,
     trim: true,
     minLength: 6
+  },
+  role: {
+    type: String,
+    required: true,
+    default: 'user'
+  },
+  profilePicture: {
+    type: String,
+    required: false,
   }
 }, { timestamps: true});
 

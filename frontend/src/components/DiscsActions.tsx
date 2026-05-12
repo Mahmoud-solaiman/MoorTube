@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { DiscsActionsProps, DiscsResponse, DiscType } from '../types/types';
+import { DiscsActionsProps, DiscsResponse, DiscType, SingleDiscResponse } from '../types/types';
 import './DiscsActions.scss'; // Import the style sheet of this component
 import API from '../api/axios';
 
@@ -29,15 +29,14 @@ export function DiscsActions({
 
   const addNewVideo = async (id: string, videos: string[]) => {
     try {
-      const existingVideo = videos.filter(video => video === videoId);
-      if (existingVideo.length) {
-
+      const existingVideo = videos.find(video => video === videoId);
+      if (existingVideo) {
         handleErrorMessage('Video already exists in this disc!');
       } else {
-        const newDisc: DiscsResponse = await API.put(`/discs/update/${id}`, {
+        const newDisc: SingleDiscResponse = await API.put(`/discs/update/${id}`, {
           videos: [videoId, ...videos]
         });
-        
+
         handleErrorMessage('Video has been added successfully.');
       }
 

@@ -29,11 +29,11 @@ export const fetchOneDisc = async (req: Request, res: Response) => {
       }
     });
 
-    res.status(200).json({ 
-      message: "Disc was fetched successfully.", 
-      success: true, 
+    res.status(200).json({
+      message: "Disc was fetched successfully.",
+      success: true,
       videos: videos.data,
-      discName: disc.name
+      disc: disc
     });
 
   } catch (error) {
@@ -85,7 +85,22 @@ export const updateDisc = async (req: Request, res: Response) => {
     const updatedDisc = await DiscModel.findByIdAndUpdate(id, req.body, { new: true });
     if (!updatedDisc) return res.status(404).json({ message: "Oops! Disc was not found.", success: false });
 
-    res.status(201).json({ message: "Disc was updated successfully", success: false, disc: updatedDisc });
+    const updatedVideos = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
+      params: {
+        part: "snippet,contentDetails,statistics",
+        key: process.env.YOUTUBE_API_KEY as string,
+        id: updatedDisc.videos.join(',')
+      }
+    });
+
+    console.log(updatedVideos);
+
+    res.status(200).json({
+      message: "Disc was updated successfully",
+      success: false,
+      disc: updatedDisc,
+      videos: updatedVideos.data
+    });
 
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error", error });
