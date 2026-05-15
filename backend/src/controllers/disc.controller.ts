@@ -85,21 +85,10 @@ export const updateDisc = async (req: Request, res: Response) => {
     const updatedDisc = await DiscModel.findByIdAndUpdate(id, req.body, { new: true });
     if (!updatedDisc) return res.status(404).json({ message: "Oops! Disc was not found.", success: false });
 
-    const updatedVideos = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
-      params: {
-        part: "snippet,contentDetails,statistics",
-        key: process.env.YOUTUBE_API_KEY as string,
-        id: updatedDisc.videos.join(',')
-      }
-    });
-
-    console.log(updatedVideos);
-
     res.status(200).json({
       message: "Disc was updated successfully",
       success: false,
       disc: updatedDisc,
-      videos: updatedVideos.data
     });
 
   } catch (error) {

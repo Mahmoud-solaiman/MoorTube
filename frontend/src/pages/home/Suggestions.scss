@@ -45,7 +45,7 @@
 
   &:hover {
     border-radius: 12px;
-    background-color:var(--suggestion-hover-bg);
+    background-color:var(--primary-color-transparent);
   }
 
   &:not(:last-child) {
@@ -82,7 +82,7 @@
 
   &:hover {
     border-radius: 8px;
-    background-color: var(--suggestion-hover-bg);
+    background-color: var(--primary-color-transparent);
   }
 
   &:hover > .delete-btn-container > .suggestion-delete-btn {

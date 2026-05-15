@@ -22,7 +22,8 @@ export function Header({
   setChannelLogo,
   isDarkMode,
   setWatchTitle,
-  setIsLoading
+  setIsLoading,
+  translate
 }: HeaderProps) {
   const [isSuggestions, setIsSuggestions] = useState(false); // This state controls whether to show the channels search suggestions or not
   const searchHistoryStorage = localStorage.getItem('search-history');
@@ -169,6 +170,7 @@ export function Header({
             setSearchText={setSearchText}
             fetchChannelsData={fetchChannelsData}
             searchField={searchField}
+            translate={translate}
           />
           {/* The ToggleSearch component */}
           <ToggleSearch

@@ -7,7 +7,8 @@ import { SidePanel } from '../../components/SidePanel';
 import { ErrorMessage } from '../../components/ErrorMessage';
 import { SavedVideosDetailsResponse, SavedVideosProps } from '../../types/types';
 import API from '../../api/axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import Spinner from '../../components/UI/Spinner';
 
 export function SavedVideos({
   setTranslate,
@@ -29,15 +30,18 @@ export function SavedVideos({
   
   const menuContainer = useRef(null);
   const [ discName, setDiscName ] = useState<string>('');
+  const [ isSpinner, setIsSpinner ] = useState<boolean>(false);
   const id = useParams().id;
 
   useEffect(() => {
     try {
       const fetchSavedVideos = async () => {
+        setIsSpinner(true);
         const videos = await API.get<SavedVideosDetailsResponse>(`/discs/${id}`);
         setSavedVideosDetails(videos.data.videos.items);
         setDiscName(videos.data.disc.name);
         setVideos(videos.data.disc.videos);
+        setIsSpinner(false);
       }
       fetchSavedVideos();
       
@@ -63,31 +67,34 @@ export function SavedVideos({
         isDarkMode={isDarkMode}
       />
 
-      <div className={(savedVideosDetails && savedVideosDetails.length )? "saved-videos" : "saved-videos empty"}>
-        {
-          (savedVideosDetails && savedVideosDetails.length) ? 
-            <>
-              <SavedVideosPanel
-                discName={discName}
-                savedVideosDetails={savedVideosDetails} 
-                setPoster={setPoster}
-              />
+      {
+        isSpinner 
+        ? <Spinner />
+        : <div className={(savedVideosDetails && savedVideosDetails.length )? "saved-videos" : "saved-videos empty"}>
+          {
+            (savedVideosDetails && savedVideosDetails.length) ? 
+              <>
+                <SavedVideosPanel
+                  discName={discName}
+                  savedVideosDetails={savedVideosDetails} 
+                  setPoster={setPoster}
+                />
 
-              <SavedVideosGrid 
-                savedVideosDetails={savedVideosDetails} 
-                setSavedVideosDetails={setSavedVideosDetails}
-                handleErrorMessage={handleErrorMessage}
-                setPoster={setPoster}
-                layout="saved-videos"
-                setDiscs={setDiscs}
-                videos={videos}
-                setVideos={setVideos}
-              />
-            </> :
-            "Seems like you haven't added any videos to this Disc!"
-        }
-        
-      </div>
+                <SavedVideosGrid 
+                  savedVideosDetails={savedVideosDetails} 
+                  setSavedVideosDetails={setSavedVideosDetails}
+                  handleErrorMessage={handleErrorMessage}
+                  setPoster={setPoster}
+                  layout="saved-videos"
+                  setDiscs={setDiscs}
+                  videos={videos}
+                  setVideos={setVideos}
+                />
+              </> 
+              : "This disc seems to have no videos."
+          }  
+        </div>
+      }
       {
         translate &&
         <SidePanel

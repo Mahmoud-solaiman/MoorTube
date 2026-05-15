@@ -1,6 +1,6 @@
 import express from 'express';
-import userRouter from './routes/user.route';
-import discRouter from './routes/disc.route';
+import authRoutes from './routes/auth.route';
+import discRoutes from './routes/disc.route';
 import cors from 'cors';
 
 const app = express();
@@ -10,6 +10,6 @@ app.use(cors({
 }));
 app.use(express.json());
 
-app.use('/auth', userRouter);
-app.use('/discs', discRouter);
+app.use('/auth', authRoutes);
+app.use('/discs', discRoutes);
 export default app;

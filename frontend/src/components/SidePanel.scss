@@ -5,10 +5,13 @@
   position: fixed;
   inset: 0 auto 0 auto;
   z-index: 999;
-  padding: .8em;
   animation: sidePanel .1s linear;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+  display: grid;
+  grid-template-rows: 35px 35px 1fr 60px;
+  gap: 1rem;
+  padding-top: .8em;
 }
 
 @keyframes sidePanel {
@@ -24,6 +27,7 @@
   display: grid;
   grid-template-columns: 150px 35px;
   justify-content: space-between;
+  padding-inline: .8em;
 }
 
 .mode-toggle {
@@ -71,7 +75,7 @@
 .add-section {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 35px;
-  margin: 50px 0;
+  padding-inline: .8em;
 
   #add-disc {
     font-size: 1.2rem;
@@ -79,6 +83,7 @@
     background-color: var(--page-bg);
     border: 1px solid var(--text-color);
     color: var(--text-color);
+    border-radius: 3px;
 
     &:focus-within {
       border-color: var(--primary-color);
@@ -102,11 +107,67 @@
   }
 }
 
+.current-discs {
+  padding-inline: .8em;
+  overflow: auto;
+}
+
 .current-discs-label {
   font-size: 1.5rem;
   font-weight: 600;
-  margin-bottom:10px;
-  display:block;
+}
+
+.profile-settings-container {
+  display: grid;
+  grid-template-columns: 55px 1fr 35px;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  font-size: 1.2rem;
+  background-color: var(--primary-color);
+  border-bottom-right-radius: 6px;
+  padding: .3em;
+
+  .profile-img-container {
+    border-right: 1px solid #fff;
+    img {
+      width: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  }
+
+  span {
+    justify-self: flex-start;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .3rem;
+
+    svg {
+      fill: #fff;
+      width: 16px;
+    }
+  }
+
+  .settings-btn-container {
+    width: 100%;
+
+    svg {
+      fill: #fff;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: .15s linear;
+      padding: .2em;
+
+      &:hover {
+        background-color: var(--placeholder-color);
+      }
+    }
+  }
+
 }
 
 @media (max-width:400px) {

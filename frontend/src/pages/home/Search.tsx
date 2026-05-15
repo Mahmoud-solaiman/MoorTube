@@ -10,7 +10,8 @@ export function Search({
   searchText,
   setSearchText,
   fetchChannelsData,
-  searchField
+  searchField,
+  translate
 }: SearchProps) {
   const searchHistoryStorage = localStorage.getItem('search-history');
   const searchHistory: SearchHistory[] = searchHistoryStorage ? JSON.parse(searchHistoryStorage) : [];
@@ -29,12 +30,17 @@ export function Search({
   }
 
   useEffect(() => {
-    document.addEventListener('keyup', e => {
+    const focusSearchField = (e: KeyboardEvent) => {
+      if (translate) return;
       if (e.key === '/' && searchField.current) {
         searchField.current.focus();
+        console.log(translate);
       }
-    });
-  });
+    }
+    document.addEventListener('keyup', focusSearchField);
+
+    return () => document.removeEventListener('keyup', focusSearchField);
+  }, [translate]);
 
   // The JSX of the search related elements (e.g. search field and button)
   return (

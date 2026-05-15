@@ -23,7 +23,6 @@ export function SavedVideosGrid({
   const discsRef = useRef<HTMLDivElement | null>(null);
   const [ searchParams ] = useSearchParams();
 
-  console.log(videos);
   return (
     <section className={ layout === 'saved-videos' ? "saved-videos-grid" : "saved-videos-grid watch-panel-videos"}>
       {
@@ -102,7 +101,6 @@ export function SavedVideosGrid({
                     setOpenControls={setOpenControls}
                     setOpenDiscs={setOpenDiscs}
                     handleErrorMessage={handleErrorMessage}
-                    setDiscs={setDiscs}
                   />
                 }
               </div>

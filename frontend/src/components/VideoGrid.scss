@@ -118,6 +118,12 @@
   }
 }
 
+@media (min-width: 501px) and (max-width: 700px) {
+  .video {
+    height: 300px;
+  }
+}
+
 @media (max-width: 500px) and (min-width:371px) {
   .video-section {
     row-gap: 2rem;

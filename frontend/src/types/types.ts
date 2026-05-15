@@ -33,6 +33,7 @@ export type SearchProps = {
   setSearchText(value: string): void;
   fetchChannelsData(value: unknown): void;
   searchField: RefObject<HTMLInputElement | null>;
+  translate: boolean;
 }
 
 export type SearchHistory = {
@@ -56,6 +57,7 @@ export type HeaderProps = {
   isDarkMode: boolean;
   setWatchTitle(value: string): void;
   setIsLoading(value: boolean): void;
+  translate: boolean;
 }
 
 export type ChannelItem = {
@@ -320,10 +322,9 @@ export type DiscsControlsProps = {
   setOpenControls(value: number | null): void;
   setOpenDiscs(value: number | null): void;
   handleErrorMessage(value: string): void;
-  setDiscs(value: DiscType[]): void;
 }
 
-export type WatchProps = SavedVideosGridProps & {
+export type WatchProps = Omit<SavedVideosGridProps, 'setVideos'> & {
   setTranslate(value: boolean): void;
   menuContainer: RefObject<HTMLDivElement | null>
   isDarkMode: boolean;
@@ -339,7 +340,7 @@ export type WatchProps = SavedVideosGridProps & {
   poster: string;
 }
 
-export type WatchPanelProps = SavedVideosGridProps;
+export type WatchPanelProps = Omit<SavedVideosGridProps, 'setVideos'>;
 
 export type ControlsProps = {
   isBlur: boolean;

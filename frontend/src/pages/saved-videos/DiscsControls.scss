@@ -12,6 +12,7 @@
   &>h3 {
     cursor: pointer;
     padding: .3em .5em;
+    border-radius: 6px;
 
     &:active {
       background-color: var(--primary-color-transparent);
