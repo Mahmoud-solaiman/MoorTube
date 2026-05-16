@@ -79,9 +79,15 @@ export const createDisc = async (req: Request, res: Response) => {
 export const updateDisc = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
+    const userId = req.userId;
     const { name, subDiscs, videos } = req.body;
     if (!name && !subDiscs && !videos) return res.status(400).json({ message: "No new info for updating disc. Please, try again!", success: false });
 
+    if (name) {
+      const isDisc = await DiscModel.findOne({ $and: [{ name }, { user: userId }]});
+      if (isDisc && String(isDisc._id) !== id) return res.status(400).json({ message: "Disc already exists. Please, try with a different name", success: false});
+    }
+    
     const updatedDisc = await DiscModel.findByIdAndUpdate(id, req.body, { new: true });
     if (!updatedDisc) return res.status(404).json({ message: "Oops! Disc was not found.", success: false });
 

@@ -1,0 +1,29 @@
+.profile-settings-container {
+  .settings {
+    position: absolute;
+    inset: auto auto 30px 30px;
+    background-color: var(--loading-video);
+    padding: .2em;
+    border-radius: 8px;
+    width: 150px;
+
+    div {
+      cursor: pointer;
+      padding: .25em .4em;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: var(--dim-gray);
+        color: #fff;
+      }
+    }
+
+    div:last-child {
+      color: #e02e2a;
+
+      &:hover {
+        background-color: rgba(224, 45, 42, 0.3);
+      }
+    }
+  }
+}

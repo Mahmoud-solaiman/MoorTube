@@ -407,3 +407,7 @@ export type SingleDiscResponse = {
     videos: SavedVideosDetails[];
   }
 }
+
+export type SettingsProps = {
+  setIsSettings(value: boolean): void;
+}

@@ -2,7 +2,8 @@ import { useState } from 'react'; // Import useState from the React package
 import { DeleteDisc } from './DeleteDisc'; // Import the DeleteDisc component
 import './Disc.scss'; // Import the style sheet of this compoenent
 import { Link } from 'react-router-dom';
-import type { DiscProps, DiscType } from '../types/types';
+import { SingleDiscResponse, DiscProps } from '../types/types';
+import API from '../api/axios';
 
 export function Disc({
   disc,
@@ -22,31 +23,29 @@ export function Disc({
   const [discName, setDiscName] = useState(title);
 
   // The function that handles editing the desired disc
-  function editDisc() {
-    const currentDiscsStorage = localStorage.getItem('current-discs');
-    const currentDiscs: DiscType[] = currentDiscsStorage && JSON.parse(currentDiscsStorage); // Pull the current discs from local storage
-    const discToEdit = currentDiscs.find(item => item._id === discId); // Locate the disc that the user wants to edit by using the disc Id
-    const isDisc = currentDiscs.find(item => item.name.toLowerCase() === discName.trim().toLowerCase()); // Check if the new edited disc already exists
-
-    if (discToEdit) {
-      if ((!isDisc || isDisc._id === discToEdit._id) && discName.trim().length >= 5) { // If the new disc doesn't exist or if the user wants to withdraw the editing action
-        discToEdit.name = discName.trim(); // Update the disc name
-        localStorage.setItem('current-discs', JSON.stringify(currentDiscs)); // Update the local storage
-        setDiscs(currentDiscs); // Update the discs in the SidePanel
-        setIsEdit(false); // Hide the editing field
-  
-      } else if (isDisc && isDisc._id !== discToEdit._id) { // If disc does exist and it's not the current disc
-        setIsEdit(true); // Keep the edit field
-        handleErrorMessage('Disc already exists! Please try a different name.'); // Show this error message to tell the user that the disc already exists 
-  
-      } else if (!discName.trim()) { // If the new disc value is empty
-        setIsEdit(true); // Keep the edit field
-        handleErrorMessage("Disc name can't be an empty value."); // Tell the user that the disc name can't be an empty value
-      } else if (discName.trim() && discName.trim().length < 5) {
-        handleErrorMessage("Disc name should at least be 5 characters.");
+  async function editDisc() {
+    try {
+      if (!discName.trim() || discName.trim().length < 5) {
+        return handleErrorMessage('Disc name must be at least 5 characters');
       }
-    }
 
+      const updatedDisc: SingleDiscResponse = await API.put(`/discs/update/${discId}`, {
+        name: discName
+      });
+
+      const newDiscs = discs.map(disc => {
+        if (disc._id === discId) {
+          return { ...disc, name: discName.trim() }
+        }
+        return disc;
+      });
+
+      setDiscs(newDiscs);
+      setIsEdit(false);
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message;
+      handleErrorMessage(errorMessage);
+    }
   }
 
   //JSX code
@@ -72,7 +71,7 @@ export function Disc({
       }
       {
         !isEdit &&
-        <Link 
+        <Link
           to={`/disc/${discId}`}
           className="disc-name"
           title={title}
@@ -90,7 +89,8 @@ export function Disc({
           viewBox="0 0 640 640"
           className="edit-btn"
           onPointerUp={() => {
-            setIsEdit(!isEdit);
+            if (!isEdit) return setIsEdit(true);
+
             if (isEdit) {
               editDisc();
             }

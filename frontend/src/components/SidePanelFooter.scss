@@ -1,0 +1,54 @@
+.profile-settings-container {
+  display: grid;
+  grid-template-columns: 55px 1fr 35px;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  font-size: 1.2rem;
+  background-color: var(--primary-color);
+  border-bottom-right-radius: 6px;
+  padding: .3em;
+
+  .profile-img-container {
+    border-right: 2px solid #fff;
+
+    img {
+      width: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  }
+
+  span {
+    justify-self: flex-start;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .3rem;
+
+    svg {
+      fill: #fff;
+      width: 16px;
+    }
+  }
+
+  .settings-btn-container {
+    width: 100%;
+    position: relative;
+
+    svg {
+      fill: #fff;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: .15s linear;
+      padding: .2em;
+
+      &:hover {
+        background-color: var(--placeholder-color);
+      }
+    }
+  }
+
+}
