@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Activity, useEffect, useRef, useState } from 'react';
 import './SidePanelFooter.scss';
 import { jwtDecode } from 'jwt-decode';
 import Settings from './Settings';
@@ -7,13 +7,13 @@ export default function SidePanelFooter() {
   const [ isCopied, setIsCopied ] = useState<boolean>(false);
   const [ username, setUsername ] = useState<string>('');
   const [ isSettings, setIsSettings ] = useState<boolean>(false);
+  const settingsBtnRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
       const decodedToken = jwtDecode(token) as { username: string; };
       setUsername(decodedToken.username);
-
     }
   }, []);
 
@@ -43,14 +43,13 @@ export default function SidePanelFooter() {
         }
       </span>
       <div className="settings-btn-container">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" onClick={() => setIsSettings(!isSettings)}>
+        <svg ref={settingsBtnRef} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" onClick={() => setIsSettings(!isSettings)}>
           <path d="M320 208C289.1 208 264 182.9 264 152C264 121.1 289.1 96 320 96C350.9 96 376 121.1 376 152C376 182.9 350.9 208 320 208zM320 432C350.9 432 376 457.1 376 488C376 518.9 350.9 544 320 544C289.1 544 264 518.9 264 488C264 457.1 289.1 432 320 432zM376 320C376 350.9 350.9 376 320 376C289.1 376 264 350.9 264 320C264 289.1 289.1 264 320 264C350.9 264 376 289.1 376 320z" />
         </svg>
 
-        {
-          isSettings &&
-          <Settings setIsSettings={setIsSettings} />
-        }
+        <Activity mode={isSettings ? "visible" : "hidden"}>
+          <Settings setIsSettings={setIsSettings} settingsBtnRef={settingsBtnRef} />
+        </Activity>
       </div>
     </footer>
   );

@@ -5,6 +5,7 @@ import type { DiscsResponse, SidePanelProps, SingleDiscResponse } from '../types
 import API from '../api/axios';
 import LoadingDiscs from './UI/LoadingDiscs';
 import SidePanelFooter from './SidePanelFooter';
+import { useParams } from 'react-router-dom';
 
 export function SidePanel({
   setTranslate,
@@ -22,15 +23,26 @@ export function SidePanel({
   const deleteConfirmationRef = useRef<HTMLElement | null>(null);
   const addDiscField = useRef<HTMLInputElement | null>(null);
   const [ isLoadingDiscs, setIsLoadingDiscs ] = useState<boolean>(false);
+  const discId = useParams().id;
 
   //The function that handles adding a new disc to the current discs
   const addDisc = async (value: string) => {
     try {
       if (value.trim().length < 5) return handleErrorMessage('Disc name must at least be 5 characters.');
-      const newDisc: SingleDiscResponse = await API.post('/discs/create', {
-        name: value.trim()
-      });
-      discs ? setDiscs([...discs, newDisc.data.disc]) : setDiscs([newDisc.data.disc]);
+
+      if(discId) {
+        const newDisc: SingleDiscResponse = await API.post('/discs/create', {
+          name: value.trim(),
+          parentId: discId
+        });  
+        discs ? setDiscs([...discs, newDisc.data.disc]) : setDiscs([newDisc.data.disc]);
+
+      } else {
+        const newDisc: SingleDiscResponse = await API.post('/discs/create', {
+          name: value.trim()
+        });
+        discs ? setDiscs([...discs, newDisc.data.disc]) : setDiscs([newDisc.data.disc]);
+      }
       setDiscFieldValue('');
     } catch (error: any) {
       handleErrorMessage(error.response?.data?.message);
@@ -61,14 +73,18 @@ export function SidePanel({
     const fetchDiscs = async () => {
       try {
         setIsLoadingDiscs(true);
-        const discs: DiscsResponse = await API.get('/discs');
-        setDiscs(discs.data.discs);
-        setIsLoadingDiscs(false);
-        
+        if (discId) {
+          const discs: DiscsResponse = await API.get(`/discs/subdiscs/${discId}`);
+          setDiscs(discs.data.discs);
+        } else {
+          const discs: DiscsResponse = await API.get('/discs');
+          setDiscs(discs.data.discs);
+        }        
+        setIsLoadingDiscs(false);    
       } catch (error: any) {
-        const errorMessage = error.response?.data?.message || "Something went wrong when trying to connect to the server";
-        handleErrorMessage(errorMessage);
-        setIsLoadingDiscs(false);
+        if (error.response?.status === 404) return setIsLoadingDiscs(false);
+
+        handleErrorMessage(error.response?.data?.message);
       }
     }
 
@@ -136,7 +152,7 @@ export function SidePanel({
           name="add-disc"
           id="add-disc"
           ref={addDiscField}
-          placeholder='Enter disc name'
+          placeholder={discId ? 'Enter subdisc name' : 'Enter disc name'}
           value={discFieldValue}
           onChange={(e) => setDiscFieldValue(e.target.value)}
           onKeyDown={(e) => {

@@ -410,4 +410,5 @@ export type SingleDiscResponse = {
 
 export type SettingsProps = {
   setIsSettings(value: boolean): void;
+  settingsBtnRef: RefObject<SVGSVGElement | null>;
 }

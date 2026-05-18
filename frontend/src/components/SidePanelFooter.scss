@@ -45,8 +45,14 @@
       transition: .15s linear;
       padding: .2em;
 
-      &:hover {
+      &:active {
         background-color: var(--placeholder-color);
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--placeholder-color);
+        }
       }
     }
   }

@@ -3,14 +3,14 @@ import './Settings.scss';
 import { SettingsProps } from '../types/types';
 import { useNavigate } from 'react-router-dom';
 
-export default function Settings({ setIsSettings }: SettingsProps) {
+export default function Settings({ setIsSettings, settingsBtnRef }: SettingsProps) {
   const settingsRef = useRef<HTMLDivElement>(null);
   const navigator = useNavigate();
 
   useEffect(() => {
     const hideSettings = (e: PointerEvent) => {
-      const target = e.target as Node
-      if (!settingsRef.current?.contains(target)) {
+      const target = e.target as Node;
+      if (!settingsRef.current?.contains(target) && !settingsBtnRef.current?.contains(target)) {
         setIsSettings(false);
       } 
     }

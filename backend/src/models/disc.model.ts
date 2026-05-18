@@ -14,14 +14,21 @@ const discSchema: Schema = new Schema({
     ref: 'User'
   },
   videos: {
-    type: Array,
+    type: [String],
     required: false,
     default: [],
   },
-  subDiscs: {
-    type: Array,
+  parentId: {
+    type: mongoose.Types.ObjectId,
     required: false,
+    default: null,
+    index: true
+  },
+  ancestors: {
+    type: [mongoose.Types.ObjectId],
+    required: true,
     default: [],
+    index: true
   }
 }, { timestamps: true});
 

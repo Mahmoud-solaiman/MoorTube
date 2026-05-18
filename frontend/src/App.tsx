@@ -25,7 +25,6 @@ export default function App() {
   const [ videos, setVideos ] = useState<string[]>([]);
   const [ savedVideosDetails, setSavedVideosDetails ] = useState<SavedVideosDetails[] | undefined>(undefined);
   const navigate = useNavigate();
-
   
   //Function that handles the rendering and disrendering and the content of the error message
   function handleErrorMessage(message: string): void {

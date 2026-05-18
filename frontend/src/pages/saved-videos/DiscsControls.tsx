@@ -40,7 +40,6 @@ export default function DiscsControls({
       try {
         const discsRes: DiscsResponse = await API.get('/discs');
         const newDiscs = discsRes.data.discs.filter(disc => disc._id !== id);
-        console.log(newDiscs);
         setFilteredDiscs(newDiscs);
       } catch (error: any) {
         const errorMessage = error.response?.data?.message || "Something went wrong when trying to connect to the server";

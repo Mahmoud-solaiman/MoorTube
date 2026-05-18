@@ -34,7 +34,6 @@ export function Search({
       if (translate) return;
       if (e.key === '/' && searchField.current) {
         searchField.current.focus();
-        console.log(translate);
       }
     }
     document.addEventListener('keyup', focusSearchField);

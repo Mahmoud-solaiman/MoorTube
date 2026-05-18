@@ -27,3 +27,11 @@
     }
   }
 }
+
+@media (max-width: 500px) {
+  .profile-settings-container {
+    .settings {
+      inset: auto 25px 30px auto;
+    }
+  }
+}
