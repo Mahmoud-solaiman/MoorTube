@@ -24,7 +24,8 @@ export function Watch({
   setSavedVideosDetails,
   setPoster,
   layout,
-  videos
+  videos,
+  setVideos
 }: WatchProps) {
   return (
     <>
@@ -50,6 +51,7 @@ export function Watch({
           layout={layout}
           setDiscs={setDiscs}
           videos={videos}
+          setVideos={setVideos}
         />
       </div>
       {

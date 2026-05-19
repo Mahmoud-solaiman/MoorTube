@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import './SavedVideoControls.scss';
 import { SavedVideosControlsProps, SavedVideosDetailsResponse } from '../../types/types';
 import API from '../../api/axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 export default function SavedVideoControls({
   setOpenControls,
@@ -18,14 +18,16 @@ export default function SavedVideoControls({
 }: SavedVideosControlsProps) {
   const controlsRef = useRef<HTMLDivElement>(null);
   const id = useParams().id;
+  const [ searchParams ] = useSearchParams();
 
   async function removeVideo() {
     try {
       const updatedVideos = videos.filter(video => video !== savedVideosDetails[targetIndex].id);
-      const updatedDisc = await API.put<SavedVideosDetailsResponse>(`/discs/update/${id}`, {
+      const updatedDisc = await API.put<SavedVideosDetailsResponse>(`/discs/update/${id || searchParams.get('discId')}`, {
         videos: updatedVideos
       });
 
+      console.log(updatedDisc.data.message);
       handleErrorMessage(updatedDisc.data.message);
       setSavedVideosDetails(savedVideosDetails.filter(video => video.id !== savedVideosDetails[targetIndex].id));
       setOpenControls(null);

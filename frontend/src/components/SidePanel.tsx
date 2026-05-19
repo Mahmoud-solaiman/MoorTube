@@ -178,7 +178,7 @@ export function SidePanel({
       </section>
 
       <section className="current-discs">
-        <span className='current-discs-label'>Your Discs</span>
+        <span className='current-discs-label'>{discId ? "Your Subdiscs" : "Your Discs"}</span>
         <section className="current-discs-container">
 
           {
@@ -199,6 +199,7 @@ export function SidePanel({
                     discObject={disc}
                     setWatchTitle={setWatchTitle}
                     discs={discs}
+                    parentId={disc.parentId}
                   />
                 )
               }) 

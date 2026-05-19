@@ -14,7 +14,8 @@ export function Disc({
   handleErrorMessage,
   discObject,
   setWatchTitle,
-  discs
+  discs,
+  parentId
 }: DiscProps) {
   //Functions and Variables ==> Javascript + React
   // Hooks
@@ -30,7 +31,8 @@ export function Disc({
       }
 
       const updatedDisc: SingleDiscResponse = await API.put(`/discs/update/${discId}`, {
-        name: discName
+        name: discName,
+        parentId
       });
 
       const newDiscs = discs.map(disc => {
@@ -50,7 +52,7 @@ export function Disc({
 
   //JSX code
   return (
-    <div className='disc'>
+    <div className="disc">
       {isEdit &&
         <input
           autoComplete="off"

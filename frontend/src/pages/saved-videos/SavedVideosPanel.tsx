@@ -1,7 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './SavedVideosPanel.scss';
 import { SavedVideosPanelProps } from '../../types/types';
-// import React from 'react';
 import { useRef, useEffect } from 'react';
 
 export function SavedVideosPanel({
@@ -10,6 +9,7 @@ export function SavedVideosPanel({
   setPoster
 }: SavedVideosPanelProps) {
   const navigate = useNavigate();
+  const discId = useParams().id;
 
   const highestResUrl = savedVideosDetails &&
     (
@@ -41,7 +41,7 @@ export function SavedVideosPanel({
             className="top-video-navigator"
             aria-hidden="true"
             onClick={() => {
-              navigate(`/watch?v=${savedVideosDetails && savedVideosDetails[0].id}`);
+              navigate(`/watch?v=${savedVideosDetails && savedVideosDetails[0].id}&discId=${discId}`);
               setPoster(highestResUrl);
             }}
           >

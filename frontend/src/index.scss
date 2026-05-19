@@ -17,6 +17,7 @@
   --video-settings-hover: rgb(255 255 255);
   --watch-panel-bg: rgb(220 220 220);
   --loading-video: rgb(180, 180, 180);
+  --disc-panel-bg: rgb(220 220 220 / .5);
   color-scheme: dark light;
 }
 
@@ -31,6 +32,7 @@
   --video-settings-hover: rgb(100 100 100 / 0.5);
   --watch-panel-bg: rgb(6, 13, 22);
   --loading-video: rgb(35, 35, 35);
+  --disc-panel-bg: rgb(10 10 10 / .5);
   color: var(--text-color);
   background-color: var(--page-bg);
 }

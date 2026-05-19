@@ -20,7 +20,7 @@
   -webkit-backdrop-filter: blur(50px);
   backdrop-filter: blur(50px);
   color:#fff;
-  background-color: rgba(10, 10, 10, .5);
+  background-color: var(--disc-panel-bg);
 
   @media (width < 1000px) {
     border-radius: 0;
@@ -90,6 +90,7 @@
 }
 
 .disc-details {
+  color: var(--text-color);
 
   h2 {
     margin-bottom:.5rem;
@@ -101,6 +102,5 @@
 
   p {
     padding-left:.3em;
-    color: rgb(200, 200, 200);
   }
 }

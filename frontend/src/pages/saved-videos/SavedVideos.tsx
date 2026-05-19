@@ -7,7 +7,7 @@ import { SidePanel } from '../../components/SidePanel';
 import { ErrorMessage } from '../../components/ErrorMessage';
 import { SavedVideosDetailsResponse, SavedVideosProps } from '../../types/types';
 import API from '../../api/axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Spinner from '../../components/UI/Spinner';
 
 export function SavedVideos({
@@ -51,7 +51,6 @@ export function SavedVideos({
     }
 
     setTranslate(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
   
   return (
@@ -61,7 +60,6 @@ export function SavedVideos({
         <ErrorMessage errorMessage={errorMessage}/>
       }
       <SavedVideosHeader
-        discName={discName}
         setTranslate={setTranslate} 
         menuContainer={menuContainer}
         isDarkMode={isDarkMode}
@@ -86,7 +84,6 @@ export function SavedVideos({
                   handleErrorMessage={handleErrorMessage}
                   setPoster={setPoster}
                   layout="saved-videos"
-                  setDiscs={setDiscs}
                   videos={videos}
                   setVideos={setVideos}
                 />

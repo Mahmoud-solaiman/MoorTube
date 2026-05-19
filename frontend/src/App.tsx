@@ -114,6 +114,7 @@ export default function App() {
           setPoster={setPoster}
           layout="watch-panel"
           videos={videos}
+          setVideos={setVideos}
         />
       } />
       <Route path="*" element={<PageNotFound />} />

@@ -5,7 +5,8 @@ export type DiscType = {
   name: string;
   user: string;
   videos: string[];
-  subDiscs: DiscType[];
+  parentId: string;
+  ancestors: string[];
 }
 
 export type HomeProps = {
@@ -124,6 +125,7 @@ export type DiscProps = {
   discObject: DiscType;
   setWatchTitle(value: string): void;
   discs: DiscType[];
+  parentId: string;
 }
 
 export type DiscDeleteProps = {
@@ -239,7 +241,7 @@ export type SavedVideosProps = {
 }
 
 export type SavedVideosHeaderProps = {
-  discName: string;
+  discName?: string;
   setTranslate(value: boolean): void;
   menuContainer: RefObject<HTMLDivElement | null>;
   isDarkMode: boolean;
@@ -298,7 +300,6 @@ export type SavedVideosGridProps = {
   handleErrorMessage(value: string): void;
   setPoster(value: string): void;
   layout: 'saved-videos' | 'watch-panel';
-  setDiscs(value: DiscType[]): void;
   videos: string[];
   setVideos(value: string[]): void;
 }
@@ -324,7 +325,7 @@ export type DiscsControlsProps = {
   handleErrorMessage(value: string): void;
 }
 
-export type WatchProps = Omit<SavedVideosGridProps, 'setVideos'> & {
+export type WatchProps = Omit<SavedVideosGridProps, 'setVideos' | 'setDiscName' | 'setTranslate' | 'setIsSpinner'> & {
   setTranslate(value: boolean): void;
   menuContainer: RefObject<HTMLDivElement | null>
   isDarkMode: boolean;
@@ -338,9 +339,12 @@ export type WatchProps = Omit<SavedVideosGridProps, 'setVideos'> & {
   watchTitle: string;
   setWatchTitle(value: string): void;
   poster: string;
+  setVideos(value: string[]): void;
 }
 
-export type WatchPanelProps = Omit<SavedVideosGridProps, 'setVideos'>;
+export type WatchPanelProps = SavedVideosGridProps & {
+  setDiscs(value: DiscType[]): void;
+};
 
 export type ControlsProps = {
   isBlur: boolean;

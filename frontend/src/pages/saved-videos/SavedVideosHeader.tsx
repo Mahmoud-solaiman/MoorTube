@@ -1,6 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import './SavedVideosHeader.scss';
-import { SavedVideosHeaderProps } from '../../types/types';
+import { SavedVideosHeaderProps, SingleDiscResponse } from '../../types/types';
+import { useEffect, useState } from 'react';
+import API from '../../api/axios';
 
 export function SavedVideosHeader({ 
     discName, 
@@ -8,6 +10,24 @@ export function SavedVideosHeader({
     menuContainer, 
     isDarkMode
   }: SavedVideosHeaderProps) {
+    const [ searchParams ] = useSearchParams();
+    const discId = searchParams.get('discId');
+    const [ discTitle, setDiscTitle ] = useState<string>('');
+    
+    useEffect(() => {
+      const fetchDisc = async () => {
+        try {
+          if (!discId) return;
+          console.log(discId);
+          const disc: SingleDiscResponse = await API.get(`/discs/${discId}`);
+
+          setDiscTitle(disc.data.disc.name);
+        } catch (error) {
+          console.log('Something went wrong when connecting with the server'); 
+        }
+      }
+      fetchDisc();
+    }, []);
   return (
     <header className="saved-videos-header">
       <div className="logo-menu-container">
@@ -33,7 +53,7 @@ export function SavedVideosHeader({
       </div>
 
       <h1 className="disc-name-title">
-        {discName}
+        {discTitle || discName}
       </h1>
     </header>
   );

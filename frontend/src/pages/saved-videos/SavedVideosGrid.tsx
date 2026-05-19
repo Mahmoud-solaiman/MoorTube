@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { handleDuration, handleViewCount, youtubeTimeAgo } from '../../../utils/formatting';
 import './SavedVideosGrid.scss';
 import SavedVideoControls from './SavedVideoControls';
@@ -12,7 +12,6 @@ export function SavedVideosGrid({
   handleErrorMessage,
   setPoster,
   layout,
-  setDiscs,
   videos,
   setVideos
 }: SavedVideosGridProps) {
@@ -22,6 +21,7 @@ export function SavedVideosGrid({
   const controlsBtnRef = useRef<SVGSVGElement | null>(null);
   const discsRef = useRef<HTMLDivElement | null>(null);
   const [ searchParams ] = useSearchParams();
+  const discId = useParams().id;
 
   return (
     <section className={ layout === 'saved-videos' ? "saved-videos-grid" : "saved-videos-grid watch-panel-videos"}>
@@ -39,7 +39,7 @@ export function SavedVideosGrid({
               <div 
                 className="saved-video-details" 
                 onClick={() => {
-                  navigate(`/watch?v=${item.id}`);
+                  navigate(`/watch?v=${item.id}&discId=${discId || searchParams.get('discId')}`);
                   setPoster(videoThumbnail);
                 }}
               >

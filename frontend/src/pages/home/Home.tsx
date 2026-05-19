@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"; // Import these hooks from the react package
+import { useState, useEffect, Activity } from "react"; // Import these hooks from the react package
 import { Header } from "../../components/Header.tsx"; // Import the header component
 import { SidePanel } from "../../components/SidePanel.tsx"; // Import the SidePanel component
 import { ErrorMessage } from "../../components/ErrorMessage.tsx"; // Import the ErrorMessage component
@@ -86,8 +86,7 @@ export function Home({
         translate={translate}
       />
       {/* Render the SidePanel */}
-      {
-        translate &&
+      <Activity mode={translate ? "visible" : "hidden"}>
         <SidePanel
           setTranslate={setTranslate}
           menuContainer={menuContainer}
@@ -98,7 +97,8 @@ export function Home({
           setIsDarkMode={setIsDarkMode}
           setWatchTitle={setWatchTitle}
         />
-      }
+      </Activity>
+
       {
         (channelVideos.items && isChannel) &&
         // Render the ChannelVideos conditionally

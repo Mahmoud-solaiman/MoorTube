@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PrayerTimesPanel from './PrayerTimesPanel';
 import './WatchPanel.scss';
-import { WatchPanelProps } from '../../types/types';
+import { SavedVideosDetailsResponse, WatchPanelProps } from '../../types/types';
 import { SavedVideosGrid } from '../saved-videos/SavedVideosGrid';
+import { useSearchParams } from 'react-router-dom';
+import API from '../../api/axios';
 
 function WatchPanel({
   savedVideosDetails,
@@ -10,11 +12,29 @@ function WatchPanel({
   handleErrorMessage,
   setPoster,
   layout,
-  setDiscs,
-  videos
+  videos,
+  setVideos
 }: WatchPanelProps) {
   const toggleLabels: string[] = ['prayers', 'videos'];
-  const [ panelChoice, setPanelChoice ] = useState('prayers');
+  const [panelChoice, setPanelChoice] = useState('prayers');
+
+  const [ searchParams ] = useSearchParams();
+
+  useEffect(() => {
+    try {
+      const fetchSavedVideos = async () => {
+        const videos = await API.get<SavedVideosDetailsResponse>(`/discs/${searchParams.get('discId')}`);
+        setSavedVideosDetails(videos.data.videos.items);
+        setVideos(videos.data.disc.videos);
+      }
+      fetchSavedVideos();
+
+    } catch (error: any) {
+      const errorMessage = error.response?.data.message || "Server error. Please, try again later!";
+      handleErrorMessage(errorMessage);
+    }
+
+  }, []);
 
   return (
     <aside className="watch-panel">
@@ -47,8 +67,8 @@ function WatchPanel({
           handleErrorMessage={handleErrorMessage}
           setPoster={setPoster}
           layout={layout}
-          setDiscs={setDiscs}
           videos={videos}
+          setVideos={setVideos}
         />
       }
 
