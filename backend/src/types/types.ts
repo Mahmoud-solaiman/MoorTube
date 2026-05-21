@@ -1,8 +1,7 @@
-import { Request } from "express";
 import mongoose, { Document } from "mongoose";
 
 
-export type Disc = {
+export type Disc = Document & {
   name: string;
   user?: mongoose.Types.ObjectId | string;
   videos: string[];
@@ -10,7 +9,7 @@ export type Disc = {
   ancestors: (mongoose.Types.ObjectId | string)[];
 }
 
-export interface User extends Document {
+export type User = Document & {
   username: string;
   email: string;
   password: string;
@@ -24,4 +23,13 @@ export interface User extends Document {
 export type DecodedToken = {
   id: string;
   username: string;
+}
+
+export type Note = Document & {
+  videoId: string;
+  user: mongoose.Types.ObjectId | string;
+  note: {
+    title: string;
+    description?: string;
+  }
 }
