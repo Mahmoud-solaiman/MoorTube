@@ -9,10 +9,8 @@ export const createNote = async (req: Request, res: Response) => {
     const newNote = await NoteModel.create({
       videoId,
       user: req.userId,
-      note: {
-        title,
-        description
-      }
+      title,
+      description
     });
 
     res.status(201).json({ message: "A new note taker has been created successfully", success: true, note: newNote });
