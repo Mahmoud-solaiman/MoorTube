@@ -2,10 +2,11 @@
   position: absolute;
   inset: auto 20px 60px auto;
   width: 300px;
-  background-color: var(--primary-color-transparent);
+  background-color: rgb(13, 17, 23);
   border-radius: 7px;
   padding: .5em .2em;
   animation: settings .15s linear;
+  color: #fff;
 }
 
 @keyframes settings {

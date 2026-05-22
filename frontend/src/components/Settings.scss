@@ -5,21 +5,34 @@
     background-color: var(--loading-video);
     padding: .2em;
     border-radius: 8px;
-    width: 150px;
+    width: 170px;
 
     div {
       cursor: pointer;
-      padding: .25em .4em;
+      padding: .25em .2em;
       border-radius: 4px;
+      display: flex;
+      gap: .4rem;
 
       &:hover {
         background-color: var(--dim-gray);
         color: #fff;
       }
+
+      & > svg {
+        width: 21px;
+        fill: #fff;
+      }
     }
 
     div:last-child {
-      color: #e02e2a;
+      span {
+        color: #e02e2a;
+      }
+
+      svg {
+        fill: #e02e2a;
+      }
 
       &:hover {
         background-color: rgba(224, 45, 42, 0.3);

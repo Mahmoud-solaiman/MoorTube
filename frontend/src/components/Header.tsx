@@ -155,7 +155,8 @@ export function Header({
             </svg>
           </div>
           <div className="logo-container" title="MoorTube">
-            <img src={isDarkMode ? "./logo-dark.png" : "./logo-light.png"} alt="website logo" />
+            <img src="/logo.png" alt="website logo" />
+            <h2>MoorTube</h2>
           </div>
         </div>
 

@@ -28,8 +28,6 @@ export type DecodedToken = {
 export type Note = Document & {
   videoId: string;
   user: mongoose.Types.ObjectId | string;
-  note: {
-    title: string;
-    description?: string;
-  }
+  title: string;
+  description?: string;
 }

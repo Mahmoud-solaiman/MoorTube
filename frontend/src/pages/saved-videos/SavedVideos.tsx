@@ -1,7 +1,7 @@
 import './SavedVideos.scss';
 import { SavedVideosHeader } from './SavedVideosHeader';
 import { SavedVideosPanel } from './SavedVideosPanel';
-import { useEffect, useRef, useState } from 'react';
+import { Activity, useEffect, useRef, useState } from 'react';
 import { SavedVideosGrid } from './SavedVideosGrid';
 import { SidePanel } from '../../components/SidePanel';
 import { ErrorMessage } from '../../components/ErrorMessage';
@@ -92,19 +92,18 @@ export function SavedVideos({
           }  
         </div>
       }
-      {
-        translate &&
-        <SidePanel
-          setTranslate={setTranslate}
-          menuContainer={menuContainer}
-          discs={discs}
-          setDiscs={setDiscs}
-          handleErrorMessage={handleErrorMessage}
-          isDarkMode={isDarkMode}
-          setIsDarkMode={setIsDarkMode}
-          setWatchTitle={setWatchTitle}
-        />
-      }
+            <Activity mode={translate ? "visible" : "hidden"}>
+              <SidePanel
+                setTranslate={setTranslate}
+                menuContainer={menuContainer}
+                discs={discs}
+                setDiscs={setDiscs}
+                handleErrorMessage={handleErrorMessage}
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+                setWatchTitle={setWatchTitle}
+              />
+            </Activity>
 
     </div>
   );

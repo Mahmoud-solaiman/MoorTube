@@ -37,7 +37,6 @@ export default function DiscsControls({
 
 
   useEffect(() => {
-    console.log(searchParams.get('discId'), id);
     const fetchDiscs = async () => {
       try {
         const discsRes: DiscsResponse = await API.get('/discs');

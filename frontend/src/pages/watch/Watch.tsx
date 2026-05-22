@@ -5,6 +5,7 @@ import './Watch.scss';
 import { VideoPlayer } from './VideoPlayer';
 import WatchPanel from './WatchPanel';
 import { WatchProps } from '../../types/types';
+import { Activity } from 'react';
 
 export function Watch({
   setTranslate,
@@ -54,8 +55,7 @@ export function Watch({
           setVideos={setVideos}
         />
       </div>
-      {
-        translate &&
+      <Activity mode={translate ? "visible" : "hidden"}>
         <SidePanel
           setTranslate={setTranslate}
           menuContainer={menuContainer}
@@ -66,7 +66,7 @@ export function Watch({
           setIsDarkMode={setIsDarkMode}
           setWatchTitle={setWatchTitle}
         />
-      }
+      </Activity>
     </>
   );
 }

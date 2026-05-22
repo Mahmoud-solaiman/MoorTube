@@ -30,7 +30,7 @@ export function Disc({
         return handleErrorMessage('Disc name must be at least 5 characters');
       }
 
-      const updatedDisc: SingleDiscResponse = await API.put(`/discs/update/${discId}`, {
+      await API.put(`/discs/update/${discId}`, {
         name: discName,
         parentId
       });

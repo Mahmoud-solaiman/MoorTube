@@ -11,17 +11,15 @@ const noteSchema = new Schema<Note>({
     required: true,
     ref: "User"
   },
-  note: {
-    title: {
-      type: String,
-      required: true,
-      trim: true
-    },
-    description: {
-      type: String,
-      required: false,
-      default: ''
-    }
+  title: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  description: {
+    type: String,
+    required: false,
+    default: ''
   }
 }, { timestamps: true });
 

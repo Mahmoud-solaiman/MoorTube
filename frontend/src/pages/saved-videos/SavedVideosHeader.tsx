@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 import './SavedVideosHeader.scss';
 import { SavedVideosHeaderProps, SingleDiscResponse } from '../../types/types';
 import { useEffect, useState } from 'react';
@@ -12,14 +12,13 @@ export function SavedVideosHeader({
   }: SavedVideosHeaderProps) {
     const [ searchParams ] = useSearchParams();
     const discId = searchParams.get('discId');
+    const id = useParams().id;
     const [ discTitle, setDiscTitle ] = useState<string>('');
     
     useEffect(() => {
       const fetchDisc = async () => {
         try {
-          if (!discId) return;
-          console.log(discId);
-          const disc: SingleDiscResponse = await API.get(`/discs/${discId}`);
+          const disc: SingleDiscResponse = await API.get(`/discs/${discId || id}`);
 
           setDiscTitle(disc.data.disc.name);
         } catch (error) {
@@ -46,7 +45,8 @@ export function SavedVideosHeader({
         </div>
         <div className="logo-container" title="MoorTube Home">
           <Link to="/home">
-            <img src={isDarkMode ? "/logo-dark.png" : "/logo-light.png"} alt="website logo" />
+            <img src="/logo.png" alt="website logo" />
+            <h2>MoorTube</h2>
           </Link>
           
         </div>

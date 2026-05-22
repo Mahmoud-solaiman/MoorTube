@@ -38,7 +38,7 @@
     width: 100%;
     position: relative;
 
-    svg {
+    & > svg {
       fill: #fff;
       cursor: pointer;
       border-radius: 50%;
