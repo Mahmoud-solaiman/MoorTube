@@ -6,29 +6,19 @@
   justify-content: center;
   align-items: center;
 
-  .spinner-outer {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    border: 5px solid rgb(100 100 100 / .4);
-    position: relative;
-    
-    .spinner-inner {
-      position: absolute;
-      inset: -5px;
-      border-radius: 50%;
-      border: 5px solid var(--primary-color);
-      border-bottom-color: transparent;
-      animation: spinner .6s linear infinite;
-    }
+  img {
+    width: 50px;
+    animation: spinner 1s linear infinite reverse;
+    -webkit-user-select: none;
+    user-select: none;
   }
 }
 
 @keyframes spinner {
   from {
-    transform: rotateZ(0);
+    transform: rotate(0deg);
   } 
   to {
-    transform: rotateZ(360deg);
+    transform: rotate(360deg);
   }
 }
