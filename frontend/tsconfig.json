@@ -12,6 +12,8 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "allowImportingTsExtensions": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
     "outDir": "./dist"
   },
   "include": ["src"]

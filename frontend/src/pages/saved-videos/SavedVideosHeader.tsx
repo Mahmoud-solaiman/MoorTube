@@ -45,7 +45,7 @@ export function SavedVideosHeader({
         </div>
         <div className="logo-container" title="MoorTube Home">
           <Link to="/home">
-            <img src="/logo.png" alt="website logo" />
+            <img src="/logo.svg" alt="website logo" />
             <h2>MoorTube</h2>
           </Link>
           

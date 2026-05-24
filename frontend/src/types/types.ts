@@ -371,13 +371,37 @@ export type VideoPlayerSettingsProps = {
   setIsSettings(value: boolean): void;
   setBlurBoxes(value: string[]): void;
   blurBoxes: string[];
+  setIsNoteTakers(value: boolean): void;
 } 
 
-export type PlaySpeedControlsProps = Omit<VideoPlayerSettingsProps, 'setBlurBoxes' | 'blurBoxes'>;
+export type PlaySpeedControlsProps = Omit<VideoPlayerSettingsProps, 'setBlurBoxes' | 'blurBoxes' | 'setIsNoteTakers'>;
 
 export type BlurBoxProps = {
   blurBoxes: string[];
   setBlurBoxes(value: string[]): void;
+}
+
+export type NoteTakersProps = {
+  setIsNoteTakers(value: boolean): void;
+  setIsSettings(value: boolean): void;
+}
+
+export type NoteTakerResponse = {
+  message: string;
+  success: boolean;
+  note: NoteTakerType;
+}
+
+export type NoteTakersResponse = Omit<NoteTakerResponse, 'note'> & {
+  notes: NoteTakerType[];
+}
+
+export type NoteTakerType = {
+  _id: string;
+  videoId: string;
+  user: string;
+  title: string;
+  description: string;
 }
 
 export type AuthenticationProps = {

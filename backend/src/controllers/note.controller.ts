@@ -10,7 +10,7 @@ export const createNote = async (req: Request, res: Response) => {
       videoId,
       user: req.userId,
       title,
-      description
+      description: description || ''
     });
 
     res.status(201).json({ message: "A new note taker has been created successfully", success: true, note: newNote });
@@ -21,7 +21,7 @@ export const createNote = async (req: Request, res: Response) => {
 
 export const fetchAllNotes = async (req: Request, res: Response) => {
   try {
-    const { videoId } = req.body;
+    const { videoId } = req.params;
     const userId = req.userId;
     if(!videoId) res.status(400).json({ message: "The video ID is neccessary for fetching this videos notes", success: false });
 

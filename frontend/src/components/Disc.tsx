@@ -2,7 +2,7 @@ import { useState } from 'react'; // Import useState from the React package
 import { DeleteDisc } from './DeleteDisc'; // Import the DeleteDisc component
 import './Disc.scss'; // Import the style sheet of this compoenent
 import { Link } from 'react-router-dom';
-import { SingleDiscResponse, DiscProps } from '../types/types';
+import { DiscProps } from '../types/types';
 import API from '../api/axios';
 
 export function Disc({

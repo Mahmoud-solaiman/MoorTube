@@ -4,6 +4,7 @@ import './Controls.scss';
 import { FullscreenButton, MuteButton, PlayButton, Time, useMediaState, useMediaRemote, SeekButton } from '@vidstack/react';
 import VideoPlayerSettings from './VideoPlayerSettings';
 import PlaySpeedControls from '../../components/PlaySpeedControls';
+import NoteTakers from '../../components/NoteTakers';
 
 export function Controls({
   isBlur,
@@ -19,7 +20,7 @@ export function Controls({
   const remote = useMediaRemote();
   const [isSettings, setIsSettings] = useState<boolean>(false);
   const [isSpeedSettings, setIsSpeedSettings] = useState<boolean>(false);
-  const [isQuality, setIsQuality] = useState<boolean>(false);
+  const [ isNoteTakers, setIsNoteTakers ] = useState<boolean>(false);
 
   return (
     <div onTouchEnd={e => e.stopPropagation()} className={isShowControls ? "controls-container" : "controls-container hidden"} >
@@ -90,12 +91,12 @@ export function Controls({
         </svg>
 
         <div className="settings-btn" title="settings">
-          <svg className={(isSettings || isSpeedSettings || isQuality) ? "settings-toggled" : undefined} onClick={() => {
+          <svg className={(isSettings || isSpeedSettings || isNoteTakers) ? "settings-toggled" : undefined} onClick={() => {
 
-            if (isSpeedSettings || isQuality) {
+            if (isSpeedSettings || isNoteTakers) {
               setIsSettings(false);
               setIsSpeedSettings(false);
-              setIsQuality(false);
+              setIsNoteTakers(false);
             } else {
               setIsSettings(!isSettings);
               setIsSpeedSettings(false);
@@ -112,6 +113,7 @@ export function Controls({
             setIsSettings={setIsSettings}
             setBlurBoxes={setBlurBoxes}
             blurBoxes={blurBoxes}
+            setIsNoteTakers={setIsNoteTakers}
           />
         }
 
@@ -119,6 +121,14 @@ export function Controls({
           isSpeedSettings &&
           <PlaySpeedControls
             setIsSpeedSettings={setIsSpeedSettings}
+            setIsSettings={setIsSettings}
+          />
+        }
+
+        {
+          isNoteTakers &&
+          <NoteTakers 
+            setIsNoteTakers={setIsNoteTakers}
             setIsSettings={setIsSettings}
           />
         }

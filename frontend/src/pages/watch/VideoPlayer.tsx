@@ -107,7 +107,14 @@ export function VideoPlayer({ poster }: { poster: string }) {
         setBlurBoxes={setBlurBoxes}
         blurBoxes={blurBoxes}
       />
-      {/* <ControlsMobile isBlur={isBlur} setIsBlur={setIsBlur} isShowControls={isShowControls} /> */}
+      <ControlsMobile 
+        isBlur={isBlur} 
+        setIsBlur={setIsBlur} 
+        isShowControls={isShowControls} 
+        setBlurBoxes={setBlurBoxes}
+        blurBoxes={blurBoxes}
+        hideControls={hideControls}
+      />
 
     </MediaPlayer>
   );

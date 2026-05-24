@@ -46,3 +46,11 @@
     width: 25px;
   }
 }
+
+.controls-container-mobile {
+  .settings-container {
+    width: 250px;
+    z-index: 999;
+    inset: 40px 40px auto auto;
+  }
+}
