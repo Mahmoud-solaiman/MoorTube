@@ -1,6 +1,7 @@
 .settings-container {
   position: absolute;
-  inset: auto 20px 60px auto;
+  z-index: 999;
+  inset: auto 50px 70px auto;
   width: 300px;
   background-color: rgb(13, 17, 23);
   border-radius: 7px;
@@ -44,6 +45,7 @@
 
   svg {
     width: 25px;
+    fill: #fff;
   }
 }
 

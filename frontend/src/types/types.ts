@@ -351,8 +351,14 @@ export type ControlsProps = {
   setIsBlur(value: boolean): void;
   isShowControls: boolean;
   hideControls?(): void;
-  setBlurBoxes(value: string[]): void;
-  blurBoxes: string[];
+  isSettings: boolean;
+  isSpeedSettings: boolean;
+  isNoteTakers: boolean;
+  isNote: boolean;
+  setIsNote(value: boolean): void;
+  setIsSettings(value: boolean): void;
+  setIsSpeedSettings(value: boolean): void;
+  setIsNoteTakers(value: boolean): void;
 }
 
 export type Location = {
@@ -384,6 +390,14 @@ export type BlurBoxProps = {
 export type NoteTakersProps = {
   setIsNoteTakers(value: boolean): void;
   setIsSettings(value: boolean): void;
+  setIsNote(value: boolean): void;
+  setNote(value: NoteTakerType): void;
+}
+
+export type NoteProps = {
+  setIsNote(value: boolean): void;
+  setIsNoteTakers(value: boolean): void;
+  note: NoteTakerType | undefined;
 }
 
 export type NoteTakerResponse = {

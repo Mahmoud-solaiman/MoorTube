@@ -1,6 +1,7 @@
 .speed-controls-container {
   position: absolute;
-  inset: auto 20px 60px auto;
+  z-index: 999;
+  inset: auto 50px 70px auto;
   width: 300px;
   background-color: rgb(13, 17, 23);
   border-radius: 7px;
@@ -8,15 +9,31 @@
   animation: speedSettings .15s linear;
   color: #fff;
 
-  h4 {
-    cursor: pointer;
+  header {
     border-bottom: 1px solid #fff;
     padding-bottom: .5em;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
     svg {
       width: 20px;
+      fill: #fff;
+    }
+
+    h4 {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    & > svg {
+      transition: .15s linear;
+      cursor: pointer;
+
+      &:hover {
+        fill: var(--primary-color);
+      }
     }
   }
 }
@@ -57,6 +74,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    border: 1px solid #fff;
 
     &:active {
       opacity: .8;
@@ -106,7 +125,9 @@
     width: 50px;
     padding: .2em .5em;
     border-radius: 30px;
-  
+    cursor: pointer;
+    border: 1px solid #fff;
+    
     &:active {
       opacity: .8;
     }

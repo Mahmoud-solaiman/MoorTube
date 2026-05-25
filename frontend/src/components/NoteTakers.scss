@@ -2,7 +2,8 @@ $bg-color: rgb(13, 17, 23);
 
 .notetakers-container {
   position: absolute;
-  inset: auto 20px 60px auto;
+  z-index: 999;
+  inset: auto 50px 70px auto;
   background-color: $bg-color;
   padding: .5em .3em;
   border-radius: 7px;
@@ -27,6 +28,7 @@ $bg-color: rgb(13, 17, 23);
     svg {
       width: 20px;
       cursor: pointer;
+      fill: #fff;
     }
 
     &>svg {
@@ -59,7 +61,7 @@ $bg-color: rgb(13, 17, 23);
   }
 
   .notetakers-list-container {
-    max-height: 200px;
+    max-height: 150px;
     overflow: auto;
     padding-block: .2em;
 

@@ -14,6 +14,11 @@ import { Controls } from './Controls';
 import { useSearchParams } from 'react-router-dom';
 import ControlsMobile from './ControlsMobile';
 import BlurBox from '../../components/BlurBox';
+import VideoPlayerSettings from './VideoPlayerSettings';
+import PlaySpeedControls from '../../components/PlaySpeedControls';
+import NoteTakers from '../../components/NoteTakers';
+import Note from '../../components/Note';
+import { NoteTakerType } from '../../types/types';
 
 export function VideoPlayer({ poster }: { poster: string }) {
   const [isBlur, setIsBlur] = useState(false);
@@ -22,7 +27,12 @@ export function VideoPlayer({ poster }: { poster: string }) {
   const video = `https://youtube.com/watch?v=${searchParams.get('v')}`;
   const isActive = useRef<number | undefined>(undefined);
   const [isMuted, setIsMuted] = useState(true);
-  const [ blurBoxes, setBlurBoxes ] = useState<string[]>([]);
+  const [blurBoxes, setBlurBoxes] = useState<string[]>([]);
+  const [isSettings, setIsSettings] = useState<boolean>(false);
+  const [isSpeedSettings, setIsSpeedSettings] = useState<boolean>(false);
+  const [ isNoteTakers, setIsNoteTakers ] = useState<boolean>(false);
+  const [ isNote, setIsNote ] = useState<boolean>(false);
+  const [ note, setNote ] = useState<NoteTakerType | undefined>(undefined);
 
   function hideControls() {
     setIsShowControls(true);
@@ -99,22 +109,64 @@ export function VideoPlayer({ poster }: { poster: string }) {
         <TimeSlider.Thumb className="timeslider-thumb" />
       </TimeSlider.Root>
 
-      <Controls 
-        isBlur={isBlur} 
-        setIsBlur={setIsBlur} 
-        isShowControls={isShowControls} 
+      <Controls
+        isBlur={isBlur}
+        setIsBlur={setIsBlur}
+        isShowControls={isShowControls}
         hideControls={hideControls}
-        setBlurBoxes={setBlurBoxes}
-        blurBoxes={blurBoxes}
+        isSettings={isSettings}
+        isSpeedSettings={isSpeedSettings}
+        isNoteTakers={isNoteTakers}
+        isNote={isNote}
+        setIsNote={setIsNote}
+        setIsNoteTakers={setIsNoteTakers}
+        setIsSettings={setIsSettings}
+        setIsSpeedSettings={setIsSpeedSettings}
       />
-      <ControlsMobile 
-        isBlur={isBlur} 
-        setIsBlur={setIsBlur} 
-        isShowControls={isShowControls} 
-        setBlurBoxes={setBlurBoxes}
-        blurBoxes={blurBoxes}
+      {
+        isSettings &&
+        <VideoPlayerSettings
+          setIsSpeedSettings={setIsSpeedSettings}
+          setIsSettings={setIsSettings}
+          setBlurBoxes={setBlurBoxes}
+          blurBoxes={blurBoxes}
+          setIsNoteTakers={setIsNoteTakers}
+        />
+      }
+
+      {
+        isSpeedSettings &&
+        <PlaySpeedControls
+          setIsSpeedSettings={setIsSpeedSettings}
+          setIsSettings={setIsSettings}
+        />
+      }
+
+      {
+        isNoteTakers &&
+        <NoteTakers
+          setIsNoteTakers={setIsNoteTakers}
+          setIsSettings={setIsSettings}
+          setIsNote={setIsNote}
+          setNote={setNote}
+        />
+      }
+
+      {
+        isNote &&
+        <Note 
+          setIsNote={setIsNote}
+          setIsNoteTakers={setIsNoteTakers}
+          note={note}
+        />
+      }
+
+      {/* <ControlsMobile
+        isBlur={isBlur}
+        setIsBlur={setIsBlur}
+        isShowControls={isShowControls}
         hideControls={hideControls}
-      />
+      /> */}
 
     </MediaPlayer>
   );
