@@ -50,11 +50,33 @@ export default function BlurBox({ blurBoxes, setBlurBoxes }: BlurBoxProps) {
                 isDraggingRef.current = true;
               }}
               onPointerMove={e => {
-                if (isDraggingRef.current && blurBoxRef.current) {
+                const containerRect = containerRef.current?.getBoundingClientRect();
+
+                if (isDraggingRef.current && blurBoxRef.current && containerRect) {
                   e.currentTarget.setPointerCapture(e.pointerId);
                   const boxRect = blurBoxRef.current.getBoundingClientRect();
-                  blurBoxRef.current.style.top = `${Math.floor(boxRect.y) + e.movementY}px`;
-                  blurBoxRef.current.style.left = `${Math.floor(boxRect.x) + e.movementX}px`;
+
+                  if (boxRect.top <= containerRect?.top) {
+                    blurBoxRef.current.style.top = `${boxRect.top + 1}px`;
+
+                  } else {
+                    blurBoxRef.current.style.top = `${Math.floor(boxRect.y) + e.movementY}px`;
+                  }
+
+                  if (boxRect.left <= containerRect?.left) {
+                    blurBoxRef.current.style.left = `${boxRect.left + 1}px`;
+
+                  } else {
+                    blurBoxRef.current.style.left = `${Math.floor(boxRect.x) + e.movementX}px`;
+                  }
+
+                  if(boxRect.right >= containerRect?.right) {
+                    blurBoxRef.current.style.left = `${boxRect.left - 1}px`;
+                  }
+
+                  if (boxRect.bottom >= containerRect?.bottom) {
+                    blurBoxRef.current.style.top = `${boxRect.top - 1}px`;
+                  }
                 }
               }}
               onPointerUp={() => {

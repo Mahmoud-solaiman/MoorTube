@@ -10,8 +10,6 @@ export function Controls({
   isSettings,
   isSpeedSettings,
   isNoteTakers,
-  isNote,
-  setIsNote,
   setIsNoteTakers,
   setIsSettings,
   setIsSpeedSettings
@@ -91,13 +89,12 @@ export function Controls({
         </svg>
 
         <div className="settings-btn" title="settings">
-          <svg className={(isSettings || isSpeedSettings || isNoteTakers || isNote) ? "settings-toggled" : undefined} onClick={() => {
+          <svg className={(isSettings || isSpeedSettings || isNoteTakers) ? "settings-toggled" : undefined} onClick={() => {
 
-            if (isSpeedSettings || isNoteTakers || isNote) {
+            if (isSpeedSettings || isNoteTakers) {
               setIsSettings(false);
               setIsSpeedSettings(false);
               setIsNoteTakers(false);
-              setIsNote(false);
             } else {
               setIsSettings(!isSettings);
               setIsSpeedSettings(false);

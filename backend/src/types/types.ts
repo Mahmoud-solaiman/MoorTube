@@ -30,4 +30,5 @@ export type Note = Document & {
   user: mongoose.Types.ObjectId | string;
   title: string;
   description?: string;
+  backgroundColor?: string;
 }

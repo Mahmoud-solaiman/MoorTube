@@ -1,4 +1,4 @@
-$resizing-border-size: 5px;
+$resizing-border-size: 10px;
 
 .blur-box-container {
   position: absolute;
@@ -52,7 +52,7 @@ $resizing-border-size: 5px;
 
     div {
       position: absolute;
-      border-radius: 10px;
+      border-radius: 15px;
     }
 
     .top, .bottom {

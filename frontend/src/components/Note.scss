@@ -1,15 +1,23 @@
-$bg-color: rgb(13, 17, 23);
+.vds-note-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .note-container {
-  position: absolute;
+  position: fixed;
   z-index: 999;
-  inset: auto 50px 70px auto;
-  background-color: $bg-color;
+  background-color: #182226;
   padding: .5em .3em;
   border-radius: 7px;
-  color: #fff;
-  animation: notetaker .15s linear;
+  animation: note .15s linear;
   min-width: 350px;
+
+  &:active {
+    z-index: 9999;
+  }
 
   header {
     display: flex;
@@ -18,24 +26,29 @@ $bg-color: rgb(13, 17, 23);
     margin-bottom: .8rem;
     border-bottom: 1px solid #fff;
     padding-bottom: .7em;
+    padding-left: .5em;
+    cursor: grab;
 
-    h4 {
+    &:active {
+      cursor: grabbing;
+    }
+
+    .note-controls {
       display: flex;
-      align-items: center;
-      cursor: pointer;
-    }
+      gap: 1rem;
 
-    svg {
-      width: 20px;
-      cursor: pointer;
-      fill: #fff;
-    }
-
-    &>svg {
-      transition: .15s linear;
-
-      &:hover {
-        fill: var(--primary-color);
+      svg:first-child {
+        rotate: -105deg;
+      }
+      svg {
+        width: 20px;
+        cursor: pointer;
+        fill: #fff;
+        transition: .15s linear;
+    
+        &:hover {
+          fill: var(--primary-color);
+        }
       }
     }
   }
@@ -45,7 +58,7 @@ $bg-color: rgb(13, 17, 23);
     #note-field {
       width: 100%;
       height: 200px;
-      background-color: $bg-color;
+      background-color: transparent;
       font-size: 1.1rem;
       padding: .3em;
       border: none;
@@ -71,7 +84,7 @@ $bg-color: rgb(13, 17, 23);
     .save-btn {
       cursor: pointer;
       position: absolute;
-      inset: auto 5px 5px auto;
+      inset: auto 8px -2px auto;
       padding: .2em .5em;
       background-color: var(--primary-color);
       border: none;
@@ -86,5 +99,17 @@ $bg-color: rgb(13, 17, 23);
     .save-btn:disabled {
       background: var(--dim-gray);
     }
+  }
+}
+
+@keyframes note {
+  from {
+    opacity: 0;
+    transform: translateY(10%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

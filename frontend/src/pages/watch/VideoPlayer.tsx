@@ -31,8 +31,8 @@ export function VideoPlayer({ poster }: { poster: string }) {
   const [isSettings, setIsSettings] = useState<boolean>(false);
   const [isSpeedSettings, setIsSpeedSettings] = useState<boolean>(false);
   const [ isNoteTakers, setIsNoteTakers ] = useState<boolean>(false);
-  const [ isNote, setIsNote ] = useState<boolean>(false);
-  const [ note, setNote ] = useState<NoteTakerType | undefined>(undefined);
+  const [ notes, setNotes ] = useState<NoteTakerType[]>([]);
+  const [noteTakers, setNoteTakers] = useState<NoteTakerType[]>([]);
 
   function hideControls() {
     setIsShowControls(true);
@@ -117,8 +117,6 @@ export function VideoPlayer({ poster }: { poster: string }) {
         isSettings={isSettings}
         isSpeedSettings={isSpeedSettings}
         isNoteTakers={isNoteTakers}
-        isNote={isNote}
-        setIsNote={setIsNote}
         setIsNoteTakers={setIsNoteTakers}
         setIsSettings={setIsSettings}
         setIsSpeedSettings={setIsSpeedSettings}
@@ -147,18 +145,28 @@ export function VideoPlayer({ poster }: { poster: string }) {
         <NoteTakers
           setIsNoteTakers={setIsNoteTakers}
           setIsSettings={setIsSettings}
-          setIsNote={setIsNote}
-          setNote={setNote}
+          setNotes={setNotes}
+          notes={notes}
+          setNoteTakers={setNoteTakers}
+          noteTakers={noteTakers}
         />
       }
 
       {
-        isNote &&
-        <Note 
-          setIsNote={setIsNote}
-          setIsNoteTakers={setIsNoteTakers}
-          note={note}
-        />
+        (notes && notes.length) 
+        ? notes.map(note => {
+          return (
+            <Note 
+              note={note}
+              notes={notes}
+              key={note._id}
+              setNotes={setNotes}
+              setNoteTakers={setNoteTakers}
+              noteTakers={noteTakers}
+            />
+          );
+        })
+        : undefined
       }
 
       {/* <ControlsMobile

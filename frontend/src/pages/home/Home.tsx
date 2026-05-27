@@ -59,6 +59,7 @@ export function Home({
   // The JSX of the Home component
   return (
     <>
+      <title>MoorTube | Home</title>
       {
         isErrorMessage &&
         // Render the ErrorMessage conditionally

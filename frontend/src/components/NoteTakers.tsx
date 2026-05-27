@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { NoteTakerType, NoteTakersProps, NoteTakerResponse, NoteTakersResponse } from '../types/types';
+import { NoteTakersProps, NoteTakerResponse, NoteTakersResponse } from '../types/types';
 import './NoteTakers.scss';
 import API from '../api/axios';
 import { useSearchParams } from 'react-router-dom';
@@ -7,13 +7,14 @@ import { useSearchParams } from 'react-router-dom';
 export default function NoteTakers({
   setIsNoteTakers,
   setIsSettings,
-  setIsNote,
-  setNote
+  setNotes,
+  notes,
+  noteTakers,
+  setNoteTakers
 }: NoteTakersProps) {
   const [noteName, setNoteName] = useState<string>('');
   const [searchParams] = useSearchParams();
   const videoId = searchParams.get('v');
-  const [noteTakers, setNoteTakers] = useState<NoteTakerType[]>([]);
 
   const addNoteTaker = async () => {
     try {
@@ -35,6 +36,8 @@ export default function NoteTakers({
     try {
       await API.delete(`/notes/delete/${noteId}`);
       const updatedNoteTakers = noteTakers.filter(noteTaker => noteTaker._id !== noteId);
+      const updatedNotes = notes.filter(item => item._id !== noteId);
+      setNotes([...updatedNotes]);
       setNoteTakers(updatedNoteTakers);
     } catch (error) {
       console.log("Something went wrong when trying to connect to the server");
@@ -98,9 +101,8 @@ export default function NoteTakers({
               return (
                 <li key={noteTaker._id}>
                   <span onClick={() => {
-                    setIsNote(true);
-                    setIsNoteTakers(false);
-                    setNote(noteTaker);
+                    const isNote = notes.find(note => note._id === noteTaker._id);
+                    if (!isNote) setNotes([...notes, noteTaker]);
                   }}>{noteTaker.title}</span>
                   <div className="note-controls">
                     <svg className="edit-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">

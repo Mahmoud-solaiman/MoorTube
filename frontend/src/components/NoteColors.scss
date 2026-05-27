@@ -1,0 +1,41 @@
+.note-colors-container {
+  position: absolute;
+  inset: -110px -165px auto auto;
+  background-color: rgb(13, 17, 13);
+  text-align: center;
+  padding: .5em 1em;
+  border-radius: 7px;
+  animation: note-colors .15s linear;
+  
+  h3 {
+    margin-block-end: .7rem;
+  }
+
+  .colors {
+    display: grid;
+    grid-template-columns: repeat(5, 30px);
+    grid-template-rows: repeat(2, 30px);
+    gap: .5rem;
+
+    .color {
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .color.selected {
+      border: 2px solid var(--primary-color);
+    }
+  }
+}
+
+@keyframes note-colors {
+  from {
+    opacity: 0;
+    transform: translateY(10%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

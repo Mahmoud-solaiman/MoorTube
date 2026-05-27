@@ -5,7 +5,7 @@ import './Watch.scss';
 import { VideoPlayer } from './VideoPlayer';
 import WatchPanel from './WatchPanel';
 import { WatchProps } from '../../types/types';
-import { Activity } from 'react';
+import { Activity, useEffect } from 'react';
 
 export function Watch({
   setTranslate,
@@ -28,6 +28,11 @@ export function Watch({
   videos,
   setVideos
 }: WatchProps) {
+
+  useEffect(() => {
+    document.title = `MoorTube | Watch | ${watchTitle}`;
+  }, []);
+  
   return (
     <>
       {

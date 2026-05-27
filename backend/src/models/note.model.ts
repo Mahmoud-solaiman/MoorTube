@@ -20,6 +20,11 @@ const noteSchema = new Schema<Note>({
     type: String,
     required: false,
     default: ''
+  },
+  backgroundColor: {
+    type: String,
+    required: false,
+    default: '#182226'
   }
 }, { timestamps: true });
 

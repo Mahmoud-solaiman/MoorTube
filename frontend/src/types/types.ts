@@ -354,8 +354,6 @@ export type ControlsProps = {
   isSettings: boolean;
   isSpeedSettings: boolean;
   isNoteTakers: boolean;
-  isNote: boolean;
-  setIsNote(value: boolean): void;
   setIsSettings(value: boolean): void;
   setIsSpeedSettings(value: boolean): void;
   setIsNoteTakers(value: boolean): void;
@@ -390,14 +388,26 @@ export type BlurBoxProps = {
 export type NoteTakersProps = {
   setIsNoteTakers(value: boolean): void;
   setIsSettings(value: boolean): void;
-  setIsNote(value: boolean): void;
-  setNote(value: NoteTakerType): void;
+  setNotes(value: NoteTakerType[]): void;
+  notes: NoteTakerType[];
+  setNoteTakers(value: NoteTakerType[]): void;
+  noteTakers: NoteTakerType[];
 }
 
 export type NoteProps = {
-  setIsNote(value: boolean): void;
-  setIsNoteTakers(value: boolean): void;
-  note: NoteTakerType | undefined;
+  note: NoteTakerType;
+  notes: NoteTakerType[];
+  setNotes(value: NoteTakerType[]): void;
+  setNoteTakers(value: NoteTakerType[]): void;
+  noteTakers: NoteTakerType[];
+}
+
+export type NoteColorsProps = {
+  noteRef: RefObject<HTMLElement | null>;
+  setIsNoteColors(value: boolean): void;
+  noteId: string;
+  noteTakers: NoteTakerType[];
+  setNoteTakers(value: NoteTakerType[]): void;
 }
 
 export type NoteTakerResponse = {
@@ -416,6 +426,7 @@ export type NoteTakerType = {
   user: string;
   title: string;
   description: string;
+  backgroundColor: string;
 }
 
 export type AuthenticationProps = {

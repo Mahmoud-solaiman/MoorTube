@@ -42,6 +42,7 @@ export function SavedVideos({
         setDiscName(videos.data.disc.name);
         setVideos(videos.data.disc.videos);
         setIsSpinner(false);
+        document.title = `MoorTube | Disc | ${videos.data.disc.name}`;
       }
       fetchSavedVideos();
       
@@ -51,6 +52,7 @@ export function SavedVideos({
     }
 
     setTranslate(false);
+
   }, [id]);
   
   return (
