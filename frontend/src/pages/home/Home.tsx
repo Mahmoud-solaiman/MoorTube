@@ -81,7 +81,6 @@ export function Home({
         popUpChannelLogo={popUpChannelLogo}
         setPopUpChannelLogo={setPopUpChannelLogo}
         setChannelLogo={setChannelLogo}
-        isDarkMode={isDarkMode}
         setWatchTitle={setWatchTitle}
         setIsLoading={setIsLoading}
         translate={translate}

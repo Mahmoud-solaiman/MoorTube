@@ -43,16 +43,12 @@ export function Search({
 
   // The JSX of the search related elements (e.g. search field and button)
   return (
-    <div className='search-container'>
+    <div className="search-container">
       <input
         autoComplete="off"
         id="search-channel-field"
         ref={searchField}
-        placeholder={
-          isChannel ?
-            "Search for a channel" :
-            "Search for a video"
-        }
+        placeholder={isChannel ? "Search for a channel" : "Search for a video"}
         value={searchText}
         type="text"
         onChange={(e) => {

@@ -55,7 +55,6 @@ export type HeaderProps = {
   popUpChannelLogo: PopUpChannelLogo;
   setPopUpChannelLogo(value: unknown): void;
   setChannelLogo(value: unknown): void;
-  isDarkMode: boolean;
   setWatchTitle(value: string): void;
   setIsLoading(value: boolean): void;
   translate: boolean;

@@ -11,7 +11,6 @@
   box-shadow: 2px 2px 10px var(--shadow-color);
   top: 55px;
   animation: suggestions .15s linear;
-  opacity: 0;
 
   &::-webkit-scrollbar {
     background-color: transparent;
@@ -42,9 +41,14 @@
   cursor:pointer;
   padding:.3em .8em;
   transition: .07s linear;
+  border-radius: 12px;
+
+  &:focus {
+    background-color:var(--primary-color-transparent);
+    outline: none;
+  }
 
   &:hover {
-    border-radius: 12px;
     background-color:var(--primary-color-transparent);
   }
 
@@ -79,10 +83,15 @@
   display: grid;
   grid-template-columns: 25px 1fr 25px;
   gap: .6rem;
+  border-radius: 8px;
 
   &:hover {
-    border-radius: 8px;
     background-color: var(--primary-color-transparent);
+  }
+
+  &:focus {
+    background-color: var(--primary-color-transparent);
+    outline: none;
   }
 
   &:hover > .delete-btn-container > .suggestion-delete-btn {

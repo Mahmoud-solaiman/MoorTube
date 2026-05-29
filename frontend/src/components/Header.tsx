@@ -20,7 +20,6 @@ export function Header({
   popUpChannelLogo,
   setPopUpChannelLogo,
   setChannelLogo,
-  isDarkMode,
   setWatchTitle,
   setIsLoading,
   translate

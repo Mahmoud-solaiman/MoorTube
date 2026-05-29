@@ -2,6 +2,7 @@ import axios from 'axios'; // Import axios from the axios package
 import './Suggestions.scss'; // Import the style sheet of this component
 import LoadingChannels from '../../components/UI/LoadingChannels';
 import { PlaylistInfoItem, SearchHistory, SuggestionsProps } from '../../types/types';
+import { RefObject, useEffect, useRef } from 'react';
 
 export function Suggestions({
   popUpChannelLogo,
@@ -18,6 +19,11 @@ export function Suggestions({
   setIsLoading,
   isLoadingChannels
 }: SuggestionsProps) {
+  const searchSuggestionsRef = useRef<HTMLDivElement[]>([]);
+  const suggestionTextsRef = useRef<HTMLDivElement[]>([]);
+  const channelsSuggestionsRef = useRef<HTMLDivElement[]>([]);
+  const indexRef = useRef<number>(-1);
+
   // The function that fetches the videos of the desired channel
   const fetchChannelVideos = async (index: number) => {
     setIsSuggestions(false); // Hide the suggestions component
@@ -71,6 +77,50 @@ export function Suggestions({
     localStorage.setItem('search-history', JSON.stringify(updatedHistory));
   }
 
+  const handleNavigation = (e: KeyboardEvent | React.KeyboardEvent<HTMLDivElement>, elementsList: RefObject<HTMLDivElement[]> , type: 'history' | 'channels') => {
+    if (e.key === 'ArrowDown') {
+      indexRef.current++;
+      if (indexRef.current >= elementsList.current.length) {
+        indexRef.current = 0;
+      }
+
+      elementsList.current[indexRef.current].focus();
+
+    } else if (e.key === 'ArrowUp') {
+      indexRef.current--;
+      if (indexRef.current < 0) {
+        indexRef.current = elementsList.current.length - 1;
+      }
+      elementsList.current[indexRef.current].focus();
+
+    } else if (e.key === 'Enter') {
+      type === 'history' 
+      ? suggestionTextsRef.current[indexRef.current].click()
+      : elementsList.current[indexRef.current].click();
+      
+      indexRef.current = -1;
+    }
+  }
+
+  useEffect(() => {
+    const inputFieldElem = searchField.current;
+    const handleKeyUp = (e: KeyboardEvent | React.KeyboardEvent<HTMLDivElement>) => {
+      if (channelsSuggestionsRef.current.length) {
+        handleNavigation(e, channelsSuggestionsRef, 'channels');
+      } else {
+        handleNavigation(e, searchSuggestionsRef, 'history');
+      }
+    }
+
+    const resetIndex = () => indexRef.current = -1;
+    inputFieldElem?.addEventListener('keyup', handleKeyUp);
+    inputFieldElem?.addEventListener('focus', resetIndex);
+
+    return () => {
+      inputFieldElem?.removeEventListener('keyup', handleKeyUp); 
+      inputFieldElem?.removeEventListener('focus', resetIndex);
+    }
+  }, []);
   // The JSX of the Suggestions component
   return (
     <div className="suggestions-box">
@@ -79,8 +129,14 @@ export function Suggestions({
         popUpChannelLogo.items.map((item, index) => {
           return (
             <div
-              key={item.id} className="suggestion"
-              onPointerUp={() => fetchChannelVideos(index)}
+              key={item.id} 
+              className="suggestion"
+              onClick={() => fetchChannelVideos(index)}
+              tabIndex={0}
+              ref={elem => {
+                if (elem) channelsSuggestionsRef.current[index] = elem;
+              }}
+              onKeyUp={e => handleNavigation(e, channelsSuggestionsRef, 'channels')}
             >
               <div className="channel-icon-container">
                 <img
@@ -119,6 +175,11 @@ export function Suggestions({
                 <div
                   key={index}
                   className="search-history-suggestion"
+                  tabIndex={0}
+                  onKeyUp={e => handleNavigation(e, searchSuggestionsRef, 'history')}
+                  ref={elem => {
+                    if (elem) searchSuggestionsRef.current[index] = elem
+                  }}
                   onMouseEnter={() => {
                     if (searchField.current)
                       searchField.current.value = searchText + item.searchName.slice(searchText.length);
@@ -127,6 +188,11 @@ export function Suggestions({
                   onMouseLeave={() => {
                     if (searchField.current)
                       searchField.current.value = searchText;
+                  }}
+                  onFocus={() => {
+                    if (searchField.current) {
+                      searchField.current.value = item.searchName;
+                    }
                   }}
                 >
 
@@ -143,6 +209,9 @@ export function Suggestions({
                       setSearchText(item.searchName);
                       fetchChannelsData(item.searchName);
                       searchField.current?.focus();
+                    }}
+                    ref={elem => {
+                      if (elem) suggestionTextsRef.current[index] = elem;
                     }}
                   >
                     {searchText}
