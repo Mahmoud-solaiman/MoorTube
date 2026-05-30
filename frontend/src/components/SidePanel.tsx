@@ -101,6 +101,12 @@ export function SidePanel({
     return () => document.removeEventListener('keyup', focusInput);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {document.body.style.overflow = 'unset'};
+  }, []);
+
   // The function that handles toggling the mode between light and dark
   function toggleMode() {
     setIsDarkMode(!isDarkMode);

@@ -11,6 +11,7 @@
   box-shadow: 2px 2px 10px var(--shadow-color);
   top: 55px;
   animation: suggestions .15s linear;
+  overscroll-behavior: contain;
 
   &::-webkit-scrollbar {
     background-color: transparent;
@@ -94,7 +95,8 @@
     outline: none;
   }
 
-  &:hover > .delete-btn-container > .suggestion-delete-btn {
+  &:hover > .delete-btn-container > .suggestion-delete-btn,
+  &:focus > .delete-btn-container > .suggestion-delete-btn {
     display: inline;
   }
 

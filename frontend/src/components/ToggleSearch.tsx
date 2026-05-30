@@ -1,10 +1,31 @@
+import { useEffect, useRef } from 'react';
 import './ToggleSearch.scss'; // The style sheet of this component
 
 // The JSX of this component
-export function ToggleSearch({ 
-    toggleSearch, 
-    setWatchTitle 
-  }: {toggleSearch(value: boolean): void; setWatchTitle(value: string): void}) {
+export function ToggleSearch({
+  toggleSearch,
+  setWatchTitle
+}: { toggleSearch(value: boolean): void; setWatchTitle(value: string): void }) {
+  const videoRef = useRef<HTMLLabelElement>(null);
+  const channelRef = useRef<HTMLLabelElement>(null);
+
+  useEffect(() => {
+    const handleToggling = (e: KeyboardEvent) => {
+      
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key).toLocaleLowerCase() === 'v') {
+        e.preventDefault();
+        videoRef.current?.click();
+        
+      } else if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key).toLocaleLowerCase() === 'c') {
+        e.preventDefault();
+        channelRef.current?.click();
+      }
+    };
+
+    document.addEventListener('keydown', handleToggling);
+
+    return () => document.removeEventListener('keydown', handleToggling);
+  }, []);
   return (
     <div className="toggle-search-container">
       Search for:
@@ -14,7 +35,8 @@ export function ToggleSearch({
       </div>
       <label
         htmlFor="video"
-        onPointerUp={() => {
+        ref={videoRef}
+        onClick={() => {
           toggleSearch(false);
           setWatchTitle('Video Search');
         }}
@@ -31,7 +53,8 @@ export function ToggleSearch({
       </div>
       <label
         htmlFor="channel"
-        onPointerUp={() => {
+        ref={channelRef}
+        onClick={() => {
           toggleSearch(true);
           setWatchTitle('Channel Search');
         }}

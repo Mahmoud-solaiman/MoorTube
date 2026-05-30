@@ -12,7 +12,7 @@ import Authentication from "./pages/auth/Authentication";
 export default function App() {
   const modePreferenceStorage = localStorage.getItem('mode-preference');
   const api_key = import.meta.env.VITE_YOUTUBE_API_KEY //My google console API Key
-  const [ translate, setTranslate ] = useState<boolean>(false); //The translateY value of the SidePanel
+  const [ translate, setTranslate ] = useState(false); //The translateY value of the SidePanel
   const menuContainer = useRef(null); //The reference of the menu container
   const [ discs, setDiscs ] = useState<DiscType[]>([]); //The latest disc list from localStorage
   const [ errorMessage, setErrorMessage ] = useState(''); //The error message state

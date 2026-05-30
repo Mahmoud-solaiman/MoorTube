@@ -24,7 +24,7 @@
     cursor: pointer;
     padding: .3em .5em;
     font-size: .96rem;
-
+    border-radius: 6px;
     
     &:active {
       background-color: var(--primary-color-transparent);
@@ -33,7 +33,6 @@
     @media (hover: hover) {
       &:hover {
         background-color: var(--primary-color-transparent);
-        border-radius: 6px;
       }
     }
 

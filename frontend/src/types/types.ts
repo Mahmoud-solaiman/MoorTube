@@ -11,7 +11,7 @@ export type DiscType = {
 
 export type HomeProps = {
   api_key: string;
-  setTranslate(value: boolean): void;
+  setTranslate(value: boolean | ((value: boolean) => boolean)): void;
   translate: boolean;
   menuContainer: RefObject<HTMLDivElement | null>;
   discs: DiscType[];
@@ -28,7 +28,7 @@ export type HomeProps = {
 export type SearchProps = {
   isChannel: boolean;
   setIsSuggestions(value: boolean): void;
-  setPopUpChannelLogo(value: PopUpChannelLogo | {}): void;
+  setPopUpChannelLogo(value: PopUpChannelLogo): void;
   setSearchHistory(value: SearchHistory[]): void;
   searchText: string;
   setSearchText(value: string): void;
@@ -53,23 +53,11 @@ export type HeaderProps = {
   setIsChannel(value: boolean): void;
   isChannel: boolean;
   popUpChannelLogo: PopUpChannelLogo;
-  setPopUpChannelLogo(value: unknown): void;
+  setPopUpChannelLogo(value: PopUpChannelLogo): void;
   setChannelLogo(value: unknown): void;
   setWatchTitle(value: string): void;
   setIsLoading(value: boolean): void;
   translate: boolean;
-}
-
-export type ChannelItem = {
-  id: { kind: string; channelId: string }
-}
-
-export type VideosChannelsItem = {
-  snippet: { channelId: string }
-}
-
-export type VideosItem = {
-  id: { videoId: string }
 }
 
 type PopUpChannelLogo = {
@@ -81,6 +69,19 @@ type PopUpChannelLogo = {
       customUrl: string;
     }
   }]
+}
+
+export type PopUpChannelLogoResponse = {
+  message: string;
+  success: boolean;
+  data: PopUpChannelLogo;
+}
+
+export type VideosResponse = {
+  message: string;
+  success: boolean;
+  channelsLogos: ChannelsLogos;
+  videosDetails: VideosDetails;
 }
 
 export type SuggestionsProps = {
@@ -135,53 +136,57 @@ export type DiscDeleteProps = {
   discs: DiscType[];
 }
 
-export type VideoGridProps = {
-  channelLogo: {
-    items: [{
-      id: string;
-      snippet: {
-        thumbnails: {
-          default: {
-            url: string;
-          }
+type ChannelsLogos = {
+  items: [{
+    id: string;
+    snippet: {
+      thumbnails: {
+        default: {
+          url: string;
         }
       }
-    }]
-  };
-  videos: {
-    items: [{
-      id: string;
-      snippet: {
-        thumbnails: {
-          maxres: {
-            url: string;
-          },
-          standard: {
-            url: string;
-          },
-          high: {
-            url: string;
-          },
-          medium: {
-            url: string;
-          },
-          default: {
-            url: string;
-          },
-        };
-        title: string;
-        channelTitle: string;
-        channelId: string;
-        publishedAt: string;
+    }
+  }]
+}
+
+type VideosDetails = {
+  items: [{
+    id: string;
+    snippet: {
+      thumbnails: {
+        maxres: {
+          url: string;
+        },
+        standard: {
+          url: string;
+        },
+        high: {
+          url: string;
+        },
+        medium: {
+          url: string;
+        },
+        default: {
+          url: string;
+        },
       };
-      contentDetails: {
-        duration: string;
-      };
-      statistics: {
-        viewCount: string;
-      }
-    }]
-  };
+      title: string;
+      channelTitle: string;
+      channelId: string;
+      publishedAt: string;
+    };
+    contentDetails: {
+      duration: string;
+    };
+    statistics: {
+      viewCount: string;
+    }
+  }]
+}
+
+export type VideoGridProps = {
+  channelLogo: ChannelsLogos;
+  videos: VideosDetails;
   setDiscs(value: DiscType[]): void;
   setTranslate(value: boolean): void;
   handleErrorMessage(value: string): void;

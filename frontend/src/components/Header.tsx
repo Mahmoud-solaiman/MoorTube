@@ -1,11 +1,11 @@
-import axios from "axios";
 import { useRef, useState } from "react"; // Import the useState hook from the React Package
 import { Search } from "../pages/home/Search"; // Import the Search component
 import { Suggestions } from "../pages/home/Suggestions"; // Import the Suggestions component
 import { ToggleSearch } from "./ToggleSearch"; // Import the ToggleSearch component
 import './Header.scss'; // Import the style sheet of this component
 import { generateID } from "../../utils/formatting";
-import { ChannelItem, HeaderProps, SearchHistory, VideosChannelsItem, VideosItem } from "../types/types";
+import { HeaderProps, PopUpChannelLogoResponse, SearchHistory, VideosResponse } from "../types/types";
+import API from "../api/axios";
 
 export function Header({
   setVideos,
@@ -47,91 +47,53 @@ export function Header({
   }
 
   async function fetchChannelsData(search: string) {
-    // If the search filter is set to channel, then search for channels using the following
-    if (isChannel && search.trim()) {
-      setIsLoadingChannels(true);
-      setPopUpChannelLogo({});
-      setIsSuggestions(true); // Then finally show those channels of the desired user search visually in the search suggestion popup
+    try {
+      // If the search filter is set to channel, then search for channels using the following
+      if (isChannel && search.trim()) {
+        setIsLoadingChannels(true);
+        setPopUpChannelLogo({});
+        setIsSuggestions(true); // Then finally show those channels of the desired user search visually in the search suggestion popup
+        
+        const channelInfo = await API.get<PopUpChannelLogoResponse>('/youtube/channels', {
+          params: {
+            q: search
+          }
+        });
+  
+        setIsLoadingChannels(false);
+        // Then we set the response to that final result to be used to render the channels visually in the suggestions popup
+        setPopUpChannelLogo(channelInfo.data.data);
+        setSearchText(''); // Then set the search field value back to empty for better UX
+  
+        AddToSearchHistory(search);
+  
+      } else if (!isChannel && search.trim()) { // If search filter is set to video, then search for videos instead
+  
+        setIsSuggestions(false);
+        setChannelsLogos({});
+        setIsLoading(true);
+              
+        const videos = await API.get<VideosResponse>('/youtube/videos', {
+          params: {
+            q: search
+          }
+        })
+  
+        setChannelsLogos(videos.data.channelsLogos);
+        sessionStorage.setItem('channels-logos', JSON.stringify(videos.data.channelsLogos));
+        setVideos(videos.data.videosDetails);
+        sessionStorage.setItem('videos', JSON.stringify(videos.data.videosDetails));
+        setSearchText('');
+  
+        AddToSearchHistory(search);
+  
+        setIsLoading(false);
+      } else if (!search.trim()) { // If the search field is empty
+        handleErrorMessage("Search input can't be an empty value.");
+      }
       
-      //This initial request handles pulling the channel IDs using regular text search keywords rather than handlers or IDs
-      const channelsRequest = await axios.get('https://www.googleapis.com/youtube/v3/search', {
-        params: {
-          part: 'snippet',
-          q: search,
-          key: api_key,
-          maxResults: 4,
-          type: 'channel'
-        }
-      });
-
-      /* 
-        Then we take the ID of the 4 channels return from the previous request and make a new request
-        to pull the channel logo, handler, and name 
-      */
-      const channelInfo = await axios.get('https://www.googleapis.com/youtube/v3/channels', {
-        params: {
-          part: 'snippet',
-          key: api_key,
-          id: channelsRequest.data.items.map((item: ChannelItem) => item.id.channelId).join(',') // We loop through the channels set up the new request to pull up the needed data for all of the returned channels
-        }
-      });
-
-      setIsLoadingChannels(false);
-      // Then we set the response to that final result to be used to render the channels visually in the suggestions popup
-      setPopUpChannelLogo(channelInfo.data);
-      setSearchText(''); // Then set the search field value back to empty for better UX
-
-      AddToSearchHistory(search);
-
-    }
-    // End of logic if the search is for a channel
-
-    // If search filter is set to video, then search for videos instead
-    if (!isChannel && search.trim()) {
-
-      setIsSuggestions(false);
-      setChannelsLogos({});
-      setIsLoading(true);
-            
-      const videosRequest = await axios.get('https://www.googleapis.com/youtube/v3/search', {
-        params: {
-          part: 'snippet',
-          q: search,
-          key: api_key,
-          maxResults: 27,
-          type: 'video'
-        }
-      });
-
-      const channelsLogos = await axios.get('https://www.googleapis.com/youtube/v3/channels', {
-        params: {
-          part: 'snippet',
-          key: api_key,
-          id: videosRequest.data.items.map((item: VideosChannelsItem) => item.snippet.channelId).join(',')
-        }
-      });
-
-      const videosDetails = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
-        params: {
-          part: 'snippet,contentDetails,statistics',
-          key: api_key,
-          id: videosRequest.data.items.map((item: VideosItem) => item.id.videoId).join(',')
-        }
-      });
-
-      setChannelsLogos(channelsLogos.data);
-      sessionStorage.setItem('channels-logos', JSON.stringify(channelsLogos.data));
-      setVideos(videosDetails.data);
-      sessionStorage.setItem('videos', JSON.stringify(videosDetails.data));
-      setSearchText('');
-
-      AddToSearchHistory(search);
-
-      setIsLoading(false);
-    }
-    // If the search field is empty 
-    if (!search.trim()) {
-      handleErrorMessage("Search input can't be an empty value.");
+    } catch (error: any) {
+      handleErrorMessage(error.response?.data?.message);
     }
   }
 

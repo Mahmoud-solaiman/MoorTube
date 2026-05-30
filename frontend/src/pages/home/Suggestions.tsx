@@ -113,11 +113,11 @@ export function Suggestions({
     }
 
     const resetIndex = () => indexRef.current = -1;
-    inputFieldElem?.addEventListener('keyup', handleKeyUp);
+    inputFieldElem?.addEventListener('keydown', handleKeyUp);
     inputFieldElem?.addEventListener('focus', resetIndex);
 
     return () => {
-      inputFieldElem?.removeEventListener('keyup', handleKeyUp); 
+      inputFieldElem?.removeEventListener('keydown', handleKeyUp); 
       inputFieldElem?.removeEventListener('focus', resetIndex);
     }
   }, []);
@@ -136,7 +136,7 @@ export function Suggestions({
               ref={elem => {
                 if (elem) channelsSuggestionsRef.current[index] = elem;
               }}
-              onKeyUp={e => handleNavigation(e, channelsSuggestionsRef, 'channels')}
+              onKeyDown={e => handleNavigation(e, channelsSuggestionsRef, 'channels')}
             >
               <div className="channel-icon-container">
                 <img
@@ -176,7 +176,7 @@ export function Suggestions({
                   key={index}
                   className="search-history-suggestion"
                   tabIndex={0}
-                  onKeyUp={e => handleNavigation(e, searchSuggestionsRef, 'history')}
+                  onKeyDown={e => handleNavigation(e, searchSuggestionsRef, 'history')}
                   ref={elem => {
                     if (elem) searchSuggestionsRef.current[index] = elem
                   }}

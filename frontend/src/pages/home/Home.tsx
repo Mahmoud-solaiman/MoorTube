@@ -56,6 +56,19 @@ export function Home({
     });
   });
 
+  useEffect(() => {
+    const togglePanel = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key).toLocaleLowerCase() === 'p') {
+        e.preventDefault();
+        setTranslate((prev) => !prev);
+      }
+    }
+
+    document.addEventListener('keydown', togglePanel);
+
+    return () => document.removeEventListener('keydown', togglePanel);
+  }, [])
+
   // The JSX of the Home component
   return (
     <>

@@ -4,7 +4,7 @@ export default function LoadingChannels() {
   return (
     <div className="loading-channels-container">
       {
-        Array.from({length: 4}).map((_, index) => {
+        Array.from({length: 5}).map((_, index) => {
           return (
             <div className="loading-channel" key={index}>
               <div className="loading-img"></div>

@@ -32,3 +32,15 @@ export type Note = Document & {
   description?: string;
   backgroundColor?: string;
 }
+
+export type ChannelItem = {
+  id: { kind: string; channelId: string }
+}
+
+export type VideosChannelsItem = {
+  snippet: { channelId: string }
+}
+
+export type VideosItem = {
+  id: { videoId: string }
+}
