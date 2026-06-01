@@ -11,17 +11,16 @@ import Authentication from "./pages/auth/Authentication";
 // The JSX of the App component and the Routes
 export default function App() {
   const modePreferenceStorage = localStorage.getItem('mode-preference');
-  const api_key = import.meta.env.VITE_YOUTUBE_API_KEY //My google console API Key
-  const [ translate, setTranslate ] = useState(false); //The translateY value of the SidePanel
+  const [ translate, setTranslate ] = useState<boolean>(false); //The translateY value of the SidePanel
   const menuContainer = useRef(null); //The reference of the menu container
   const [ discs, setDiscs ] = useState<DiscType[]>([]); //The latest disc list from localStorage
-  const [ errorMessage, setErrorMessage ] = useState(''); //The error message state
-  const [ isErrorMessage, setIsErrorMessage ] = useState(false); //State to render and disrender the error message
-  const [ showErrorMessage, setShowErrorMessage ] = useState<number | undefined>(undefined); //State to handle the setTimeout for disrendering the error message
+  const [ errorMessage, setErrorMessage ] = useState<string>(''); //The error message state
+  const [ isErrorMessage, setIsErrorMessage ] = useState<boolean>(false); //State to render and disrender the error message
+  const [ showErrorMessage, setShowErrorMessage ] = useState<number | undefined>(undefined); //State to handle the setTimeout for unmounting the error message
   const sysPreferences = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const [ isDarkMode, setIsDarkMode ] = useState(modePreferenceStorage ? JSON.parse(modePreferenceStorage) : sysPreferences);
   const [ watchTitle, setWatchTitle ] = useState('Channel Search');
-  const [ poster, setPoster ] = useState('');
+  const [ poster, setPoster ] = useState<string>('');
   const [ videos, setVideos ] = useState<string[]>([]);
   const [ savedVideosDetails, setSavedVideosDetails ] = useState<SavedVideosDetails[] | undefined>(undefined);
   const navigate = useNavigate();
@@ -54,12 +53,24 @@ export default function App() {
       navigate('/register');
     }
   }, [isDarkMode]);
+
+    useEffect(() => {
+      const togglePanel = (e: KeyboardEvent) => {
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key).toLocaleLowerCase() === 'p') {
+          e.preventDefault();
+          setTranslate((prev) => !prev);
+        }
+      }
+  
+      document.addEventListener('keydown', togglePanel);
+  
+      return () => document.removeEventListener('keydown', togglePanel);
+    }, []);
   
   return (
     <Routes>
       <Route path="/home" element={
         <Home
-          api_key={api_key}
           setTranslate={setTranslate}
           translate={translate}
           menuContainer={menuContainer}

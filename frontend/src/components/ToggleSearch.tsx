@@ -40,7 +40,7 @@ export function ToggleSearch({
           toggleSearch(false);
           setWatchTitle('Video Search');
         }}
-        title="Video"
+        title="Shortcut Ctrl+Shift+v"
       > Video </label>
       <input
         defaultChecked
@@ -58,7 +58,7 @@ export function ToggleSearch({
           toggleSearch(true);
           setWatchTitle('Channel Search');
         }}
-        title="Channel"
+        title="Shortcut Ctrl+Shift+c"
       > Channel </label>
     </div>
   );

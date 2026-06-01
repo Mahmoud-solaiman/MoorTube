@@ -90,6 +90,7 @@ export function SavedVideosGrid({
                     handleErrorMessage={handleErrorMessage}
                     videos={videos}
                     setVideos={setVideos}
+                    url={`${import.meta.env.VITE_FRONTEND_URL}/watch?v=${item.id}`}
                   />
                 }
 

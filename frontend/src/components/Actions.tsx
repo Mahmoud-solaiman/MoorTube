@@ -8,7 +8,8 @@ export function Actions({
     setOpenNewAdder, // The state the controls which new disc adder to add
     isOpenTop, // This is the variable that controls whether to show the actions and it's subsequent elements above or below the three dots
     handleErrorMessage,
-    setOpenIndex
+    setOpenIndex,
+    url
   }: ActionsProps) {
 
   // The JSX of the Actions component
@@ -63,13 +64,13 @@ export function Actions({
           </svg>
       </div>
       <div 
-        className="download-btn"
+        className="share-btn"
         onPointerDown={e => {
           actionsContainerRef.current = e.currentTarget.parentElement;
         }}
         onPointerUp={e => {
           e.stopPropagation();
-          handleErrorMessage("This feature isn't available yet...");
+          navigator.share({ url });
           setOpenIndex(undefined);
         }}
       >

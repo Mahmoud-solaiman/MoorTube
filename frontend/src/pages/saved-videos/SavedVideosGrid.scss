@@ -19,7 +19,7 @@
   }
 
   @media (width < 1000px) {
-    height: 55vh;
+    height: auto;
     border-radius: 0;
   }
 }
@@ -34,7 +34,7 @@
   padding: .5em 0;
 
   &:hover {
-    background-color: var(--saved-video-hover);
+    background-color: var(--primary-color-transparent);
   }
 
   &:has(.saved-video-controls-btn > .saved-video-controls:hover) {

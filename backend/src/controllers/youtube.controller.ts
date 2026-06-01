@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Request, Response } from "express"
-import { ChannelItem, VideosChannelsItem, VideosItem } from "../types/types";
+import { ChannelItem, PlaylistInfoItem, VideosChannelsItem, VideosItem } from "../types/types";
 
 export const fetchChannelsData = async (req: Request, res: Response) => {
   try {
@@ -71,11 +71,60 @@ export const fetchVideossData = async (req: Request, res: Response) => {
 
     if (!videosDetails.data) return res.status(500).json({ message: "Something went wrong when attempting to connect to The YouTube API", success: false });
 
-    res.status(200).json({ 
-      message: "Channels were fetched successfully", 
-      success: true, 
+    res.status(200).json({
+      message: "Channels were fetched successfully",
+      success: true,
       videosDetails: videosDetails.data,
       channelsLogos: channelsLogos.data
+    });
+
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong on the server side!", success: false, error });
+  }
+}
+
+export const fetchChannelVideos = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.query;
+
+    // Make request to YouTube API, channels resource, to pull the IDs of the playlist of the last 50 videos uploaded to that particular channel
+    const request = await axios.get('https://www.googleapis.com/youtube/v3/channels', {
+      params: {
+        part: 'contentDetails',
+        key: process.env.YOUTUBE_API_KEY as string,
+        id
+      }
+    });
+
+    if (!request.data) return res.status(500).json({ message: "Something went wrong when attempting to connect to The YouTube API", success: false });
+
+    // Then make a request to the YouTube API, playlistItems resource, to pull the videos of that channel
+    const uploadPlaylistInfo = await axios.get('https://www.googleapis.com/youtube/v3/playlistItems', {
+      params: {
+        key: process.env.YOUTUBE_API_KEY as string,
+        part: 'snippet, contentDetails',
+        playlistId: request.data.items[0].contentDetails.relatedPlaylists.uploads,
+        maxResults: '27'
+      }
+    });
+
+    if (!uploadPlaylistInfo.data) return res.status(500).json({ message: "Something went wrong when attempting to connect to The YouTube API", success: false });
+
+    // Make another request to the YouTube API, videos resource, to pull the duration, view count, and publish time
+    const videoStats = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
+      params: {
+        part: 'snippet,contentDetails,statistics',
+        key: process.env.YOUTUBE_API_KEY as string,
+        id: uploadPlaylistInfo.data.items.map((item: PlaylistInfoItem) => item.contentDetails.videoId).join(',')
+      }
+    });
+
+    if (!videoStats.data) return res.status(500).json({ message: "Something went wrong when attempting to connect to The YouTube API", success: false });
+
+    res.status(200).json({ 
+      message: "Channel videos were fetched successfully", 
+      success: true, 
+      videoStats: videoStats.data
     });
 
   } catch (error) {

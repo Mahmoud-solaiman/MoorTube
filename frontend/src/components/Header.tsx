@@ -11,7 +11,6 @@ export function Header({
   setVideos,
   setChannelVideos,
   setChannelsLogos,
-  api_key,
   setTranslate,
   menuContainer,
   handleErrorMessage,
@@ -145,7 +144,6 @@ export function Header({
             // The Suggestions component
             <Suggestions
               popUpChannelLogo={popUpChannelLogo}
-              apiKey={api_key}
               setIsSuggestions={setIsSuggestions}
               setChannelVideos={setChannelVideos}
               setChannelLogo={setChannelLogo}

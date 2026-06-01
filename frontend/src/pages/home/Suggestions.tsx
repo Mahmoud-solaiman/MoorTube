@@ -1,12 +1,11 @@
-import axios from 'axios'; // Import axios from the axios package
 import './Suggestions.scss'; // Import the style sheet of this component
 import LoadingChannels from '../../components/UI/LoadingChannels';
-import { PlaylistInfoItem, SearchHistory, SuggestionsProps } from '../../types/types';
+import { ChannelVideosResponse, SearchHistory, SuggestionsProps } from '../../types/types';
 import { RefObject, useEffect, useRef } from 'react';
+import API from '../../api/axios';
 
 export function Suggestions({
   popUpChannelLogo,
-  apiKey,
   setIsSuggestions,
   setChannelVideos,
   setChannelLogo,
@@ -30,36 +29,14 @@ export function Suggestions({
     setChannelVideos({});
     setIsLoading(true);
 
-    // Make request to YouTube API, channels resource, to pull the IDs of the playlist of the last 50 videos uploaded to that particular channel
-    const request = await axios.get('https://www.googleapis.com/youtube/v3/channels', {
+    const videos = await API.get<ChannelVideosResponse>('/youtube/channel', {
       params: {
-        part: 'contentDetails',
-        key: apiKey,
         id: popUpChannelLogo.items?.[index].id
       }
-    });
+    })
 
-    // Then make a request to the YouTube API, playlistItems resource, to pull the videos of that channel
-    const uploadPlaylistInfo = await axios.get('https://www.googleapis.com/youtube/v3/playlistItems', {
-      params: {
-        key: apiKey,
-        part: 'snippet, contentDetails',
-        playlistId: request.data.items[0].contentDetails.relatedPlaylists.uploads,
-        maxResults: '27'
-      }
-    });
-
-    // Make another request to the YouTube API, videos resource, to pull the duration, view count, and publish time
-    const videoStats = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
-      params: {
-        part: 'snippet,contentDetails,statistics',
-        key: apiKey,
-        id: uploadPlaylistInfo.data.items.map((item: PlaylistInfoItem) => item.contentDetails.videoId).join(',')
-      }
-    });
-
-    setChannelVideos(videoStats.data); // Set the videos (thumbnail, title, and channel name)
-    sessionStorage.setItem('channel-videos', JSON.stringify(videoStats.data));
+    setChannelVideos(videos.data.videoStats); // Set the videos (thumbnail, title, and channel name)
+    sessionStorage.setItem('channel-videos', JSON.stringify(videos.data.videoStats));
     setChannelLogo(popUpChannelLogo);
     sessionStorage.setItem('channel-logo', JSON.stringify(popUpChannelLogo));
 
@@ -115,6 +92,7 @@ export function Suggestions({
     const resetIndex = () => indexRef.current = -1;
     inputFieldElem?.addEventListener('keydown', handleKeyUp);
     inputFieldElem?.addEventListener('focus', resetIndex);
+    inputFieldElem?.addEventListener('input', () => channelsSuggestionsRef.current = []);
 
     return () => {
       inputFieldElem?.removeEventListener('keydown', handleKeyUp); 

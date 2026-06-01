@@ -96,7 +96,7 @@ export default function Authentication({
 
           <div>
             <label htmlFor="username">Username:</label>
-            <input value={username} onChange={e => setUsername(e.currentTarget.value)} type="text" name="username" id="username" placeholder="Enter a unique MoorTube username" />
+            <input autoFocus value={username} onChange={e => setUsername(e.currentTarget.value)} type="text" name="username" id="username" placeholder="Enter a unique MoorTube username" />
           </div>
 
           {

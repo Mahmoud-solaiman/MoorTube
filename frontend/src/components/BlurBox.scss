@@ -1,4 +1,4 @@
-$resizing-border-size: 10px;
+$resizing-border-size: 12px;
 
 .blur-box-container {
   position: absolute;
@@ -25,16 +25,16 @@ $resizing-border-size: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
     &:active {
       cursor: grabbing;
     }
 
-    &:focus > svg {
+    &:focus>svg {
       opacity: 1;
       pointer-events: all;
     }
-    
+
     svg {
       width: 25px;
       fill: #fff;
@@ -53,34 +53,46 @@ $resizing-border-size: 10px;
     div {
       position: absolute;
       border-radius: 15px;
+      background-color: #fff;
+      height: $resizing-border-size;
+      width: $resizing-border-size;
+      opacity: 0;
+      pointer-events: none;
     }
 
-    .top, .bottom {
+    &:focus div {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    &:focus div:active {
+      background-color: #bebebe;
+    }
+
+    .top,
+    .bottom {
       cursor: n-resize;
     }
 
-    .right, .left {
+    .right,
+    .left {
       cursor: e-resize;
     }
-    
+
     .top {
-      height: $resizing-border-size;
-      inset: 0 0 auto 0;
+      top: calc(-1 * ($resizing-border-size / 2));
     }
-    
+
     .right {
-      inset: 0 0 0 auto;
-      width: $resizing-border-size;
+      right: calc(-1 * ($resizing-border-size / 2));
     }
 
     .bottom {
-      inset: auto 0 0 0;
-      height: $resizing-border-size;
+      bottom: calc(-1 * ($resizing-border-size / 2));
     }
 
     .left {
-      inset: 0 auto 0 0;
-      width: $resizing-border-size;
+      left: calc(-1 * ($resizing-border-size / 2));
     }
   }
 }

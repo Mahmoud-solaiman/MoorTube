@@ -18,11 +18,13 @@
   --watch-panel-bg: rgb(220 220 220);
   --loading-video: rgb(180, 180, 180);
   --disc-panel-bg: rgb(220 220 220 / .5);
+  --header-bg: rgb(255 255 255 / .9);
   color-scheme: dark light;
 }
 
 .darkmode {
   --page-bg: rgb(13, 17, 23);
+  --header-bg: rgb(13 17 23 / .9);
   --text-color: rgb(255, 255, 255);
   --shadow-color: rgb(30, 30, 30);
   --placeholder-color: rgb(180, 180, 180);

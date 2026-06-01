@@ -7,7 +7,6 @@ import type { HomeProps } from  "../../types/types.ts";
 import { VideoGrid } from "../../components/VideoGrid.js";
 
 export function Home({
-    api_key,
     setTranslate,
     translate,
     menuContainer,
@@ -56,19 +55,6 @@ export function Home({
     });
   });
 
-  useEffect(() => {
-    const togglePanel = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key).toLocaleLowerCase() === 'p') {
-        e.preventDefault();
-        setTranslate((prev) => !prev);
-      }
-    }
-
-    document.addEventListener('keydown', togglePanel);
-
-    return () => document.removeEventListener('keydown', togglePanel);
-  }, [])
-
   // The JSX of the Home component
   return (
     <>
@@ -85,7 +71,6 @@ export function Home({
         setVideos={setVideos}
         setChannelVideos={setChannelVideos}
         setChannelsLogos={setChannelsLogos}
-        api_key={api_key}
         setTranslate={setTranslate}
         menuContainer={menuContainer}
         handleErrorMessage={handleErrorMessage}

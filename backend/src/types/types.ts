@@ -44,3 +44,7 @@ export type VideosChannelsItem = {
 export type VideosItem = {
   id: { videoId: string }
 }
+
+export type PlaylistInfoItem = {
+  contentDetails: { videoId: string }
+}

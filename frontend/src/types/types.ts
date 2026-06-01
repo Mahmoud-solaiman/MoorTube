@@ -10,7 +10,6 @@ export type DiscType = {
 }
 
 export type HomeProps = {
-  api_key: string;
   setTranslate(value: boolean | ((value: boolean) => boolean)): void;
   translate: boolean;
   menuContainer: RefObject<HTMLDivElement | null>;
@@ -46,7 +45,6 @@ export type HeaderProps = {
   setVideos(value: unknown): void;
   setChannelVideos(value: unknown): void;
   setChannelsLogos(value: unknown): void;
-  api_key: string;
   setTranslate(value: boolean): void;
   menuContainer: RefObject<HTMLDivElement | null>;
   handleErrorMessage(value: string): void;
@@ -84,9 +82,14 @@ export type VideosResponse = {
   videosDetails: VideosDetails;
 }
 
+export type ChannelVideosResponse = {
+  message: string;
+  success: boolean;
+  videoStats: VideosDetails;
+}
+
 export type SuggestionsProps = {
   popUpChannelLogo: PopUpChannelLogo;
-  apiKey: string;
   setIsSuggestions(value: boolean): void;
   setChannelVideos(value: unknown): void;
   setChannelLogo(value: PopUpChannelLogo): void;
@@ -98,10 +101,6 @@ export type SuggestionsProps = {
   setSearchText(value: string): void;
   setIsLoading(value: boolean): void;
   isLoadingChannels: boolean;
-}
-
-export type PlaylistInfoItem = {
-  contentDetails: { videoId: string }
 }
 
 export type SidePanelProps = {
@@ -202,6 +201,7 @@ export type ActionsProps = {
   isOpenTop: boolean;
   handleErrorMessage(value: string): void;
   setOpenIndex(value: number | undefined): void;
+  url: string;
 }
 
 export type DiscsActionsProps = {
@@ -319,6 +319,7 @@ export type SavedVideosControlsProps = {
   handleErrorMessage(value: string): void;
   videos: string[];
   setVideos(value: string[]): void;
+  url: string;
 }
 
 export type DiscsControlsProps = {
@@ -394,7 +395,7 @@ export type NoteTakersProps = {
   setIsSettings(value: boolean): void;
   setNotes(value: NoteTakerType[]): void;
   notes: NoteTakerType[];
-  setNoteTakers(value: NoteTakerType[]): void;
+  setNoteTakers(value: NoteTakerType[] | ((value: NoteTakerType[]) => NoteTakerType[])): void;
   noteTakers: NoteTakerType[];
 }
 

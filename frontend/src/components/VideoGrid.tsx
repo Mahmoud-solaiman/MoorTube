@@ -146,6 +146,7 @@ export function VideoGrid({
                     isOpenTop={isOpenTop}
                     handleErrorMessage={handleErrorMessage}
                     setOpenIndex={setOpenIndex}
+                    url={`${import.meta.env.VITE_FRONTEND_URL}/watch?v=${item.id}`}
                   />
                 }
                 {

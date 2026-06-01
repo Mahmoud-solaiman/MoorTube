@@ -84,6 +84,22 @@ $bg-color: rgb(13, 17, 23);
       justify-content: space-between;
       align-items: center;
 
+      #edit-field {
+        min-width: 0;
+        max-width: 1fr;
+        height: 35px;
+        padding-inline: .3em;
+        font-size: 1.2rem;
+        background-color: transparent;
+        border: 1px solid #fff;
+        border-radius: 3px;
+        outline: none;
+
+        &:focus {
+          border-color: var(--primary-color);
+        }
+      }
+      
       .note-controls {
         svg {
           padding: .3em;
