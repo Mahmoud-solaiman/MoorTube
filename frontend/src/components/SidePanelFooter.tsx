@@ -8,6 +8,7 @@ export default function SidePanelFooter() {
   const [ username, setUsername ] = useState<string>('');
   const [ isSettings, setIsSettings ] = useState<boolean>(false);
   const settingsBtnRef = useRef<SVGSVGElement>(null);
+  const [ copiedId, setCopiedId ] = useState<number>();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -24,9 +25,10 @@ export default function SidePanelFooter() {
       </div>
       <span onClick={async () => {
         try {
+          clearTimeout(copiedId)
           await navigator.clipboard.writeText(username);
           setIsCopied(true);
-          setTimeout(() => setIsCopied(false), 2000);
+          setCopiedId(setTimeout(() => setIsCopied(false), 2000));
         } catch (error) {
           console.log('something went wrong');
         }

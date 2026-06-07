@@ -131,3 +131,26 @@ export const fetchChannelVideos = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Something went wrong on the server side!", success: false, error });
   }
 }
+
+export const fetchSingleVideo = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id
+    const videosDetails = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
+      params: {
+        part: 'snippet,contentDetails,statistics',
+        key: process.env.YOUTUBE_API_KEY as string,
+        id
+      }
+    });
+
+    if (!videosDetails.data) return res.status(500).json({ message: "Something went wrong when attempting to connect to The YouTube API", success: false });
+
+    res.status(200).json({
+      message: "Video details fetched successfully",
+      success: true,
+      video: videosDetails.data
+    })
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong on the server side!", success: false, error });
+  }
+}

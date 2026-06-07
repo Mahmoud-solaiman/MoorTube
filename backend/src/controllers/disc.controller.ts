@@ -36,7 +36,8 @@ export const fetchSubDiscs = async (req: Request, res: Response) => {
       message: "Subdiscs were fetched successfully",
       success: true,
       discs: subDiscs
-    })
+    });
+
   } catch (error) {
     res.status(500).json({
       message: "Something went wrong on the server side. Try again later",

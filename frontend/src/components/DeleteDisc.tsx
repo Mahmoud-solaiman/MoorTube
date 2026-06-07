@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import type { DiscDeleteProps, DiscsResponse, DiscType, SingleDiscResponse } from '../types/types';
+import type { DiscDeleteProps, SingleDiscResponse } from '../types/types';
 import './DeleteDisc.scss'; // Import the style sheet of this component
 import API from '../api/axios';
 

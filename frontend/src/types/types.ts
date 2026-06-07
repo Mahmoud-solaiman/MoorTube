@@ -183,6 +183,12 @@ type VideosDetails = {
   }]
 }
 
+export type VideoResponse = {
+  message: string;
+  success: boolean;
+  video: VideosDetails;
+}
+
 export type VideoGridProps = {
   channelLogo: ChannelsLogos;
   videos: VideosDetails;
@@ -239,7 +245,7 @@ export type SavedVideosProps = {
   setWatchTitle(value: string): void;
   setPoster(value: string): void;
   savedVideosDetails: SavedVideosDetails[] | undefined;
-  setSavedVideosDetails(value: SavedVideosDetails[] | undefined): void;
+  setSavedVideosDetails(value: SavedVideosDetails[] | ((value: SavedVideosDetails[] | undefined) => SavedVideosDetails[] | undefined)): void;
   videos: string[];
   setVideos(value: string[]): void;
 }
@@ -248,7 +254,6 @@ export type SavedVideosHeaderProps = {
   discName?: string;
   setTranslate(value: boolean): void;
   menuContainer: RefObject<HTMLDivElement | null>;
-  isDarkMode: boolean;
 }
 
 export type SavedVideosDetails = {
@@ -292,20 +297,29 @@ export type SavedVideosDetailsResponse = {
   disc: DiscType;
 }
 
+export type SubDiscsResponse = {
+  message: string;
+  success: boolean;
+  discs: DiscType[];
+}
+
 export type SavedVideosPanelProps = {
   discName: string;
   savedVideosDetails: SavedVideosDetails[] | undefined;
   setPoster(value: string | undefined): void;
+  subDiscs: DiscType[];
 }
 
 export type SavedVideosGridProps = {
   savedVideosDetails: SavedVideosDetails[] | undefined;
-  setSavedVideosDetails(value: SavedVideosDetails[]): void;
+  setSavedVideosDetails(value: SavedVideosDetails[] | ((value: SavedVideosDetails[] | undefined) => SavedVideosDetails[] | undefined)): void;
   handleErrorMessage(value: string): void;
   setPoster(value: string): void;
   layout: 'saved-videos' | 'watch-panel';
   videos: string[];
-  setVideos(value: string[]): void;
+  setVideos(value: string[] | ((value: string[]) => string[])): void;
+  subDiscs: DiscType[];
+  setSubDiscs(value: DiscType[] | ((value: DiscType[]) => DiscType[])): void;
 }
 
 export type SavedVideosControlsProps = {
@@ -330,7 +344,7 @@ export type DiscsControlsProps = {
   handleErrorMessage(value: string): void;
 }
 
-export type WatchProps = Omit<SavedVideosGridProps, 'setVideos' | 'setDiscName' | 'setTranslate' | 'setIsSpinner'> & {
+export type WatchProps = Omit<SavedVideosGridProps, 'setVideos' | 'setDiscName' | 'setTranslate' | 'setIsSpinner' | 'setSubDiscs' | 'subDiscs'> & {
   setTranslate(value: boolean): void;
   menuContainer: RefObject<HTMLDivElement | null>
   isDarkMode: boolean;
@@ -347,7 +361,7 @@ export type WatchProps = Omit<SavedVideosGridProps, 'setVideos' | 'setDiscName' 
   setVideos(value: string[]): void;
 }
 
-export type WatchPanelProps = SavedVideosGridProps & {
+export type WatchPanelProps = Omit<SavedVideosGridProps, 'subDiscs' | 'setSubDiscs'> & {
   setDiscs(value: DiscType[]): void;
 };
 
@@ -470,3 +484,20 @@ export type SettingsProps = {
   setIsSettings(value: boolean): void;
   settingsBtnRef: RefObject<SVGSVGElement | null>;
 }
+
+export interface SubDiscProps extends React.ComponentPropsWithoutRef<"div">{
+  title: string;
+  videosCount: number;
+  id: string;
+  latestVideo: string;
+}
+
+export interface NewSubDiscProps {
+  setIsAddSubdisc(value: boolean | ((value: boolean) => boolean)): void;
+  setSubDiscs(value: DiscType[] | ((value: DiscType[]) => DiscType[])): void;
+  handleErrorMessage(value: string): void
+}
+
+export type SingleSubdiscResponse = Omit<SubDiscsResponse, 'discs'> & {
+  disc: DiscType;
+} 

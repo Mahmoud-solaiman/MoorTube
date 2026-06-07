@@ -6,6 +6,7 @@ import { VideoPlayer } from './VideoPlayer';
 import WatchPanel from './WatchPanel';
 import { WatchProps } from '../../types/types';
 import { Activity, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function Watch({
   setTranslate,
@@ -28,9 +29,20 @@ export function Watch({
   videos,
   setVideos
 }: WatchProps) {
+  const navigator = useNavigate();
 
   useEffect(() => {
     document.title = `MoorTube | Watch | ${watchTitle}`;
+
+    const navigateToHome = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        navigator('/home');
+      }
+    }
+
+    document.addEventListener('keyup', navigateToHome);
+
+    return () => document.removeEventListener('keyup', navigateToHome);
   }, []);
   
   return (
@@ -43,7 +55,6 @@ export function Watch({
         discName={watchTitle}
         setTranslate={setTranslate}
         menuContainer={menuContainer}
-        isDarkMode={isDarkMode}
       />
 
       <div className="player-videos-container">

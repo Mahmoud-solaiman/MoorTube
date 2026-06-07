@@ -1,0 +1,26 @@
+{
+  "name": "moortube",
+  "version": "1.0.0",
+  "description": "MoorTube is a digital solution platform that builds on the YouTube API to introduce new powerful features to empower next generation of YouTube video players.",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "server": "npm run dev --prefix backend",
+    "client": "npm run dev --prefix frontend",
+    "start": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mahmoud-solaiman/moortube.git"
+  },
+  "keywords": [],
+  "author": "Mahmoud Solaiman",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Mahmoud-solaiman/moortube/issues"
+  },
+  "homepage": "https://github.com/Mahmoud-solaiman/moortube#readme"
+}

@@ -10,6 +10,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  perspective: 1000px;
 }
 
 .delete-popup {
@@ -21,6 +22,19 @@
   flex-direction: column;
   justify-content: space-between;
   border-radius:7px;
+  transform-style: preserve-3d;
+  animation: delete-popup .15s linear;
+}
+
+@keyframes delete-popup {
+  from {
+    transform: rotateX(50deg) translateY(-50%);
+    opacity: 0;
+  }
+  to {
+    transform: rotateX(0) translateY(0);
+    opacity: 1;    
+  }  
 }
 
 .delete-question {
@@ -38,7 +52,8 @@
     font-size:1.2rem;
     transition: .15s linear;
     cursor:pointer;
-    padding:.3em .7em;
+    padding-block:.3em;
+    width: 70px;
     border-radius:7px;
     color: #fff;
 
@@ -48,10 +63,10 @@
   }
 
   .yes-btn {
-    background-color:darkred;
+    background-color: var(--bin-hover-bg);
   }
 
   .no-btn {
-    background-color: darkgreen;
+    background-color: var(--primary-color);
   }
 }

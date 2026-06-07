@@ -5,9 +5,9 @@ import { Activity, useEffect, useRef, useState } from 'react';
 import { SavedVideosGrid } from './SavedVideosGrid';
 import { SidePanel } from '../../components/SidePanel';
 import { ErrorMessage } from '../../components/ErrorMessage';
-import { SavedVideosDetailsResponse, SavedVideosProps } from '../../types/types';
+import { DiscType, SavedVideosDetailsResponse, SavedVideosProps, SubDiscsResponse } from '../../types/types';
 import API from '../../api/axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../../components/UI/Spinner';
 
 export function SavedVideos({
@@ -31,20 +31,26 @@ export function SavedVideos({
   const menuContainer = useRef(null);
   const [ discName, setDiscName ] = useState<string>('');
   const [ isSpinner, setIsSpinner ] = useState<boolean>(false);
+  const [ subDiscs, setSubDiscs ] = useState<DiscType[]>([]);
   const id = useParams().id;
+  const navigator = useNavigate();
 
   useEffect(() => {
     try {
-      const fetchSavedVideos = async () => {
+      const fetchDiscData = async () => {
         setIsSpinner(true);
         const videos = await API.get<SavedVideosDetailsResponse>(`/discs/${id}`);
         setSavedVideosDetails(videos.data.videos.items);
         setDiscName(videos.data.disc.name);
         setVideos(videos.data.disc.videos);
+
+        const subDiscs = await API.get<SubDiscsResponse>(`/discs/subdiscs/${id}`);
+
+        setSubDiscs(subDiscs.data.discs);
         setIsSpinner(false);
         document.title = `MoorTube | Disc | ${videos.data.disc.name}`;
       }
-      fetchSavedVideos();
+      fetchDiscData();
       
     } catch (error: any) {
       const errorMessage = error.response?.data.message || "Server error. Please, try again later!";
@@ -54,6 +60,18 @@ export function SavedVideos({
     setTranslate(false);
 
   }, [id]);
+
+  useEffect(() => {
+    const navigateToHome = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        navigator('/home');
+      }
+    }
+
+    document.addEventListener('keyup', navigateToHome);
+
+    return () => document.removeEventListener('keyup', navigateToHome);
+  }, []);
   
   return (
     <div className="saved-videos-container">
@@ -64,20 +82,20 @@ export function SavedVideos({
       <SavedVideosHeader
         setTranslate={setTranslate} 
         menuContainer={menuContainer}
-        isDarkMode={isDarkMode}
       />
 
       {
         isSpinner 
         ? <Spinner />
-        : <div className={(savedVideosDetails && savedVideosDetails.length )? "saved-videos" : "saved-videos empty"}>
+        : <div className={((savedVideosDetails && savedVideosDetails.length) || (subDiscs && subDiscs.length)) ? "saved-videos" : "saved-videos empty"}>
           {
-            (savedVideosDetails && savedVideosDetails.length) ? 
+            ((savedVideosDetails && savedVideosDetails.length) || (subDiscs && subDiscs.length)) ? 
               <>
                 <SavedVideosPanel
                   discName={discName}
                   savedVideosDetails={savedVideosDetails} 
                   setPoster={setPoster}
+                  subDiscs={subDiscs}
                 />
 
                 <SavedVideosGrid 
@@ -88,6 +106,8 @@ export function SavedVideos({
                   layout="saved-videos"
                   videos={videos}
                   setVideos={setVideos}
+                  subDiscs={subDiscs}
+                  setSubDiscs={setSubDiscs}
                 />
               </> 
               : "This disc seems to have no videos."

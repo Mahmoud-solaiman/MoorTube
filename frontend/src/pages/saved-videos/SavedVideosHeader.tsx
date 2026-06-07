@@ -5,10 +5,8 @@ import { useEffect, useState } from 'react';
 import API from '../../api/axios';
 
 export function SavedVideosHeader({ 
-    discName, 
     setTranslate, 
-    menuContainer, 
-    isDarkMode
+    menuContainer
   }: SavedVideosHeaderProps) {
     const [ searchParams ] = useSearchParams();
     const discId = searchParams.get('discId');
@@ -26,7 +24,7 @@ export function SavedVideosHeader({
         }
       }
       fetchDisc();
-    }, []);
+    }, [id, discId]);
   return (
     <header className="saved-videos-header">
       <div className="logo-menu-container">
@@ -53,7 +51,7 @@ export function SavedVideosHeader({
       </div>
 
       <h1 className="disc-name-title">
-        {discTitle || discName}
+        {discTitle}
       </h1>
     </header>
   );
