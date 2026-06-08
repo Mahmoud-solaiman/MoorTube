@@ -490,6 +490,7 @@ export interface SubDiscProps extends React.ComponentPropsWithoutRef<"div">{
   videosCount: number;
   id: string;
   latestVideo: string;
+   setSubDiscs(value: DiscType[] | ((value: DiscType[]) => DiscType[])): void;
 }
 
 export interface NewSubDiscProps {
@@ -501,3 +502,10 @@ export interface NewSubDiscProps {
 export type SingleSubdiscResponse = Omit<SubDiscsResponse, 'discs'> & {
   disc: DiscType;
 } 
+
+export interface SubDiscControlsProps {
+  setIsControls(value: boolean): void;
+  controlsBtnRef: RefObject<HTMLDivElement | null>;
+  subdiscId: string;
+  setSubDiscs(value: DiscType[] | ((value: DiscType[]) => DiscType[])): void;
+}

@@ -29,6 +29,7 @@ export function SavedVideosGrid({
   const [searchParams] = useSearchParams();
   const discId = useParams().id;
   const videoId = useRef<string>('');
+  const subdiscId = useRef<string>('');
 
   return (
     <section className={`saved-videos-grid ${layout === 'watch-panel' && "watch-panel-videos"}`}>
@@ -162,54 +163,64 @@ export function SavedVideosGrid({
                 return (
                   <SubDisc
                     title={subDisc.name}
+                    setSubDiscs={setSubDiscs}
                     key={subDisc._id}
                     videosCount={subDisc.videos.length}
                     id={subDisc._id}
                     latestVideo={subDisc.videos[0]}
                     draggable
+                    onPointerDown={() => subdiscId.current = subDisc._id}
                     onDragOver={e => {
                       e.preventDefault();
                     }}
                     onDrop={async () => {
-                      const isVideo = subDisc.videos.find(item => item === videoId.current);
-
-                      if (!isVideo) {
-                        if (videoId.current) {
-                          setSavedVideosDetails(
-                            prev => {
-                              if (prev) return prev.filter(item => item.id !== videoId.current);
-                            }
-                          );
-
-                          const updatedVideos: string[] = videos.filter(item => item !== videoId.current);
-                          setVideos(prev => prev.filter(item => item !== videoId.current));
-
-                          await API.put(`/discs/update/${discId}`, {
-                            videos: updatedVideos
-                          });
-
-                          await API.put(`/discs/update/${subDisc._id}`, {
-                            videos: [videoId.current, ...subDisc.videos]
-                          });
-
-
-                          const updatedSubDiscs: DiscType[] = subDiscs.map(item => {
-                            if (item._id === subDisc._id) {
-                              item.videos = [videoId.current, ...subDisc.videos];
+                      
+                      if (videoId.current) {
+                          const isVideo = subDisc.videos.find(item => item === videoId.current);
+                          if (!isVideo) {
+                            setSavedVideosDetails(
+                              prev => {
+                                if (prev) return prev.filter(item => item.id !== videoId.current);
+                              }
+                            );
+  
+                            const updatedVideos: string[] = videos.filter(item => item !== videoId.current);
+                            setVideos(prev => prev.filter(item => item !== videoId.current));
+  
+                            await API.put(`/discs/update/${discId}`, {
+                              videos: updatedVideos
+                            });
+  
+                            await API.put(`/discs/update/${subDisc._id}`, {
+                              videos: [videoId.current, ...subDisc.videos]
+                            });
+  
+  
+                            const updatedSubDiscs: DiscType[] = subDiscs.map(item => {
+                              if (item._id === subDisc._id) {
+                                item.videos = [videoId.current, ...subDisc.videos];
+                                return item;
+                              }
+  
                               return item;
-                            }
-
-                            return item;
-                          });
-
-                          setSubDiscs(updatedSubDiscs);
+                            });
+  
+                            setSubDiscs(updatedSubDiscs);
+                          } else {
+                            handleErrorMessage('Video already exists in this subdisc.');
+                          }
                         }
 
-                      } else {
-                        handleErrorMessage('Video already exists in this subdisc.');
-                      }
+                        if (subdiscId.current && subdiscId.current !== subDisc._id) {
+                          await API.put(`/discs/update/${subdiscId.current}`, {
+                            parentId: subDisc._id,
+                            ancestors: [...subDisc.ancestors, subDisc._id]
+                          });
 
+                          setSubDiscs(prev => prev.filter(item => item._id !== subdiscId.current));
+                        } 
                       videoId.current = '';
+                      subdiscId.current = '';
                     }}
                   />
                 );

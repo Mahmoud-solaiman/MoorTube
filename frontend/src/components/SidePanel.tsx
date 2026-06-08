@@ -5,7 +5,6 @@ import type { DiscsResponse, SidePanelProps, SingleDiscResponse } from '../types
 import API from '../api/axios';
 import LoadingDiscs from './UI/LoadingDiscs';
 import SidePanelFooter from './SidePanelFooter';
-import { useParams } from 'react-router-dom';
 
 export function SidePanel({
   setTranslate,
@@ -23,27 +22,18 @@ export function SidePanel({
   const deleteConfirmationRef = useRef<HTMLElement | null>(null);
   const addDiscField = useRef<HTMLInputElement | null>(null);
   const [ isLoadingDiscs, setIsLoadingDiscs ] = useState<boolean>(false);
-  const discId = useParams().id;
 
   //The function that handles adding a new disc to the current discs
   const addDisc = async (value: string) => {
     try {
       if (value.trim().length < 5) return handleErrorMessage('Disc name must at least be 5 characters.');
 
-      if(discId) {
-        const newDisc: SingleDiscResponse = await API.post('/discs/create', {
-          name: value.trim(),
-          parentId: discId
-        });  
-        discs ? setDiscs([...discs, newDisc.data.disc]) : setDiscs([newDisc.data.disc]);
+      const newDisc: SingleDiscResponse = await API.post('/discs/create', {
+        name: value.trim()
+      });
+      discs ? setDiscs([...discs, newDisc.data.disc]) : setDiscs([newDisc.data.disc]);
 
-      } else {
-        const newDisc: SingleDiscResponse = await API.post('/discs/create', {
-          name: value.trim()
-        });
-        discs ? setDiscs([...discs, newDisc.data.disc]) : setDiscs([newDisc.data.disc]);
-      }
-      setDiscFieldValue('');
+        setDiscFieldValue('');
     } catch (error: any) {
       handleErrorMessage(error.response?.data?.message);
     }

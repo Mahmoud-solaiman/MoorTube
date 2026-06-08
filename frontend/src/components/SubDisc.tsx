@@ -1,18 +1,22 @@
 import { useNavigate } from 'react-router-dom';
 import { SubDiscProps, VideoResponse } from '../types/types';
 import './SubDisc.scss';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import API from '../api/axios';
+import SubDiscControls from './SubDiscControls';
 
 export default function SubDisc({
   title,
   videosCount,
+  setSubDiscs,
   id,
   latestVideo,
   ...rest
 }: SubDiscProps) {
   const navigator = useNavigate();
   const [ thumbnail, setThumbnail ] = useState<string>('');
+  const [ isControls, setIsControls ] = useState<boolean>(false);
+  const controlsBtnRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchVideo = async () => {
@@ -59,13 +63,24 @@ export default function SubDisc({
         </div>
       </div>
 
-      <div className="subdisc-control-btn">
+      <div className="subdisc-control-btn" ref={controlsBtnRef}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 640 640"
+          onClick={() => setIsControls(!isControls)}
         >
           <path d="M320 208C289.1 208 264 182.9 264 152C264 121.1 289.1 96 320 96C350.9 96 376 121.1 376 152C376 182.9 350.9 208 320 208zM320 432C350.9 432 376 457.1 376 488C376 518.9 350.9 544 320 544C289.1 544 264 518.9 264 488C264 457.1 289.1 432 320 432zM376 320C376 350.9 350.9 376 320 376C289.1 376 264 350.9 264 320C264 289.1 289.1 264 320 264C350.9 264 376 289.1 376 320z" />
         </svg>
+
+        {
+          isControls &&
+          <SubDiscControls 
+            setIsControls={setIsControls}
+            controlsBtnRef={controlsBtnRef}
+            subdiscId={id}
+            setSubDiscs={setSubDiscs}
+          />
+        }
       </div>
     </div>
   );

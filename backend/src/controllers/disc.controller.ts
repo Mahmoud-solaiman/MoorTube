@@ -125,8 +125,11 @@ export const updateDisc = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
     const userId = req.userId;
-    const { name, videos, parentId } = req.body;
-    if (!name && !videos) return res.status(400).json({ message: "No new info for updating disc. Please, try again!", success: false });
+    const { name, parentId } = req.body;
+    if (!req.body) return res.status(400).json({ 
+      message: "No new info for updating disc. Please, try again!", 
+      success: false 
+    });
 
     if (name) {
       const isDisc = await DiscModel.findOne({ $and: [{ name }, { user: userId }, { parentId }]});

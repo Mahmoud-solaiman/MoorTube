@@ -23,7 +23,7 @@
   height:35px;
   padding:0 .4em;
   font-size: 1rem;
-  border: 1px solid var(--text-color);
+  border: 2px solid var(--text-color);
   border-radius: 3px;
   background-color: var(--page-bg);
   color: var(--text-color);
@@ -46,7 +46,8 @@
     border: none;
     font-size: 1.1rem;
     font-weight: 600;
-    padding:.4em .8em;
+    padding-block: .3em;
+    width: 80px;
     color: var(--text-color);
     background-color: var(--saved-video-hover);
     border-radius:5px;
@@ -56,6 +57,14 @@
     &:hover {
       opacity:.85;
     }
+  }
+
+  button:first-child {
+    background-color: var(--bin-hover-bg);
+  }
+
+  button:last-child {
+    background-color: var(--primary-color);
   }
 }
 

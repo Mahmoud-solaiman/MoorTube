@@ -21,6 +21,10 @@
     background-color: var(--primary-color-transparent);
   }
 
+  &:has(.subdisc-control-btn > .subdisc-controls > .control:hover) {
+    background-color: initial;
+  }
+
   .dragging-icon {
     fill: var(--text-color);
   }
@@ -70,6 +74,10 @@
         margin-block-end: .5rem;
       }
     }
+  }
+
+  .subdisc-control-btn {
+    position: relative;
   }
 
   .subdisc-control-btn > svg {

@@ -61,6 +61,8 @@
   height:100%;
   object-fit: cover;
   border-radius:12px;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .video-info {
@@ -75,6 +77,8 @@
   img {
     width:40px;
     border-radius:50%;
+    -webkit-user-select: none;
+    user-select: none;
   }
 }
 

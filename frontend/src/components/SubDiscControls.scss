@@ -1,0 +1,54 @@
+.subdisc-controls {
+  position: absolute;
+  inset: 25px 20px auto auto;
+  width: 200px;
+  padding-block: .2em;
+  border-radius: 5px;
+  box-shadow: 3px 3px 10px rgb(0, 0, 0);
+  background-color: var(--suggestions-bg);
+  z-index: 10;
+  padding-block: .3em;
+  animation: controls .15s linear;
+
+  .control {
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    cursor: pointer;
+    padding: .3em .2em;
+    border-radius: 7px;
+
+    &:hover {
+      background-color: var(--primary-color-transparent);
+    }
+    svg {
+      width: 20px;
+      fill: #fff;
+    }
+
+    span {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+  }
+  
+  .control:first-child:hover {
+    background-color: var(--red-color-danger-hover);
+    color: var(--red-color-danger);
+    svg {
+      fill: var(--red-color-danger);
+    }
+  }
+}
+
+@keyframes controls {
+  from {
+    transform: translateY(30%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
