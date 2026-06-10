@@ -1,26 +1,17 @@
 import { SavedVideosHeader } from '../saved-videos/SavedVideosHeader';
-import { SidePanel } from '../../components/SidePanel';
-import { ErrorMessage } from '../../components/ErrorMessage';
 import './Watch.scss';
 import { VideoPlayer } from './VideoPlayer';
 import WatchPanel from './WatchPanel';
 import { WatchProps } from '../../types/types';
-import { Activity, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export function Watch({
   setTranslate,
   menuContainer,
-  isDarkMode,
-  translate,
-  discs,
   setDiscs,
   handleErrorMessage,
-  setIsDarkMode,
-  isErrorMessage,
-  errorMessage,
   watchTitle,
-  setWatchTitle,
   poster,
   savedVideosDetails,
   setSavedVideosDetails,
@@ -47,10 +38,6 @@ export function Watch({
   
   return (
     <>
-      {
-        isErrorMessage &&
-        <ErrorMessage errorMessage={errorMessage} />
-      }
       <SavedVideosHeader
         discName={watchTitle}
         setTranslate={setTranslate}
@@ -71,18 +58,6 @@ export function Watch({
           setVideos={setVideos}
         />
       </div>
-      <Activity mode={translate ? "visible" : "hidden"}>
-        <SidePanel
-          setTranslate={setTranslate}
-          menuContainer={menuContainer}
-          discs={discs}
-          setDiscs={setDiscs}
-          handleErrorMessage={handleErrorMessage}
-          isDarkMode={isDarkMode}
-          setIsDarkMode={setIsDarkMode}
-          setWatchTitle={setWatchTitle}
-        />
-      </Activity>
     </>
   );
 }

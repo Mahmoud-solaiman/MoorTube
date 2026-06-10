@@ -23,12 +23,12 @@
     }
     svg {
       width: 20px;
-      fill: #fff;
+      fill: var(--text-color);
     }
 
     span {
       font-size: 1.2rem;
-      font-weight: 700;
+      font-weight: 500;
     }
   }
   

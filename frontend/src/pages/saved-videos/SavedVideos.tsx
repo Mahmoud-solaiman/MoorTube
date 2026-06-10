@@ -1,10 +1,8 @@
 import './SavedVideos.scss';
 import { SavedVideosHeader } from './SavedVideosHeader';
 import { SavedVideosPanel } from './SavedVideosPanel';
-import { Activity, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { SavedVideosGrid } from './SavedVideosGrid';
-import { SidePanel } from '../../components/SidePanel';
-import { ErrorMessage } from '../../components/ErrorMessage';
 import { DiscType, SavedVideosDetailsResponse, SavedVideosProps, SubDiscsResponse } from '../../types/types';
 import API from '../../api/axios';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -12,15 +10,7 @@ import Spinner from '../../components/UI/Spinner';
 
 export function SavedVideos({
   setTranslate,
-  translate,
-  discs,
-  setDiscs,
   handleErrorMessage,
-  isDarkMode,
-  setIsDarkMode,
-  errorMessage,
-  isErrorMessage,
-  setWatchTitle,
   setPoster,
   savedVideosDetails,
   setSavedVideosDetails,
@@ -35,6 +25,7 @@ export function SavedVideos({
   const id = useParams().id;
   const navigator = useNavigate();
 
+  console.log(subDiscs);
   useEffect(() => {
     try {
       const fetchDiscData = async () => {
@@ -75,10 +66,6 @@ export function SavedVideos({
   
   return (
     <div className="saved-videos-container">
-      {
-        isErrorMessage &&
-        <ErrorMessage errorMessage={errorMessage}/>
-      }
       <SavedVideosHeader
         setTranslate={setTranslate} 
         menuContainer={menuContainer}
@@ -114,18 +101,6 @@ export function SavedVideos({
           }  
         </div>
       }
-            <Activity mode={translate ? "visible" : "hidden"}>
-              <SidePanel
-                setTranslate={setTranslate}
-                menuContainer={menuContainer}
-                discs={discs}
-                setDiscs={setDiscs}
-                handleErrorMessage={handleErrorMessage}
-                isDarkMode={isDarkMode}
-                setIsDarkMode={setIsDarkMode}
-                setWatchTitle={setWatchTitle}
-              />
-            </Activity>
 
     </div>
   );

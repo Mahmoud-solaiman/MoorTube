@@ -5,7 +5,7 @@
 .saved-video-controls {
   position: absolute;
   inset: 25px 20px auto auto;
-  width: 300px;
+  width: 220px;
   padding-block: .2em;
   border-radius: 5px;
   box-shadow: 3px 3px 10px rgb(0, 0, 0);
@@ -19,8 +19,8 @@
 
   .control {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: .2rem;
     cursor: pointer;
     padding: .3em .5em;
     font-size: .96rem;
@@ -29,15 +29,25 @@
     &:active {
       background-color: var(--primary-color-transparent);
     }
+
     
     @media (hover: hover) {
       &:hover {
         background-color: var(--primary-color-transparent);
       }
+
+      &:first-child:hover {
+        background-color: var(--red-color-danger-hover);
+        color: var(--red-color-danger);
+
+        svg {
+          fill: var(--red-color-danger);
+        }
+      }
     }
 
     svg {
-      width: 27px;
+      width: 20px;
       fill: var(--text-color);
     }
   }

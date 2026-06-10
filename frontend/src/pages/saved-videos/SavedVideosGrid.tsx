@@ -2,7 +2,7 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { handleDuration, handleViewCount, youtubeTimeAgo } from '../../../utils/formatting';
 import './SavedVideosGrid.scss';
 import SavedVideoControls from './SavedVideoControls';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import DiscsControls from './DiscsControls';
 import { DiscType, SavedVideosGridProps } from '../../types/types';
 import SubDisc from '../../components/SubDisc';
@@ -31,6 +31,20 @@ export function SavedVideosGrid({
   const videoId = useRef<string>('');
   const subdiscId = useRef<string>('');
 
+  
+  useEffect(() => {
+    const toggleAddSubdisc = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.altKey && (e.key).toLowerCase() === 'n') {
+        e.preventDefault();
+        setIsAddSubdisc(prev => !prev);
+      }
+    }
+
+    document.addEventListener('keydown', toggleAddSubdisc);
+
+    return () => document.removeEventListener('keydown', toggleAddSubdisc);
+  }, []);
+
   return (
     <section className={`saved-videos-grid ${layout === 'watch-panel' && "watch-panel-videos"}`}>
       {
@@ -41,6 +55,7 @@ export function SavedVideosGrid({
             viewBox="0 0 640 640"
             onClick={() => setIsAddSubdisc(true)}
           >
+            <title>Shortcut: Ctrl+Alt+n</title>
             <path d="M352 128C352 110.3 337.7 96 320 96C302.3 96 288 110.3 288 128L288 288L128 288C110.3 288 96 302.3 96 320C96 337.7 110.3 352 128 352L288 352L288 512C288 529.7 302.3 544 320 544C337.7 544 352 529.7 352 512L352 352L512 352C529.7 352 544 337.7 544 320C544 302.3 529.7 288 512 288L352 288L352 128z" />
           </svg>
         </header>
@@ -51,6 +66,7 @@ export function SavedVideosGrid({
           setIsAddSubdisc={setIsAddSubdisc}
           setSubDiscs={setSubDiscs}
           handleErrorMessage={handleErrorMessage}
+          type="new"
         />
       }
 
@@ -164,6 +180,7 @@ export function SavedVideosGrid({
                   <SubDisc
                     title={subDisc.name}
                     setSubDiscs={setSubDiscs}
+                    handleErrorMessage={handleErrorMessage}
                     key={subDisc._id}
                     videosCount={subDisc.videos.length}
                     id={subDisc._id}

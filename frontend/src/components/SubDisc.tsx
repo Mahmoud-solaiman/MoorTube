@@ -4,6 +4,7 @@ import './SubDisc.scss';
 import { useEffect, useRef, useState } from 'react';
 import API from '../api/axios';
 import SubDiscControls from './SubDiscControls';
+import NewSubDisc from './NewSubDisc';
 
 export default function SubDisc({
   title,
@@ -11,12 +12,14 @@ export default function SubDisc({
   setSubDiscs,
   id,
   latestVideo,
+  handleErrorMessage,
   ...rest
 }: SubDiscProps) {
   const navigator = useNavigate();
   const [ thumbnail, setThumbnail ] = useState<string>('');
   const [ isControls, setIsControls ] = useState<boolean>(false);
   const controlsBtnRef = useRef<HTMLDivElement>(null);
+  const [ isEditSubdisc, setIsEditSubdisc ] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchVideo = async () => {
@@ -46,6 +49,17 @@ export default function SubDisc({
       className="subdisc"
       {...rest}
     >
+      {
+        isEditSubdisc &&
+        <NewSubDisc 
+          setSubDiscs={setSubDiscs}
+          type="edit"
+          subdiscId={id}
+          handleErrorMessage={handleErrorMessage}
+          setIsEditSubdisc={setIsEditSubdisc}
+          currentName={title}
+        />
+      }
       <div className="dragging-icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
           <path d="M128 352C110.3 352 96 366.3 96 384C96 401.7 110.3 416 128 416L512 416C529.7 416 544 401.7 544 384C544 366.3 529.7 352 512 352L128 352zM128 224C110.3 224 96 238.3 96 256C96 273.7 110.3 288 128 288L512 288C529.7 288 544 273.7 544 256C544 238.3 529.7 224 512 224L128 224z"/>
@@ -79,6 +93,7 @@ export default function SubDisc({
             controlsBtnRef={controlsBtnRef}
             subdiscId={id}
             setSubDiscs={setSubDiscs}
+            setIsEditSubdisc={setIsEditSubdisc}
           />
         }
       </div>

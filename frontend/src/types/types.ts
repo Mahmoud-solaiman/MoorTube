@@ -16,10 +16,6 @@ export type HomeProps = {
   discs: DiscType[];
   setDiscs(value: DiscType[]): void;
   handleErrorMessage(value: string): void;
-  isErrorMessage: boolean;
-  errorMessage: string;
-  isDarkMode: boolean;
-  setIsDarkMode(value: boolean): void;
   setWatchTitle(value: string): void;
   setPoster(value: string): void;
 }
@@ -223,7 +219,6 @@ export type DiscsActionsProps = {
 
 export type AddNewDiscProps = {
   newAdderContainerRef: RefObject<HTMLElement | null>
-  setDiscs(value: DiscType[]): void;
   setOpenIndex(value: number | undefined): void;
   setOpenNewAdder(value: number | null): void;
   setTranslate(value: boolean): void;
@@ -234,15 +229,7 @@ export type AddNewDiscProps = {
 
 export type SavedVideosProps = {
   setTranslate(value: boolean): void;
-  translate: boolean;
-  discs: DiscType[];
-  setDiscs(value: DiscType[]): void;
   handleErrorMessage(value: string): void;
-  isDarkMode: boolean;
-  setIsDarkMode(value: boolean): void;
-  errorMessage: string;
-  isErrorMessage: boolean;
-  setWatchTitle(value: string): void;
   setPoster(value: string): void;
   savedVideosDetails: SavedVideosDetails[] | undefined;
   setSavedVideosDetails(value: SavedVideosDetails[] | ((value: SavedVideosDetails[] | undefined) => SavedVideosDetails[] | undefined)): void;
@@ -347,16 +334,9 @@ export type DiscsControlsProps = {
 export type WatchProps = Omit<SavedVideosGridProps, 'setVideos' | 'setDiscName' | 'setTranslate' | 'setIsSpinner' | 'setSubDiscs' | 'subDiscs'> & {
   setTranslate(value: boolean): void;
   menuContainer: RefObject<HTMLDivElement | null>
-  isDarkMode: boolean;
-  translate: boolean;
-  discs: DiscType[];
   setDiscs(value: DiscType[]): void;
   handleErrorMessage(value: string): void;
-  setIsDarkMode(value: boolean): void;
-  isErrorMessage: boolean;
-  errorMessage: string;
   watchTitle: string;
-  setWatchTitle(value: string): void;
   poster: string;
   setVideos(value: string[]): void;
 }
@@ -449,9 +429,7 @@ export type NoteTakerType = {
 }
 
 export type AuthenticationProps = {
-  errorMessage: string;
   handleErrorMessage(value: string): void;
-  isErrorMessage: boolean;
   layout: 'register' | 'login';
 }
 
@@ -490,13 +468,18 @@ export interface SubDiscProps extends React.ComponentPropsWithoutRef<"div">{
   videosCount: number;
   id: string;
   latestVideo: string;
-   setSubDiscs(value: DiscType[] | ((value: DiscType[]) => DiscType[])): void;
+  setSubDiscs(value: DiscType[] | ((value: DiscType[]) => DiscType[])): void;
+  handleErrorMessage(value: string): void;
 }
 
 export interface NewSubDiscProps {
-  setIsAddSubdisc(value: boolean | ((value: boolean) => boolean)): void;
+  setIsAddSubdisc?(value: boolean | ((value: boolean) => boolean)): void;
   setSubDiscs(value: DiscType[] | ((value: DiscType[]) => DiscType[])): void;
-  handleErrorMessage(value: string): void
+  handleErrorMessage(value: string): void;
+  type: 'new' | 'edit';
+  setIsEditSubdisc?(value: boolean): void;
+  subdiscId?: string;
+  currentName?: string;
 }
 
 export type SingleSubdiscResponse = Omit<SubDiscsResponse, 'discs'> & {
@@ -508,4 +491,5 @@ export interface SubDiscControlsProps {
   controlsBtnRef: RefObject<HTMLDivElement | null>;
   subdiscId: string;
   setSubDiscs(value: DiscType[] | ((value: DiscType[]) => DiscType[])): void;
+  setIsEditSubdisc(value: boolean): void;
 }

@@ -1,7 +1,5 @@
-import { useState, useEffect, Activity } from "react"; // Import these hooks from the react package
+import { useState, useEffect } from "react"; // Import these hooks from the react package
 import { Header } from "../../components/Header.tsx"; // Import the header component
-import { SidePanel } from "../../components/SidePanel.tsx"; // Import the SidePanel component
-import { ErrorMessage } from "../../components/ErrorMessage.tsx"; // Import the ErrorMessage component
 import LoadingVideos from "../../components/UI/LoadingVideos.tsx";
 import type { HomeProps } from  "../../types/types.ts";
 import { VideoGrid } from "../../components/VideoGrid.js";
@@ -13,10 +11,6 @@ export function Home({
     discs,
     setDiscs,
     handleErrorMessage,
-    isErrorMessage,
-    errorMessage,
-    isDarkMode,
-    setIsDarkMode,
     setWatchTitle,
     setPoster
   }: HomeProps) {
@@ -59,13 +53,6 @@ export function Home({
   return (
     <>
       <title>MoorTube | Home</title>
-      {
-        isErrorMessage &&
-        // Render the ErrorMessage conditionally
-        <ErrorMessage
-          errorMessage={errorMessage}
-        />
-      }
       {/* Render the Header */}
       <Header
         setVideos={setVideos}
@@ -83,19 +70,6 @@ export function Home({
         setIsLoading={setIsLoading}
         translate={translate}
       />
-      {/* Render the SidePanel */}
-      <Activity mode={translate ? "visible" : "hidden"}>
-        <SidePanel
-          setTranslate={setTranslate}
-          menuContainer={menuContainer}
-          discs={discs}
-          setDiscs={setDiscs}
-          handleErrorMessage={handleErrorMessage}
-          isDarkMode={isDarkMode}
-          setIsDarkMode={setIsDarkMode}
-          setWatchTitle={setWatchTitle}
-        />
-      </Activity>
 
       {
         (channelVideos.items && isChannel) &&

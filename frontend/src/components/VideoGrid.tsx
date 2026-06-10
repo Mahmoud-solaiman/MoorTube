@@ -168,7 +168,6 @@ export function VideoGrid({
                   // The new disc adder component
                   <AddNewDisc
                     newAdderContainerRef={newAdderContainerRef}
-                    setDiscs={setDiscs}
                     setOpenIndex={setOpenIndex}
                     setOpenNewAdder={setOpenNewAdder}
                     setTranslate={setTranslate}

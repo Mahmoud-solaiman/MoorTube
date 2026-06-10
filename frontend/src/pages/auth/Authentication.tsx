@@ -2,15 +2,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import './Authentication.scss';
 import API from '../../api/axios';
 import { useState } from 'react';
-import { ErrorMessage } from '../../components/ErrorMessage';
 import { AuthenticationProps, AuthenticationRes } from '../../types/types';
 import isEmail from 'validator/es/lib/isEmail';
 
 
 export default function Authentication({
-  errorMessage,
   handleErrorMessage,
-  isErrorMessage,
   layout
 }: AuthenticationProps) {
   const [ username, setUsername ] = useState<string>('');
@@ -62,14 +59,6 @@ export default function Authentication({
 
   return (
     <main className="register-page">
-
-      {
-        isErrorMessage &&
-        <ErrorMessage 
-          errorMessage={errorMessage}
-        />
-      }
-
       <h1>
         {
           layout === 'register'

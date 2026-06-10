@@ -1,12 +1,10 @@
 import { useState } from 'react'; // Importing the useState hook from the react package
-import { generateID } from '../../utils/formatting';
 import './AddNewDisc.scss'; // Importing the sass styles for this component
-import { AddNewDiscProps, DiscsResponse, DiscType } from '../types/types';
+import { AddNewDiscProps, DiscsResponse } from '../types/types';
 import API from '../api/axios';
 
 export function AddNewDisc({
   newAdderContainerRef, // The reference of the new disc adder used at the function used to hide the actions, discs, and the new disc adder
-  setDiscs, // The setDiscs state is used to update the current discs in our discs list
   setOpenIndex, // This state is used to control which Actions component to show
   setOpenNewAdder, // This state is used to control which AddNewDisc component to show
   setTranslate, // This is used to toggle the SidePanel
@@ -20,7 +18,7 @@ export function AddNewDisc({
   //Function that handles adding a new disc
   async function addDisc() {
     try {
-      const newDisc = await API.post<DiscsResponse>('/discs/create', {
+      await API.post<DiscsResponse>('/discs/create', {
         name: newDiscValue.trim(),
         videos: [videoId]
       });
