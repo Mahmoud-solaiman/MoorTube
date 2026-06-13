@@ -107,7 +107,11 @@ export default function NewSubDisc({
           />
           <div className="subdisc-btns-container">
             <button title="Cancel" type="button" onClick={() => {
-              if (setIsAddSubdisc) setIsAddSubdisc(false);
+              if (type === 'new' && setIsAddSubdisc) {
+                setIsAddSubdisc(false);
+              } else if (type === 'edit' && setIsEditSubdisc) {
+                setIsEditSubdisc(false);
+              }
             }}>Cancel</button>
             {
               type === 'new'

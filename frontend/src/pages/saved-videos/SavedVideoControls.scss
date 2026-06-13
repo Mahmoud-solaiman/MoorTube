@@ -13,10 +13,6 @@
   z-index: 10;
   animation: controls .15s linear;
 
-  @media (max-width: 340px) {
-    width: 85vw;
-  }
-
   .control {
     display: flex;
     align-items: center;
@@ -25,12 +21,12 @@
     padding: .3em .5em;
     font-size: .96rem;
     border-radius: 6px;
-    
+
     &:active {
       background-color: var(--primary-color-transparent);
     }
 
-    
+
     @media (hover: hover) {
       &:hover {
         background-color: var(--primary-color-transparent);
@@ -56,6 +52,39 @@
 @keyframes controls {
   from {
     transform: translateY(30%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 400px) {
+  .saved-video-controls {
+    position: fixed;
+    inset: auto 30px 10px 30px;
+    width: auto;
+    animation: controls-mobile .15s linear;
+
+
+    .control {
+      padding-block: .5em;
+      font-size: 1.1rem;
+    }
+
+    .control:not(:last-of-type) {
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      border-bottom: 1px solid var(--dim-gray);
+    }
+  }
+}
+
+@keyframes controls-mobile {
+  from {
+    transform: translateY(100%);
     opacity: 0;
   }
 

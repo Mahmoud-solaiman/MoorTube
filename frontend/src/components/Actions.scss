@@ -9,7 +9,7 @@
   box-shadow: 3px 3px 10px rgb(0, 0, 0);
   display: flex;
   flex-direction: column;
-  animation: actionsPopUp .1s;
+  animation: actionsPopUp .1s linear;
 
   div {
     display:grid;
@@ -48,6 +48,41 @@
   from {
     opacity: 0;
     transform: translateY(30%);
+  }  
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 400px) {
+  .actions-popup, .actions-popup.open-top {
+    position: fixed;
+    inset: auto 20px 10px 30px;
+    width: auto;
+    animation: actionsPopUp-mobile .1s linear;
+
+    div:not(:last-child) {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom: 1px solid var(--dim-gray)
+    }
+
+    div {
+      padding-block: .4em;
+
+      span {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+@keyframes actionsPopUp-mobile {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
   }  
 
   to {

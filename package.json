@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/Mahmoud-solaiman/moortube/issues"
   },
-  "homepage": "https://github.com/Mahmoud-solaiman/moortube#readme"
+  "homepage": "https://github.com/Mahmoud-solaiman/moortube#readme",
+  "devDependencies": {
+    "concurrently": "^10.0.3"
+  }
 }

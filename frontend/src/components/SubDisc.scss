@@ -1,6 +1,7 @@
 .subdiscs-container {
   &>h3 {
     text-align: center;
+    margin-block: .5rem;
   }
 }
 
@@ -13,12 +14,14 @@
   border-radius: 10px;
 
   @media (max-width: 520px) {
-    grid-template-columns: 1fr 25px;
+    grid-template-columns: 20px 1fr 25px;
     padding: .5em .3em;
   }
 
-  &:hover {
-    background-color: var(--primary-color-transparent);
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--primary-color-transparent);
+    }
   }
 
   &:has(.subdisc-control-btn > .subdisc-controls > .control:hover) {

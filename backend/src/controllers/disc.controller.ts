@@ -2,6 +2,7 @@ import axios from "axios";
 import DiscModel from "../models/disc.model";
 import { Request, Response } from "express";
 import mongoose from "mongoose";
+import { filterSearch } from "../utils/helpers";
 
 export const fetchDiscs = async (req: Request, res: Response) => {
   try {
@@ -81,6 +82,11 @@ export const createDisc = async (req: Request, res: Response) => {
       message: "Discs must have a unique name that's at least 5 characters long.",
       success: false
     });
+
+    if (filterSearch(name)) return res.status(400).json({
+      message: "Inappropriate disc name! Can't create this disc.",
+      success: false
+    })
 
     let ancestors: mongoose.Types.ObjectId[] = [];
 

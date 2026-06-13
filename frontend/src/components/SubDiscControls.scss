@@ -52,3 +52,36 @@
     opacity: 1;
   }
 }
+
+@media (max-width: 400px) {
+  .subdisc-controls {
+    position: fixed;
+    inset: auto 30px 10px 30px;
+    width: auto;
+    animation: controls-mobile .15s linear;
+    
+    
+    .control:not(:last-of-type) {
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      border-bottom: 1px solid var(--dim-gray);
+    }
+    
+    .control {
+      padding-block: .5em;
+      font-size: 1.3rem;
+    }
+  }
+}
+
+@keyframes controls-mobile {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

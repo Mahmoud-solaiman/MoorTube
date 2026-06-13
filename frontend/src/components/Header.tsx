@@ -3,7 +3,7 @@ import { Search } from "../pages/home/Search"; // Import the Search component
 import { Suggestions } from "../pages/home/Suggestions"; // Import the Suggestions component
 import { ToggleSearch } from "./ToggleSearch"; // Import the ToggleSearch component
 import './Header.scss'; // Import the style sheet of this component
-import { generateID } from "../../utils/formatting";
+import { generateID } from "../utils/formatting";
 import { HeaderProps, PopUpChannelLogoResponse, SearchHistory, VideosResponse } from "../types/types";
 import API from "../api/axios";
 
@@ -59,6 +59,7 @@ export function Header({
           }
         });
   
+        console.log('hello');
         setIsLoadingChannels(false);
         // Then we set the response to that final result to be used to render the channels visually in the suggestions popup
         setPopUpChannelLogo(channelInfo.data.data);
@@ -93,6 +94,9 @@ export function Header({
       
     } catch (error: any) {
       handleErrorMessage(error.response?.data?.message);
+      setIsLoadingChannels(false);
+      setIsSuggestions(false);
+      setIsLoading(false);
     }
   }
 

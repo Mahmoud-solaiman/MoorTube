@@ -169,12 +169,18 @@ export function VideoPlayer({ poster }: { poster: string }) {
         : undefined
       }
 
-      {/* <ControlsMobile
+      <ControlsMobile
         isBlur={isBlur}
         setIsBlur={setIsBlur}
         isShowControls={isShowControls}
         hideControls={hideControls}
-      /> */}
+        isSettings={isSettings}
+        isSpeedSettings={isSpeedSettings}
+        isNoteTakers={isNoteTakers}
+        setIsSettings={setIsSettings}
+        setIsSpeedSettings={setIsSpeedSettings}
+        setIsNoteTakers={setIsNoteTakers}
+      />
 
     </MediaPlayer>
   );

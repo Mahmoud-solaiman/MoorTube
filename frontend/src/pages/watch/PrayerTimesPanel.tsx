@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
-import { formatPrayerTime } from '../../../utils/formatting';
+import { formatPrayerTime } from '../../utils/formatting';
 import './PrayerTimesPanel.scss';
 import { Location, NextPrayer } from '../../types/types';
 

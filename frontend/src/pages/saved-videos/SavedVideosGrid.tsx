@@ -1,5 +1,5 @@
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { handleDuration, handleViewCount, youtubeTimeAgo } from '../../../utils/formatting';
+import { handleDuration, handleViewCount, youtubeTimeAgo } from '../../utils/formatting';
 import './SavedVideosGrid.scss';
 import SavedVideoControls from './SavedVideoControls';
 import { useEffect, useRef, useState } from 'react';

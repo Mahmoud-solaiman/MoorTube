@@ -8,6 +8,13 @@
   padding: .5em .2em;
   animation: settings .15s linear;
   color: #fff;
+
+  @media (max-width: 400px) {
+    position: fixed;
+    inset: auto 10px 10px 10px;
+    width: auto;
+    box-shadow: 0 0 10px #000;
+  }
 }
 
 @keyframes settings {

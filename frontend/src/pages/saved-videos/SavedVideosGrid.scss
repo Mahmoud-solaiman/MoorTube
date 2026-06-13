@@ -73,7 +73,7 @@
   }
 
   @media (width < 520px) {
-    grid-template-columns: 1fr 25px;
+    grid-template-columns: 20px 1fr 25px;
     padding: .5em .3em;
     font-size: .9rem;
   }
@@ -85,10 +85,6 @@
 
   &:active {
     cursor: grabbing;
-  }
-
-  @media (width < 520px) {
-    display: none;
   }
 }
 

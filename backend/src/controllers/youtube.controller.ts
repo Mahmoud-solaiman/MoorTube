@@ -1,10 +1,16 @@
 import axios from "axios";
 import { Request, Response } from "express"
 import { ChannelItem, PlaylistInfoItem, VideosChannelsItem, VideosItem } from "../types/types";
+import { filterSearch } from "../utils/helpers";
 
 export const fetchChannelsData = async (req: Request, res: Response) => {
   try {
     const { q } = req.query;
+
+    if (filterSearch(q)) return res.status(400).json({
+      message: "Can't perform this search. Potentially inappropriate content!",
+      success: false
+    });
 
     const channelsRequest = await axios.get('https://www.googleapis.com/youtube/v3/search', {
       params: {
@@ -39,6 +45,11 @@ export const fetchVideossData = async (req: Request, res: Response) => {
   try {
     const { q } = req.query;
 
+    if (filterSearch(q)) return res.status(400).json({
+      message: "Can't perform this search. Potentially inappropriate content!",
+      success: false
+    });
+    
     const videosRequest = await axios.get('https://www.googleapis.com/youtube/v3/search', {
       params: {
         part: 'snippet',

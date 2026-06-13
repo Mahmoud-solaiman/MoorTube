@@ -1,4 +1,4 @@
-import { generateID } from '../../../utils/formatting';
+import { generateID } from '../../utils/formatting';
 import { VideoPlayerSettingsProps } from '../../types/types';
 import './VideoPlayerSettings.scss';
 

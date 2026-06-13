@@ -25,7 +25,6 @@ export function SavedVideos({
   const id = useParams().id;
   const navigator = useNavigate();
 
-  console.log(subDiscs);
   useEffect(() => {
     try {
       const fetchDiscData = async () => {

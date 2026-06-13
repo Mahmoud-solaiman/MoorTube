@@ -1,5 +1,5 @@
 .discs-actions-container {
-  position:absolute;
+  position: absolute;
   background-color: var(--suggestions-bg);
   box-shadow: 3px 3px 10px black;
   top:105px;
@@ -34,7 +34,7 @@
 @keyframes discs {
   from {
     opacity: 0;
-    transform: translateY(20%);
+    transform: translateY(100%);
   }  
 
   to {
